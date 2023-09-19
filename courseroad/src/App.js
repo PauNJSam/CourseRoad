@@ -23,7 +23,7 @@ const router = createBrowserRouter(
 
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route path="teacherHome" element={<TeacherHome />}></Route>
-        <Route path="createCourse" element={<CreateCourse />}></Route>
+        <Route path="createcourse" element={<CreateCourse />}></Route>
       </Route>
 
       <Route path="adminsignin" element={<AdminSignIn />}></Route>

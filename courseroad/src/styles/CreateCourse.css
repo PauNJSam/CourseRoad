@@ -1,0 +1,5 @@
+.createCourse {
+    background-color: var(--_dark);
+    color: var(--_accent-orange);
+    font-family: var(--_worksans);
+}

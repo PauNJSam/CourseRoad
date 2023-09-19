@@ -1,9 +1,23 @@
 import React from 'react';
-const CreateCourse = () =>{
-    return(
-        <React.Fragment>
+import '../styles/CreateCourse.css'
 
-        </React.Fragment>
+const CreateCourse = () =>{
+    
+    return(
+        <article className='createCourse'>
+            <h1>Create Course</h1>
+            <section className='course-head'>
+                <input type='text' placeholder='Course Title'></input>
+                <textarea rows={6} placeholder='Course Description...'></textarea>
+                <button type='button'>Create Exam</button>
+            </section>
+            <section className='added-topic'>
+
+            </section>
+            <section className='add-new-topic'>
+
+            </section>
+        </article>
     );
 };
 
