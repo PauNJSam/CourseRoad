@@ -10,6 +10,11 @@
   --_mid-grey: #8C8C8C;
   --_pure-white: #FFFFFF;
   --_pure-black: #000000;
+  --_accent-yellow: #f1bf19;
+  --_def-grey: #D9D9D9;
+  --_gradient-blue: linear-gradient(90deg, #4674BC 0.16%, #5998C5 68.63%);
+  --_red-transparent: #be21216a;
+  --_red: #b73d3d;
   
   --_worksans: 'Work Sans', sans-serif;
   --_inter: 'Inter', sans-serif;

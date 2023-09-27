@@ -13,6 +13,7 @@ import CreateCourse from './components/CreateCourse';
 import AdminSignIn from './components/AdminSignIn';
 import AdminCourseReports from './components/AdminCourseReports';
 import AdminTeacherApplications from './components/AdminTeacherApplications';
+import SignUp from './components/SignUp';
 
 
 const router = createBrowserRouter(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       
       <Route index element={<LandingPage />}></Route>
+      <Route path="signup" element={<SignUp />}></Route>
 
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route path="teacherHome" element={<TeacherHome />}></Route>
