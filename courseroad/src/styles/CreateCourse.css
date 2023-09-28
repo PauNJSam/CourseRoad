@@ -1,5 +1,54 @@
 .createCourse {
-    background-color: var(--_dark);
-    color: var(--_accent-orange);
+    background-color: var(--_light);
+    color: var(--_mid-grey);
     font-family: var(--_worksans);
+    
+}
+.edit-course-container{
+    max-width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh 0;
+    border: 1px solid yellow;
+}
+.section-grid{
+    padding: 50px 100px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr, 3fr;
+}
+.section-grid:nth-child(1){
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+.section-grid:nth-child(2){
+    grid-column: 1/2;
+    grid-row: 2/2;
+}
+.section-grid:nth-child(3){
+    grid-column: 2/2;
+    grid-row: 2/2;
+}
+.course-head{
+    background-image: url(../images/header_bg.png);
+    border: 1px solid rgb(38, 0, 255);
+}
+.added-topic{
+    background-color: var(--_pure-white);
+    border: 1px solid rgb(255, 0, 170);
+}
+.add-new-topic{
+    background-color: var(--_pure-white);
+    border: 1px solid rgb(0, 255, 34);
+}
+.centered-btn{
+    text-align: center;
+}
+.save-course-btn{
+    color: var(--_pure-white);
+    background-color: var(--_accent-orange);
+    font: var(--_worksans);
+    text-decoration: none;
+    margin-top: 3vh;
 }
