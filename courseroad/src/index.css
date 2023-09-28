@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Work+Sans:ital,wght@0,500;1,400&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter&family=Work+Sans:ital,wght@0,500;1,400&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Work+Sans:ital,wght@0,500;1,400&display=swap');
 
 :root {
   scroll-behavior: smooth;
@@ -16,8 +17,8 @@
   --_red-transparent: #be21216a;
   --_red: #b73d3d;
   
-  --_worksans: 'Work Sans', sans-serif;
-  --_inter: 'Inter', sans-serif;
+  --_worksans: 'Work Sans', sans-serif; /* 400 regular-italic, 500 medium */
+  --_inter: 'Inter', sans-serif; /* 400 regular, 700 bold */
 
 }
 
