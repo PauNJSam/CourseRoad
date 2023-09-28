@@ -24,15 +24,46 @@
     font-family: var(--_inter);
 }
 .header{
-    /* display:flex;
+    display:flex;
     flex-direction: row;
-    justify-content: space-between; */
-    margin-bottom: 10px;
+    justify-content: space-between;
+    margin-bottom: 1.7rem;
+    font-size: 1.7rem;
 }
 .close-btn{
-    position: relative;
     cursor: pointer;
 }
 .content{
-    overflow: scroll;
+    overflow-y: scroll;
+}
+.content::-webkit-scrollbar{
+    width: 8px;
+}
+.content::-webkit-scrollbar-track{
+    background: var(--_def-grey);
+    border-radius: 5px;
+}
+.content::-webkit-scrollbar-thumb{
+    background: var(--_second-blue);
+    border-radius: 5px;
+}
+.content .bold{
+    font-weight: 700;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+.content .line-height{
+    line-height: 1.5rem;
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+}
+.exit-text{
+    color: var(--_second-blue);
+    font-size: 1rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+.exit-text:hover{
+    color: var(--_prim-blue);
 }

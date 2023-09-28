@@ -8,9 +8,6 @@ import { addDoc, collection, setDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SignupTerms from "../modals/SignupTerms";
 
-/* Notes: error messages are not working well in testing, doubting its the useRef that triggers the wrong error message
-because it persists even after inputting again another type of error to test. Solution: reset the values every
-after checking. So add e.g. emailRef.current.value='' */
 
 const SignUp = () => {
 
@@ -37,7 +34,12 @@ const SignUp = () => {
                 await createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value);
                 addNewUser();
                 console.log(passRef.current.value);
-                //navigate("/signin"); //change this later to sign for the user to sign in after creating the account
+                userNameRef.current.value='';
+                emailRef.current.value='';
+                passRef.current.value='';
+                confirmPassRef.current.value='';
+                navigate("/dashboard"); 
+                //change this later to sign for the user to sign in after creating the account
                 // also after navigating, click back to the page to see if na empty balik ang input fields
             } catch(err){
                     setIsError(true);
@@ -82,7 +84,7 @@ const SignUp = () => {
 
                         <div className="input-cb-btn">
                             <label>
-                                <input type='checkbox' id="sign-up-cb" required/> Accept <span onClick={() => setOpenModal(true)} style={{color:'#f1bf19', cursor:'pointer'}}>Terms and Conditions</span>
+                                <input type='checkbox' className="cb" required/> Accept <u><span onClick={() => setOpenModal(true)}>Terms and Conditions</span></u>
                             </label>
                             <div className="input-btns">
                                 <button type='button' >Sign In</button>
