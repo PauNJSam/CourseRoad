@@ -51,7 +51,7 @@
   }
   
   .desktop .rectangle {
-    background-color: var(--primary-blue);
+    background-color: blue;
     border-radius: 43.36px;
     box-shadow: 0px 3.94px 15.74px 2.95px #00000040;
     height: 135px;
