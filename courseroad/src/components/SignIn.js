@@ -11,6 +11,9 @@ const SignInPage = (props) => {
     const signup =() => {
         navigate('/signup');
     }
+    const dashboard=() => {
+      navigate('/dashboard');
+  }
   return (
     <div className="sign-in-page-container">
       <div className="sign-in-page-sign-in-page">
@@ -43,7 +46,7 @@ const SignInPage = (props) => {
             alt="Rectangle7391801"
             className="sign-in-page-rectangle739"
           />
-          <span className="sign-in-page-text04">
+          <span onClick={dashboard} className="sign-in-page-text04">
             <span>Sign in with Google</span>
           </span>
           <img

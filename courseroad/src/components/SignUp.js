@@ -59,6 +59,9 @@ const SignUp = () => {
     const signin =() => {
         navigate('/signin');
     }
+    const dasboard =() => {
+        navigate('/dashboard');
+    }
 
     return(
         <section className="SignUp" >

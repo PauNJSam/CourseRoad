@@ -21,6 +21,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       
+
       <Route index element={<LandingPage />}></Route>
       <Route path="signup" element={<SignUp />}></Route>
       <Route path="signin" element={<SignIn />}></Route>

@@ -12,7 +12,12 @@ const LandingPage = () => {
     const signin =() => {
         navigate('/signin');
     }
-
+    const aboutus =() => {
+        navigate('/aboutus');
+    }
+    const faqs =() => {
+        navigate('/faqs');
+    }
     return (
         <React.Fragment>
             <div className="desktop">
@@ -64,7 +69,7 @@ const LandingPage = () => {
                     </div>
                 </div>
                 <div className="container6">
-
+                    
                 </div>
             </div>
                     
