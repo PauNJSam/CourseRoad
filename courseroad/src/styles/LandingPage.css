@@ -201,6 +201,9 @@
   .footer .container6{
     width:34%;
   }
+  .faqs{
+    cursor: pointer;
+  }
   /* .footer>div{
     display:flex;
     flex-direction: column;

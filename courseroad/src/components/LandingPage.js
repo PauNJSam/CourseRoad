@@ -12,6 +12,9 @@ const LandingPage = () => {
     const signin =() => {
         navigate('/signin');
     }
+    const faqs = () => {
+        navigate("/faqs");
+    }
 
     return (
         <React.Fragment>
@@ -61,10 +64,11 @@ const LandingPage = () => {
                         <a href="https://www.facebook.com/">Facebook<br/></a>
                         <a href="https://twitter.com/">Twitter<br/></a>
                         <a href="https://account.microsoft.com/account/Account">Microsoft<br/></a>
+                        <u><a className='faqs' onClick={faqs}>FAQs</a></u>
                     </div>
                 </div>
                 <div className="container6">
-
+        
                 </div>
             </div>
                     

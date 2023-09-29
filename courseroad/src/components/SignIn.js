@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import CHeroLogo from '../images/courseroad_logo.png';
 import Pad from '../images/rectangle7361801-zq92-600w.png';
 import Goog from '../images/rectangle7391801-l43o.svg';
 import Googlogo from '../images/googleglogo11801-6zi9-200h.png';
 import '../styles/SignIn.css';
 import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
+
 
 const SignInPage = (props) => {
+    const emailRef = useRef();
+    const passRef = useRef();
     const navigate = useNavigate();
     const signup =() => {
         navigate('/signup');
     }
+    const signin = async () => {
+ 
+      try{
+      signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
+          .then((userCredentials) => {
+
+              navigate("/dashboard");
+          }) .catch((err) => {
+              console.log(err);
+          });
+          
+      } catch(err){
+          console.error(err);
+      }
+  };
   return (
     <div className="sign-in-page-container">
       <div className="sign-in-page-sign-in-page">
@@ -19,17 +39,19 @@ const SignInPage = (props) => {
           alt="Rectangle7361801"
           className="sign-in-page-rectangle736"
         />
-        <button className="sign-in-page-signinbtnbutton">
+        <button onClick={signin} className="sign-in-page-signinbtnbutton">
           <span className="sign-in-page-text">
             <span>Sign in</span>
           </span>
         </button>
         <input
+        ref={emailRef}
           type="text"
           placeholder="Email"
           className="sign-in-page-input-text-boxinput"
         />
         <input
+        ref={passRef}
           type="text"
           placeholder="Password"
           className="sign-in-page-input-text-boxinput1"
