@@ -15,7 +15,7 @@ import AdminCourseReports from './components/AdminCourseReports';
 import AdminTeacherApplications from './components/AdminTeacherApplications';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-
+import AboutUs from './components/aboutus';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
