@@ -1,0 +1,205 @@
+.sign-in-page-container {
+    background-image: url(../images/screen_bg.png);
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: center;
+    flex-direction: column;
+  }
+  .sign-in-page-sign-in-page {
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+  
+  }
+  .sign-in-page-rectangle736 {
+    top: 186px;
+    left: 454px;
+    width: 531px;
+    height: 652px;
+    position: absolute;
+    border-radius: 30px;
+  }
+  .sign-in-page-signinbtnbutton {
+    top: 553px;
+    left: 523px;
+    width: 133px;
+    height: 35px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background-color: rgba(241, 191, 25, 1);
+  }
+  .sign-in-page-text {
+    top: 5px;
+    left: 26px;
+    color: rgba(255, 255, 255, 1);
+    width: 79px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    font-style: Regular;
+    text-align: center;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-in-page-input-text-boxinput {
+    top: 347px;
+    left: 516px;
+    color: rgba(217, 217, 217, 1);
+    width: 417px;
+    height: 55px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    font-size: 20px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) ;
+    text-align: left;
+    align-items: flex-start;
+    flex-shrink: 0;
+    font-family: Inter;
+    font-weight: 400;
+    border-color: rgba(217, 217, 217, 1);
+    border-style: solid;
+    border-width: 0 0 2px;
+  }
+  .sign-in-page-input-text-boxinput1 {
+    top: 464px;
+    left: 516px;
+    color: rgba(217, 217, 217, 1);
+    width: 417px;
+    height: 51px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    font-size: 20px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) ;
+    text-align: left;
+    align-items: flex-start;
+    flex-shrink: 0;
+    font-family: Inter;
+    font-weight: 400;
+    border-color: rgba(217, 217, 217, 1);
+    border-style: solid;
+    border-width: 0 0 2px;
+  }
+  .sign-in-page-text02 {
+    top: 241px;
+    left: 679px;
+    color: rgba(241, 191, 25, 1);
+    width: 242px;
+    height: auto;
+    position: absolute;
+    font-size: 25.12110710144043px;
+    font-style: Medium;
+    text-align: center;
+    font-family: Work Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-in-page-group631643button {
+    top: 553px;
+    left: 702px;
+    width: 219px;
+    height: 35px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 1;
+  }
+  .sign-in-page-rectangle739 {
+    top: 0px;
+    left: 0px;
+    width: 219px;
+    height: 35px;
+    position: absolute;
+  }
+  .sign-in-page-text04 {
+    top: 8px;
+    left: 27px;
+    color: rgba(0, 0, 0, 1);
+    width: 182px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    font-style: Regular;
+    text-align: center;
+    font-family: Work Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-in-page-google-glogo1 {
+    top: 5px;
+    left: 9px;
+    width: 23px;
+    height: 23px;
+    position: absolute;
+  }
+  .sign-in-page-copyof-softwaredevelopment3projectplan22 {
+    top: 205px;
+    left: 515px;
+    width: 150px;
+    height: 86px;
+    position: absolute;
+  }
+  .sign-in-page-text06 {
+    top: 626px;
+    left: 637px;
+    color: rgba(255, 255, 255, 1);
+    width: 166px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    font-style: Regular;
+    text-align: center;
+    font-family: Work Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .sign-in-page-signinbtnbutton1 {
+    top: 683px;
+    left: 657px;
+    width: 121px;
+    height: 36px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) ;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background-color: var(--dl-color-default-linearblue);
+    background-image: linear-gradient(3deg, rgba(69, 115, 188, 1) 0%, rgba(89, 152, 197, 1) 69%);
+  }
+  .sign-in-page-text08 {
+    top: 6px;
+    left: 26px;
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    font-style: Regular;
+    text-align: center;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }

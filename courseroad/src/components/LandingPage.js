@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import '../styles/LandingPage.css';
 
 import logo from '../images/courseroad_logo.png';
@@ -7,6 +8,11 @@ import landingpageicon from '../images/landingpageicon.png';
 import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
+    const navigate = useNavigate();
+    const signin =() => {
+        navigate('/signin');
+    }
+
     return (
         <React.Fragment>
             <div className="desktop">
@@ -17,7 +23,7 @@ const LandingPage = () => {
           Everyone agrees with the fact that learning management systems are a <br />
           tremendous way to expand learners’ knowledge base and help staff enhance their skills
                         </p>
-                    <button className="rectangle">Enroll Now</button>        
+                    <button onClick={signin} className="rectangle" >Enroll Now</button>        
                         <img
                           className="copy-of-software"
                           alt="Copy of software"

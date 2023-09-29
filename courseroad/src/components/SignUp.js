@@ -56,6 +56,9 @@ const SignUp = () => {
 
         }
     };
+    const signin =() => {
+        navigate('/signin');
+    }
 
     return(
         <section className="SignUp" >
@@ -87,7 +90,7 @@ const SignUp = () => {
                                 <input type='checkbox' className="cb" required/> Accept <u><span onClick={() => setOpenModal(true)}>Terms and Conditions</span></u>
                             </label>
                             <div className="input-btns">
-                                <button type='button' >Sign In</button>
+                                <button onClick={signin} type='button'>Sign In</button>
                                 <button type='submit' >Sign Up</button>
                             </div>
                         </div>
