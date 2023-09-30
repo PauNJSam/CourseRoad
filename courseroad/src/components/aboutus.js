@@ -1,14 +1,14 @@
 import React from "react";
-import '../styles/aboutus.css';
+import '../styles/AboutUs.css';
 
 import { Link } from 'react-router-dom';
 
-const aboutus= ()=>{
+const AboutUs= ()=>{
     return(
         <React.Fragment>
-            <div classNameName="about-us-edited">
-                <div classNameName="div">
-                  <header classNameName="header">
+            <div className="about-us-edited">
+                <div className="div">
+                  <header className="header">
                     <div className="overlap-group">
                       <div className="overlap">
                         <div className="text-wrapper">User Name</div>
@@ -19,7 +19,7 @@ const aboutus= ()=>{
                     </div>
                   </header>
                   <div className="body">
-                    <div classNameName="overlap-2">
+                    <div className="overlap-2">
                       <img className="line" src="img/line-1.svg" />
                       <div className="text-wrapper-4">Vision</div>
                       <p className="to-illuminate-the">
@@ -41,4 +41,4 @@ const aboutus= ()=>{
         </React.Fragment>
     );
 }
-export default aboutus;
+export default AboutUs;
