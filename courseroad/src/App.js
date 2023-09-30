@@ -15,7 +15,12 @@ import AdminCourseReports from './components/AdminCourseReports';
 import AdminTeacherApplications from './components/AdminTeacherApplications';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+<<<<<<< HEAD
 import AboutUs from './components/aboutus';
+=======
+import FAQs from './components/FAQs';
+
+>>>>>>> f75bf9202453415ec37799bb190c59f2c5286549
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +30,7 @@ const router = createBrowserRouter(
       <Route index element={<LandingPage />}></Route>
       <Route path="signup" element={<SignUp />}></Route>
       <Route path="signin" element={<SignIn />}></Route>
+      <Route path="faqs" element={<FAQs />}></Route>
 
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route path="teacherHome" element={<TeacherHome />}></Route>
