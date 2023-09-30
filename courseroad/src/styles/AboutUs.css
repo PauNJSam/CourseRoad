@@ -1,0 +1,190 @@
+.about-us-edited {
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .about-us-edited .div {
+    background-color: rgba(255, 255, 255, 1);
+    overflow: hidden;
+    background: linear-gradient(180deg, rgb(70, 116, 188) 0%, rgb(89, 152, 197) 100%);
+    width: 1440px;
+    height: 1024px;
+    position: relative;
+  }
+  
+  .about-us-edited .header {
+    position: absolute;
+    width: 1446px;
+    height: 95px;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+  }
+  
+  .about-us-edited .overlap-group {
+    position: relative;
+    width: 1440px;
+    height: 95px;
+    background-color: #d9d9d9;
+  }
+  
+  .about-us-edited .overlap {
+    position: absolute;
+    width: 200px;
+    height: 64px;
+    top: 19px;
+    left: 1215px;
+  }
+  
+  .about-us-edited .text-wrapper {
+    position: absolute;
+    width: 141px;
+    top: 12px;
+    left: 0;
+    font-family: var(--prim-font-work-sans-font-family);
+    font-weight: var(--prim-font-work-sans-font-weight);
+    color: var(--mid-grey);
+    font-size: var(--prim-font-work-sans-font-size);
+    letter-spacing: var(--prim-font-work-sans-letter-spacing);
+    line-height: var(--prim-font-work-sans-line-height);
+    white-space: nowrap;
+    font-style: var(--prim-font-work-sans-font-style);
+  }
+  
+  .about-us-edited .text-wrapper-2 {
+    position: absolute;
+    width: 145px;
+    top: 39px;
+    left: 10px;
+    font-family: "Work Sans-Medium", Helvetica;
+    font-weight: 500;
+    color: var(--primary-blue);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .about-us-edited .profile-icon {
+    position: absolute;
+    width: 61px;
+    height: 61px;
+    top: 0;
+    left: 139px;
+    background-color: #fcfcfc78;
+    border-radius: 30.5px;
+    border: 1px solid;
+    border-color: #00000029;
+  }
+  
+  .about-us-edited .text-wrapper-3 {
+    position: absolute;
+    top: 14px;
+    left: 168px;
+    transform: rotate(0.13deg);
+    font-family: "Segoe UI-Semibold", Helvetica;
+    font-weight: 400;
+    color: #1b2fde;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: 60px;
+    white-space: nowrap;
+  }
+  
+  .about-us-edited .body {
+    position: absolute;
+    width: 1381px;
+    height: 798px;
+    top: 189px;
+    left: 51px;
+  }
+  
+  .about-us-edited .overlap-2 {
+    position: absolute;
+    width: 1371px;
+    height: 637px;
+    top: 161px;
+    left: 0;
+    background-color: #d9d9d980;
+    border-radius: 318.5px;
+  }
+  
+  .about-us-edited .line {
+    position: absolute;
+    width: 1px;
+    height: 561px;
+    top: 38px;
+    left: 685px;
+    object-fit: cover;
+  }
+  
+  .about-us-edited .text-wrapper-4 {
+    position: absolute;
+    top: 70px;
+    left: 365px;
+    font-family: "Work Sans-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .about-us-edited .to-illuminate-the {
+    position: absolute;
+    width: 503px;
+    height: 416px;
+    top: 120px;
+    left: 149px;
+    font-family: "Work Sans-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 24px;
+    text-align: justify;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .about-us-edited .envisioning-a-future {
+    position: absolute;
+    width: 503px;
+    height: 416px;
+    top: 120px;
+    left: 713px;
+    font-family: "Work Sans-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 24px;
+    text-align: justify;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .about-us-edited .text-wrapper-5 {
+    position: absolute;
+    top: 70px;
+    left: 916px;
+    font-family: "Work Sans-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .about-us-edited .text-wrapper-6 {
+    position: absolute;
+    top: 0;
+    left: 521px;
+    font-family: "Work Sans-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 64px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }

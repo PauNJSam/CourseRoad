@@ -19,6 +19,7 @@ import SignIn from './components/SignIn';
 import AboutUs from './components/aboutus';
 =======
 import FAQs from './components/FAQs';
+import AboutUs from './components/AboutUs';
 
 >>>>>>> f75bf9202453415ec37799bb190c59f2c5286549
 
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
       <Route path="signup" element={<SignUp />}></Route>
       <Route path="signin" element={<SignIn />}></Route>
       <Route path="faqs" element={<FAQs />}></Route>
+      <Route path="aboutus" element={<AboutUs />}></Route>
 
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route path="teacherHome" element={<TeacherHome />}></Route>
