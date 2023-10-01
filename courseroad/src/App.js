@@ -15,13 +15,8 @@ import AdminCourseReports from './components/AdminCourseReports';
 import AdminTeacherApplications from './components/AdminTeacherApplications';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-<<<<<<< HEAD
 import AboutUs from './components/aboutus';
-=======
 import FAQs from './components/FAQs';
-import AboutUs from './components/AboutUs';
-
->>>>>>> f75bf9202453415ec37799bb190c59f2c5286549
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -19,6 +19,21 @@ const SignInPage = (props) => {
     const dashboard=() => {
       navigate('/dashboard');
   }
+  const signin = async () => {
+
+    try{
+    signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
+        .then((userCredentials) => {
+            console.log("User credentials: ",userCredentials);
+            navigate("/dashboard");
+        }) .catch((err) => {
+            console.log(err);
+        });
+        
+    } catch(err){
+        console.error(err);
+    }
+};
   return (
     <div className="sign-in-page-container">
       <div className="sign-in-page-sign-in-page">
