@@ -6,7 +6,8 @@ import Googlogo from '../images/googleglogo11801-6zi9-200h.png';
 import '../styles/SignIn.css';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
+import { auth, googleProvider } from "../config/firebase";
+import { signInWithPopup } from 'firebase/auth';
 
 
 const SignInPage = (props) => {
@@ -16,9 +17,7 @@ const SignInPage = (props) => {
     const signup =() => {
         navigate('/signup');
     }
-    const dashboard=() => {
-      navigate('/dashboard');
-  }
+    
   const signin = async () => {
 
     try{
@@ -33,6 +32,14 @@ const SignInPage = (props) => {
     } catch(err){
         console.error(err);
     }
+};
+const googleSignin = async () => {
+  try{
+    await signInWithPopup(auth, googleProvider);
+    navigate('/dashboard');
+} catch(err) {
+    console.error(err);
+}
 };
   return (
     <div className="sign-in-page-container">
@@ -62,13 +69,13 @@ const SignInPage = (props) => {
         <span className="sign-in-page-text02">
           <span>Welcome Back!</span>
         </span>
-        <button className="sign-in-page-group631643button">
-          <img
+        <button className="sign-in-page-group631643button" type='button' onClick={googleSignin}>
+          {/* <img
             src={Goog}
             alt="Rectangle7391801"
             className="sign-in-page-rectangle739"
-          />
-          <span onClick={dashboard} className="sign-in-page-text04">
+          /> */}
+          <span className="sign-in-page-text04">
             <span>Sign in with Google</span>
           </span>
           <img
