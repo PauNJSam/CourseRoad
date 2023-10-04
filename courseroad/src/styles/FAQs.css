@@ -31,7 +31,7 @@
     border-radius: 20px;
     margin: 0 auto;
     margin-top: 2rem;
-
+    padding: 1rem 2rem;
 }
 .faqs__card-title{
     color: var(--_prim-blue);
