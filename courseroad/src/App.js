@@ -17,12 +17,12 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import AboutUs from './components/aboutus';
 import FAQs from './components/FAQs';
+import UserSettings from './components/UserSettings';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       
-
       <Route index element={<LandingPage />}></Route>
       <Route path="signup" element={<SignUp />}></Route>
       <Route path="signin" element={<SignIn />}></Route>
@@ -32,6 +32,7 @@ const router = createBrowserRouter(
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route path="teacherHome" element={<TeacherHome />}></Route>
         <Route path="createcourse" element={<CreateCourse />}></Route>
+        <Route path="userSettings" element={<UserSettings />}></Route>
       </Route>
 
       <Route path="adminsignin" element={<AdminSignIn />}></Route>

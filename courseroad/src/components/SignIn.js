@@ -1,16 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import CHeroLogo from '../images/courseroad_logo.png';
 import Pad from '../images/rectangle7361801-zq92-600w.png';
-import Goog from '../images/rectangle7391801-l43o.svg';
+// import Goog from '../images/rectangle7391801-l43o.svg';
 import Googlogo from '../images/googleglogo11801-6zi9-200h.png';
 import '../styles/SignIn.css';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup } from 'firebase/auth';
+import ForgotPass from '../modals/ForgotPass';
 
 
 const SignInPage = (props) => {
+  const [openModal, setOpenModal] = useState(false);
     const emailRef = useRef();
     const passRef = useRef();
     const navigate = useNavigate();
@@ -19,9 +21,7 @@ const SignInPage = (props) => {
     }
     
   const signin = async () => {
-
-    try{
-    signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
+    try{signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
         .then((userCredentials) => {
             console.log("User credentials: ",userCredentials);
             navigate("/dashboard");
@@ -90,7 +90,7 @@ const googleSignin = async () => {
           className="sign-in-page-copyof-softwaredevelopment3projectplan22"
         />
         <span className="sign-in-page-text06">
-          <span>Forgot Password?</span>
+          <u><span onClick={() => setOpenModal(true)}>Forgot Password?</span></u>
         </span>
         <button onClick={signup} className="sign-in-page-signinbtnbutton1">
           <span className="sign-in-page-text08">
@@ -98,6 +98,7 @@ const googleSignin = async () => {
           </span>
         </button>
       </div>
+      <ForgotPass open={openModal} close={() => setOpenModal(false)} />
     </div>
   )
 }
