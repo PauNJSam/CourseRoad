@@ -4,15 +4,15 @@ import '../styles/CreateCourse.css'
 const CreateCourse = () =>{
     const courseTitleRef = useRef();
     const courseDescriptionRef = useRef();
-    const topicTitleRef = useRef();
-    const topicDescriptionRef = useRef();
+    const chapterTitleRef = useRef();
+    const chapterDescriptionRef = useRef();
 
     const saveCourse = async (e) => {
         
         let courseTitleNoSpace = courseTitleRef.current.value.split(' ').join('');
         let courseTitledoc = courseTitleNoSpace.toLowerCase();
         console.log(courseTitledoc);
-        console.log(courseDescriptionRef.current.value, topicDescriptionRef.current.value, topicTitleRef.current.value);
+        console.log(courseDescriptionRef.current.value, chapterDescriptionRef.current.value, chapterTitleRef.current.value);
 
         courseTitleRef.current.value = '';
         courseDescriptionRef.current.value = '';
@@ -34,42 +34,43 @@ const CreateCourse = () =>{
     };
     
     return(
-        <article className='createCourse'>
+        <section className='createCourse'>
             <h1>Create Course</h1>
 
             <div className='edit-course-container'>
-                <section className='course-head section-grid'>
-                    <div>
-                        <input type='text' ref={courseTitleRef} placeholder='Course Title'></input>
-                        <textarea rows={15} ref={courseDescriptionRef} placeholder='Course Description...'></textarea>
+                <article className='course-head article-flex article-grid'>
+                    <div className='createCourse__text-inputs'>
+                        <input className='course-head__textbox' type='text' ref={courseTitleRef} placeholder='Course Title'></input>
+                        <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder='Course Description...'></textarea>
                     </div>
-                    <div>
+                    <div className='createCourse__files-buttons'>
                         <div>Upload File here</div>
                         <button type='button'>Create Exam</button>
                     </div>
-                </section>
+                </article>
 
-                <section className='added-topic section-grid'>
+                <article className='added-chapter article-flex'>
+                    {/* map through the added topics here */}
+                </article>
 
-                </section>
-
-                <section className='add-new-topic section-grid'>
-                    <div>
-                        <input type='text' ref={topicTitleRef} placeholder='Topic Title'></input>
-                        <textarea rows={15} ref={topicDescriptionRef} placeholder='Topic Description...'></textarea>
+                <article className='add-new-chapter article-flex'>
+                    <div className='createCourse__text-inputs' >
+                        <input type='text' ref={chapterTitleRef} placeholder='Chapter Title'></input>
+                        <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea>
                     </div>
-                    <div>
+                    <div className='createCourse__files-buttons'>
                         <div>Upload File here</div>
-                        <button type='button'>Add Topic</button>
+                        <button type='button'>Add Chapter</button>
                     </div>
-                </section>
+                </article>
                 
             </div>
 
             <div className='centered-btn'>
             <button className='save-course-btn' type='button' onClick={saveCourse}>Save Course</button>
             </div>
-        </article>
+
+        </section>
     );
 };
 

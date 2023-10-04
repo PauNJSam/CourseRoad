@@ -2,50 +2,86 @@
     background-color: var(--_light);
     color: var(--_mid-grey);
     font-family: var(--_worksans);
-    
+    margin: 0;
+    padding: 3% 6%;
 }
-.edit-course-container{
-    max-width: 80%;
+.createCourse .edit-course-container{
+    width: 100%;
+    max-width: 1150px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 1.5vh 0;
     border: 1px solid yellow;
 }
-.section-grid{
+/* .createCourse .section-grid{
     padding: 50px 100px;
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-template-rows: 1fr, 3fr;
 }
-.section-grid:nth-child(1){
+.createCourse .section-grid:nth-child(1){
     grid-column: 1/2;
     grid-row: 1/2;
 }
-.section-grid:nth-child(2){
+.createCourse .section-grid:nth-child(2){
     grid-column: 1/2;
     grid-row: 2/2;
 }
-.section-grid:nth-child(3){
+.createCourse .section-grid:nth-child(3){
     grid-column: 2/2;
     grid-row: 2/2;
+} */
+.createCourse .article-flex{
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+    padding: 1rem 2rem;
+    box-shadow: var(--_box-shadow);
 }
-.course-head{
+.createCourse__text-inputs{
+    display: flex;
+    flex-direction: column;
+}
+.createCourse__files-buttons{
+    display: flex;
+    flex-direction: column;
+}
+.createCourse__text-inputs input{
+    font-size: 1.5rem;
+    border: none;
+    font-style: italic;
+    font-weight: 400;
+}
+.createCourse__text-inputs textarea{
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+
+.createCourse .course-head{
     background-image: url(../images/header_bg.png);
     border: 1px solid rgb(38, 0, 255);
 }
-.added-topic{
+.createCourse .course-head__textbox{
+    border-radius: 5px;
+    background: var(--_pure-white);
+    box-shadow: var(--_box-shadow);
+}
+.createCourse .added-chapter{
     background-color: var(--_pure-white);
     border: 1px solid rgb(255, 0, 170);
 }
-.add-new-topic{
+.createCourse .add-new-chapter{
     background-color: var(--_pure-white);
     border: 1px solid rgb(0, 255, 34);
 }
-.centered-btn{
+.createCourse .centered-btn{
     text-align: center;
 }
-.save-course-btn{
+.createCourse .save-course-btn{
     color: var(--_pure-white);
     background-color: var(--_accent-orange);
     font: var(--_worksans);

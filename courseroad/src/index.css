@@ -20,6 +20,8 @@
   --_worksans: 'Work Sans', sans-serif; /* 400 regular-italic, 500 medium */
   --_inter: 'Inter', sans-serif; /* 400 regular, 700 bold */
 
+  --_box-shadow: 0px 6px 4px -4px rgba(0, 0, 0, 0.30);
+
 }
 
 *{
