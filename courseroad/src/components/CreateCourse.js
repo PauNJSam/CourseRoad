@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import '../styles/CreateCourse.css'
+import {db} from '../config/firebase';
 
 const CreateCourse = () =>{
     const courseTitleRef = useRef();
@@ -18,7 +19,7 @@ const CreateCourse = () =>{
         courseDescriptionRef.current.value = '';
 
         try {
-           /*  await setDoc(doc(db, "USERS", "account_1@gmail.com", "COURSES", title), {
+            /* await setDoc(doc(db, "COURSESCREATED", courseTitledoc, "COURSES", title), {
                 // ...doc.data,
                 [qNumber]: newQuestion,
                 [aNumber]: newAnswer,
@@ -40,8 +41,8 @@ const CreateCourse = () =>{
             <div className='edit-course-container'>
                 <article className='course-head article-flex article-grid'>
                     <div className='createCourse__text-inputs'>
-                        <input className='course-head__textbox' type='text' ref={courseTitleRef} placeholder='Course Title'></input>
-                        <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder='Course Description...'></textarea>
+                        <input className='course-head__textbox' type='text' ref={courseTitleRef} placeholder='Course Title' required></input>
+                        <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder='Course Description...' required></textarea>
                     </div>
                     <div className='createCourse__files-buttons'>
                         <div>Upload File here</div>
@@ -55,8 +56,8 @@ const CreateCourse = () =>{
 
                 <article className='add-new-chapter article-flex'>
                     <div className='createCourse__text-inputs' >
-                        <input type='text' ref={chapterTitleRef} placeholder='Chapter Title'></input>
-                        <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea>
+                        <input type='text' ref={chapterTitleRef} placeholder='Chapter Title' required></input>
+                        <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...' required></textarea>
                     </div>
                     <div className='createCourse__files-buttons'>
                         <div>Upload File here</div>
