@@ -1,7 +1,7 @@
 import React from "react";
 import '../styles/AboutUs.css';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AboutUs= ()=>{
     return(
@@ -20,7 +20,7 @@ const AboutUs= ()=>{
                   </header>
                   <div className="body">
                     <div className="overlap-2">
-                      <img className="line" src="img/line-1.svg" alt="line" />
+                      <img className="line" src="img/line-1.svg" />
                       <div className="text-wrapper-4">Vision</div>
                       <p className="to-illuminate-the">
                         To illuminate the path forward for learners, &#39;CourseRoad&#39; seeks to bridge the gap between
