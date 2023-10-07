@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../styles/CreateCourse.css'
 import {db} from '../config/firebase';
-import { collection, addDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { async } from '@firebase/util';
 
 const CreateCourse = () =>{
     const courseTitleRef = useRef();
@@ -9,26 +11,39 @@ const CreateCourse = () =>{
     const chapterTitleRef = useRef();
     const chapterDescriptionRef = useRef();
     const [displayChapterForm, setDisplayChapterForm] = useState(false);
-    const courseIDRef = useRef();
-    const chapterIDRef = useRef();
-    /* const [courseID, setCourseID] = useState();
-    const [chapterID, setChapterID] = useState(); */
-    let theCourseID;
-    let theChapterID;
+    /* const courseIDRef = useRef();
+    const chapterIDRef = useRef(); */
+    const [courseID, setCourseID] = useState();
+    const [chapterID, setChapterID] = useState();
+    /* let theCourseID;
+    let theChapterID; */
+
+    const navigate = useNavigate();
+
+    /* useEffect(() => {
+      console.log(getChapters());
+      console.log(chapterID);
+      return () => {
+        
+      }
+    }, [chapterID]); */
+    
 
     const saveCourse = async () => {
+
+        navigate("/dashboard");
 
         /* This button will use setDoc to update the fields that require their own
         firebase generated IDs and also to route back to the dashboard */
         
         /* let courseTitleNoSpace = courseTitleRef.current.value.split(' ').join('');
         let courseTitledoc = courseTitleNoSpace.toLowerCase(); */
-        let courseDocUID = crypto.randomUUID();
+        /* let courseDocUID = crypto.randomUUID();
 
         console.log(courseDescriptionRef.current.value, chapterDescriptionRef.current.value, chapterTitleRef.current.value);
 
         courseTitleRef.current.value = '';
-        courseDescriptionRef.current.value = '';
+        courseDescriptionRef.current.value = ''; */
 
         /* try {
             await setDoc(doc(db, "COURSESCREATED", courseDocUID), {
@@ -63,8 +78,9 @@ const CreateCourse = () =>{
                 numberOfStudents: 0
     
             }).then((docRef)=>{
-                theCourseID=docRef.id;
-                console.log("Inside the then funct courseID: ", theCourseID);
+                // theCourseID=docRef.id;
+                setCourseID(docRef.id);
+                // console.log("Inside the then funct courseID: ", courseID);
                 setDisplayChapterForm(true);
             }).catch((error) => {
                 console.error('Error adding course: ', error);
@@ -87,20 +103,50 @@ const CreateCourse = () =>{
     const addChapter = async (id) => {
         // e.preventDefault();
         // console.log("Insifde",theCourseID);
-        console.log("Inside addChapter courseID: ",id);
-            /* const chapterDocRef = await addDoc(collection(db, "COURSESCREATED", theCourseID, "CHAPTERS"), {
+        console.log("Inside addChapter courseID: ",courseID);
+            const chapterDocRef = await addDoc(collection(db, "CHAPTERS"), {
                 chapterTitle: chapterTitleRef.current.value,
                 chapterDescription: chapterDescriptionRef.current.value,
                 chapterID: "",
                 dateCreated: serverTimestamp(),
-                chapterFiles: ""
+                chapterFiles: "",
+                courseID: courseID
     
-            }).then((chapterDocRef)=>{
-                theChapterID=chapterDocRef.id;
-                console.log("Inside the then funct courseID: ", theChapterID);
+            }).then(async (chapterDocRef)=>{
+                // theChapterID=chapterDocRef.id;
+                // console.log("Inside the then funct courseID: ", theChapterID);
+                setChapterID(chapterDocRef.id);
+                // TO DO: using course ID 
+                const courseDocRef = doc(db, "COURSESCREATED", courseID)
+                
+                    await updateDoc(courseDocRef, {
+                        chapters: arrayUnion({
+                            courseID: chapterDocRef.id, 
+                            chapterTitle:  courseTitleRef.current.value,
+                            chapterDescription:  courseDescriptionRef.current.value
+                        })
+                    }). then((courseDocRef)=>{
+                        console.log("Successfully upadted chpater");
+                    }).catch((error) => {
+                        console.error('Error upddating', error);
+                    });
+                
+                console.log("Success");
             }).catch((error) => {
                 console.error('Error adding chapter: ', error);
-            }); */
+                console.log("Error");
+            });
+            
+    } 
+    const getChapters = async (id) => {
+       const q = query(collection(db, "CHAPTERS"));
+       const querySnapshot = await getDocs(q)
+       const chapterArr = querySnapshot.docs.map(async (doc)=> {
+        const data = doc.data();
+        return data;
+       })
+       const chapterData = await Promise.all(chapterArr);
+       return chapterData;
             
     } 
 
@@ -131,7 +177,10 @@ const CreateCourse = () =>{
                 </article>
 
                 <article className='added-chapter article-flex'>
-                    {/* map through the added topics here */}
+                    {chapterTitleRef.current=== undefined ? null : <div>
+                        <p>{chapterTitleRef.current.value}</p>
+                        <p>{chapterDescriptionRef.current.value}</p>
+                    </div>}
                 </article>
 
                 {
@@ -143,7 +192,7 @@ const CreateCourse = () =>{
                             </div>
                             <div className='createCourse__files-buttons'>
                                 <div>Upload File here</div>
-                                <button type='submit' onClick={()=>addChapter(theCourseID)}>Add Chapter</button>
+                                <button type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
                             </div>
                         
                     
