@@ -21,7 +21,6 @@ const LandingPage = () => {
     return (
         <React.Fragment>
             <div className="desktop">
-                <div className="div">
                     <img className="pngtreecartoon-man" alt="Pngtreecartoon man" src={landingpageicon} />
                     <div className="text-wrapper">BEST ONLINE COURSES</div>
                         <p className="everyone-agrees-with">
@@ -34,7 +33,6 @@ const LandingPage = () => {
                           alt="Copy of software"
                           src={logo}
                         />
-                </div>
             </div>
             <div className="container2">
                 <div className="textwrapper">CourseRoad Registration is Now Open!</div>

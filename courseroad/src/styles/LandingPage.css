@@ -1,16 +1,10 @@
 .desktop {
-    background-color: #eaf0f3;
+    background-color: transparent;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    height:1024px;
     width: 100vh;
-  }
-  
-  .desktop .div {
-    background-color: var(--light);
-    height: 1024px;
-    position: relative;
-    width: 1440px;
   }
   
   .desktop .pngtreecartoon-man {
@@ -65,6 +59,7 @@
   }
   
   .desktop .copy-of-software {
+    background-color: transparent;
     height: 262px;
     left: 908px;
     object-fit: cover;
