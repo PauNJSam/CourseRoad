@@ -121,9 +121,9 @@ const CreateCourse = () =>{
                 
                     await updateDoc(courseDocRef, {
                         chapters: arrayUnion({
-                            courseID: chapterDocRef.id, 
-                            chapterTitle:  courseTitleRef.current.value,
-                            chapterDescription:  courseDescriptionRef.current.value
+                            chapterID: chapterDocRef.id, 
+                            chapterTitle:  chapterTitleRef.current.value,
+                            chapterDescription:  chapterDescriptionRef.current.value
                         })
                     }). then((courseDocRef)=>{
                         console.log("Successfully upadted chpater");
