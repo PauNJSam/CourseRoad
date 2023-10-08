@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/CreateCourse.css'
-import {db} from '../config/firebase';
+import {db, storage} from '../config/firebase';
 import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { async } from '@firebase/util';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const CreateCourse = () =>{
     const courseTitleRef = useRef();
@@ -17,6 +18,9 @@ const CreateCourse = () =>{
     const [chapterID, setChapterID] = useState();
     /* let theCourseID;
     let theChapterID; */
+    const [imageUpload, setImageUpload] = useState(null);
+    const [courseThumbnail, setCourseThumbnail] = useState(null);
+    const [fileUpload, setFileUpload] = useState(null);
 
     const navigate = useNavigate();
 
@@ -63,11 +67,6 @@ const CreateCourse = () =>{
     const createCourse = async (e) => {
         e.preventDefault();
 // Add a new document with a generated id.
-        // theCourseID = crypto.randomUUID();
-        // console.log()
-        // setCourseID(crypto.randomUUID())
-        // console.log("Inside createCourse courseID: ",courseIDRef.current.value);
-        // try{
             const docRef = await addDoc(collection(db, "COURSESCREATED"), {
                 courseTitle: courseTitleRef.current.value,
                 courseDescription: courseDescriptionRef.current.value,
@@ -75,34 +74,20 @@ const CreateCourse = () =>{
                 courseID: "",
                 dateCreated: serverTimestamp(),
                 courseImage: "",
-                numberOfStudents: 0
+                numberOfStudents: 0,
+                courseThumbnail: courseThumbnail
     
             }).then((docRef)=>{
-                // theCourseID=docRef.id;
                 setCourseID(docRef.id);
-                // console.log("Inside the then funct courseID: ", courseID);
                 setDisplayChapterForm(true);
             }).catch((error) => {
                 console.error('Error adding course: ', error);
             });
-            /* console.log("Document Course written with ID: ", docRef.id);
-            const courseDocID = docRef.id;
-            console.log("const var doc ID: ",courseDocID);
-            theCourseID = docRef.id; */
-            // setCourseID(courseDocID);
-            // courseIDRef.current.value = docRef.documentID;
-            // console.log("Course IDREF: ",courseIDRef.current.value);
-        //     setDisplayChapterForm(true);
-        // } catch (err) {
-        //     console.error(err);
-        // }
-        // console.log("Course ID useState",courseID);
-        // console.log(theCourseID);
+            
     }
 
     const addChapter = async (id) => {
-        // e.preventDefault();
-        // console.log("Insifde",theCourseID);
+        
         console.log("Inside addChapter courseID: ",courseID);
             const chapterDocRef = await addDoc(collection(db, "CHAPTERS"), {
                 chapterTitle: chapterTitleRef.current.value,
@@ -113,19 +98,18 @@ const CreateCourse = () =>{
                 courseID: courseID
     
             }).then(async (chapterDocRef)=>{
-                // theChapterID=chapterDocRef.id;
-                // console.log("Inside the then funct courseID: ", theChapterID);
+                
                 setChapterID(chapterDocRef.id);
                 // TO DO: using course ID 
                 const courseDocRef = doc(db, "COURSESCREATED", courseID)
                 
                     await updateDoc(courseDocRef, {
                         chapters: arrayUnion({
-                            courseID: chapterDocRef.id, 
-                            chapterTitle:  courseTitleRef.current.value,
-                            chapterDescription:  courseDescriptionRef.current.value
+                            chapterID: chapterDocRef.id, 
+                            chapterTitle:  chapterTitleRef.current.value,
+                            chapterDescription:  chapterDescriptionRef.current.value
                         })
-                    }). then((courseDocRef)=>{
+                    }).then((courseDocRef)=>{
                         console.log("Successfully upadted chpater");
                     }).catch((error) => {
                         console.error('Error upddating', error);
@@ -156,24 +140,48 @@ const CreateCourse = () =>{
         let courseTitledoc = courseTitleNoSpace.toLowerCase() + crypto.randomUUID();
         console.log(courseTitledoc); */
     }
+
+    const uploadImage = () =>{
+        if(imageUpload == null) return;
+
+        const imageRef = ref(storage, `courseThumbnails/${imageUpload.name + crypto.randomUUID()}`);
+        uploadBytes(imageRef, imageUpload).then(()=>{
+            alert("Image Uploaded");
+            getDownloadURL(imageRef).then((url)=>{
+                setCourseThumbnail(url);
+                console.log("The picture URL: ",url);
+            }).catch((error) => {
+                console.error('Error getting image URL: ', error);
+            });
+            
+        }).catch((error) => {
+            console.error('Error uploading image: ', error);
+        });
+    };
+
+    const uploadFile = () => {
+
+    };
     
     return(
         <section className='createCourse'>
             <h1>Create Course</h1>
 
             <div className='edit-course-container'>
-                <article className='course-head'>
-                    <form onSubmit={createCourse} className='article-flex'>
+                <article className='course-head article-flex'>
                         <div className='createCourse__text-inputs'>
                             <input className='course-head__textbox' type='text' ref={courseTitleRef} placeholder='Course Title' required></input>
                             <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder='Course Description...'></textarea>
                         </div>
                         <div className='createCourse__files-buttons'>
-                            <div>Upload File here</div>
-                            <button type='submit'>Create Course</button>
+                            <input type='file' onChange={(event)=> {setImageUpload(event.target.files[0])}} ></input>
+                            <button className='createCourse__upload-btn' onClick={uploadImage}>Upload Image</button>
+                            {
+                                courseThumbnail === null ? null : <img className='createCourse__thumbnail' src={courseThumbnail} alt='Course Thumbnail' />
+                            }
+                            <button className='createCourse__create-btn' type='button' onClick={createCourse}>Create Course</button>
                             <button type='button' onClick={createExam}>Create Exam</button>
                         </div>
-                    </form>
                 </article>
 
                 <article className='added-chapter article-flex'>
@@ -191,8 +199,9 @@ const CreateCourse = () =>{
                                 <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea>
                             </div>
                             <div className='createCourse__files-buttons'>
-                                <div>Upload File here</div>
-                                <button type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
+                                <input type='file'></input>
+                                <button className='createCourse__upload-btn' onClick={uploadFile}>Upload File</button>
+                                <button className='createCourse__create-btn' type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
                             </div>
                         
                     

@@ -47,6 +47,7 @@
 .createCourse__files-buttons{
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 .createCourse__text-inputs input{
     font-size: 1.5rem;
@@ -71,6 +72,10 @@
     background: var(--_pure-white);
     box-shadow: var(--_box-shadow);
 }
+.createCourse__thumbnail{
+    width: 100px;
+}
+
 .createCourse .added-chapter{
     background-color: var(--_pure-white);
     border: 1px solid rgb(255, 0, 170);
