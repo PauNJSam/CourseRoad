@@ -19,7 +19,7 @@ const CreateCourse = () =>{
     /* let theCourseID;
     let theChapterID; */
     const [imageUpload, setImageUpload] = useState(null);
-    const [coursethumbnail, setCourseThumbnail] = useState(null);
+    const [courseThumbnail, setCourseThumbnail] = useState(null);
     const [fileUpload, setFileUpload] = useState(null);
 
     const navigate = useNavigate();
@@ -67,11 +67,6 @@ const CreateCourse = () =>{
     const createCourse = async (e) => {
         e.preventDefault();
 // Add a new document with a generated id.
-        // theCourseID = crypto.randomUUID();
-        // console.log()
-        // setCourseID(crypto.randomUUID())
-        // console.log("Inside createCourse courseID: ",courseIDRef.current.value);
-        // try{
             const docRef = await addDoc(collection(db, "COURSESCREATED"), {
                 courseTitle: courseTitleRef.current.value,
                 courseDescription: courseDescriptionRef.current.value,
@@ -79,34 +74,20 @@ const CreateCourse = () =>{
                 courseID: "",
                 dateCreated: serverTimestamp(),
                 courseImage: "",
-                numberOfStudents: 0
+                numberOfStudents: 0,
+                courseThumbnail: courseThumbnail
     
             }).then((docRef)=>{
-                // theCourseID=docRef.id;
                 setCourseID(docRef.id);
-                // console.log("Inside the then funct courseID: ", courseID);
                 setDisplayChapterForm(true);
             }).catch((error) => {
                 console.error('Error adding course: ', error);
             });
-            /* console.log("Document Course written with ID: ", docRef.id);
-            const courseDocID = docRef.id;
-            console.log("const var doc ID: ",courseDocID);
-            theCourseID = docRef.id; */
-            // setCourseID(courseDocID);
-            // courseIDRef.current.value = docRef.documentID;
-            // console.log("Course IDREF: ",courseIDRef.current.value);
-        //     setDisplayChapterForm(true);
-        // } catch (err) {
-        //     console.error(err);
-        // }
-        // console.log("Course ID useState",courseID);
-        // console.log(theCourseID);
+            
     }
 
     const addChapter = async (id) => {
-        // e.preventDefault();
-        // console.log("Insifde",theCourseID);
+        
         console.log("Inside addChapter courseID: ",courseID);
             const chapterDocRef = await addDoc(collection(db, "CHAPTERS"), {
                 chapterTitle: chapterTitleRef.current.value,
@@ -117,8 +98,7 @@ const CreateCourse = () =>{
                 courseID: courseID
     
             }).then(async (chapterDocRef)=>{
-                // theChapterID=chapterDocRef.id;
-                // console.log("Inside the then funct courseID: ", theChapterID);
+                
                 setChapterID(chapterDocRef.id);
                 // TO DO: using course ID 
                 const courseDocRef = doc(db, "COURSESCREATED", courseID)
@@ -129,7 +109,7 @@ const CreateCourse = () =>{
                             chapterTitle:  chapterTitleRef.current.value,
                             chapterDescription:  chapterDescriptionRef.current.value
                         })
-                    }). then((courseDocRef)=>{
+                    }).then((courseDocRef)=>{
                         console.log("Successfully upadted chpater");
                     }).catch((error) => {
                         console.error('Error upddating', error);
@@ -195,8 +175,11 @@ const CreateCourse = () =>{
                         </div>
                         <div className='createCourse__files-buttons'>
                             <input type='file' onChange={(event)=> {setImageUpload(event.target.files[0])}} ></input>
-                            <button onClick={uploadImage}>Upload File</button>
-                            <button type='button' onClick={createCourse}>Create Course</button>
+                            <button className='createCourse__upload-btn' onClick={uploadImage}>Upload Image</button>
+                            {
+                                courseThumbnail === null ? null : <img className='createCourse__thumbnail' src={courseThumbnail} alt='Course Thumbnail' />
+                            }
+                            <button className='createCourse__create-btn' type='button' onClick={createCourse}>Create Course</button>
                             <button type='button' onClick={createExam}>Create Exam</button>
                         </div>
                 </article>
@@ -217,8 +200,8 @@ const CreateCourse = () =>{
                             </div>
                             <div className='createCourse__files-buttons'>
                                 <input type='file'></input>
-                                <button onClick={uploadFile}>Upload File</button>
-                                <button type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
+                                <button className='createCourse__upload-btn' onClick={uploadFile}>Upload File</button>
+                                <button className='createCourse__create-btn' type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
                             </div>
                         
                     
