@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/CreateCourse.css'
-import {db} from '../config/firebase';
+import {db, storage} from '../config/firebase';
 import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { async } from '@firebase/util';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const CreateCourse = () =>{
     const courseTitleRef = useRef();
@@ -17,6 +18,9 @@ const CreateCourse = () =>{
     const [chapterID, setChapterID] = useState();
     /* let theCourseID;
     let theChapterID; */
+    const [imageUpload, setImageUpload] = useState(null);
+    const [coursethumbnail, setCourseThumbnail] = useState(null);
+    const [fileUpload, setFileUpload] = useState(null);
 
     const navigate = useNavigate();
 
@@ -156,24 +160,45 @@ const CreateCourse = () =>{
         let courseTitledoc = courseTitleNoSpace.toLowerCase() + crypto.randomUUID();
         console.log(courseTitledoc); */
     }
+
+    const uploadImage = () =>{
+        if(imageUpload == null) return;
+
+        const imageRef = ref(storage, `courseThumbnails/${imageUpload.name + crypto.randomUUID()}`);
+        uploadBytes(imageRef, imageUpload).then(()=>{
+            alert("Image Uploaded");
+            getDownloadURL(imageRef).then((url)=>{
+                setCourseThumbnail(url);
+                console.log("The picture URL: ",url);
+            }).catch((error) => {
+                console.error('Error getting image URL: ', error);
+            });
+            
+        }).catch((error) => {
+            console.error('Error uploading image: ', error);
+        });
+    };
+
+    const uploadFile = () => {
+
+    };
     
     return(
         <section className='createCourse'>
             <h1>Create Course</h1>
 
             <div className='edit-course-container'>
-                <article className='course-head'>
-                    <form onSubmit={createCourse} className='article-flex'>
+                <article className='course-head article-flex'>
                         <div className='createCourse__text-inputs'>
                             <input className='course-head__textbox' type='text' ref={courseTitleRef} placeholder='Course Title' required></input>
                             <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder='Course Description...'></textarea>
                         </div>
                         <div className='createCourse__files-buttons'>
-                            <div>Upload File here</div>
-                            <button type='submit'>Create Course</button>
+                            <input type='file' onChange={(event)=> {setImageUpload(event.target.files[0])}} ></input>
+                            <button onClick={uploadImage}>Upload File</button>
+                            <button type='button' onClick={createCourse}>Create Course</button>
                             <button type='button' onClick={createExam}>Create Exam</button>
                         </div>
-                    </form>
                 </article>
 
                 <article className='added-chapter article-flex'>
@@ -191,7 +216,8 @@ const CreateCourse = () =>{
                                 <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea>
                             </div>
                             <div className='createCourse__files-buttons'>
-                                <div>Upload File here</div>
+                                <input type='file'></input>
+                                <button onClick={uploadFile}>Upload File</button>
                                 <button type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
                             </div>
                         
