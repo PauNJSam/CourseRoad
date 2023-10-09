@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/CreateCourse.css'
 import {db, storage} from '../config/firebase';
-import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updateDoc, arrayUnion, where } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { async } from '@firebase/util';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -21,6 +21,9 @@ const CreateCourse = () =>{
     const [imageUpload, setImageUpload] = useState(null);
     const [courseThumbnail, setCourseThumbnail] = useState(null);
     const [fileUpload, setFileUpload] = useState(null);
+    const [chapterFile, setChapterFile] = useState([]);
+    const [chapterFileNames, setChapterFileNames] = useState([]);
+    const [chaptersData, setChaptersData] = useState([]);
 
     const navigate = useNavigate();
 
@@ -31,6 +34,33 @@ const CreateCourse = () =>{
         
       }
     }, [chapterID]); */
+
+    /* const getChapters = async (id) => {
+       const q = query(collection(db, "CHAPTERS"));
+       const querySnapshot = await getDocs(q)
+       const chapterArr = querySnapshot.docs.map(async (doc)=> {
+        const data = doc.data();
+        return data;
+       })
+       const chapterData = await Promise.all(chapterArr);
+       return chapterData;
+            
+    }; */
+
+    const getChapters = async () => {
+        const q = query(collection(db, "CHAPTERS"), where("courseID", "==", courseID));
+
+        const querySnapshot = await getDocs(q);
+        /* const chaptersArray = querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, " => ", doc.data());
+            chapterTitle: doc.data().chapterTitle;
+            chapterDescription: doc.data().chapterDescription;
+            chapterFiles: doc.data().chapterFiles;
+        }); */
+
+        setChaptersData(querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id})));
+    };
     
 
     const saveCourse = async () => {
@@ -73,7 +103,6 @@ const CreateCourse = () =>{
                 courseTeacher: "",
                 courseID: "",
                 dateCreated: serverTimestamp(),
-                courseImage: "",
                 numberOfStudents: 0,
                 courseThumbnail: courseThumbnail
     
@@ -94,8 +123,9 @@ const CreateCourse = () =>{
                 chapterDescription: chapterDescriptionRef.current.value,
                 chapterID: "",
                 dateCreated: serverTimestamp(),
-                chapterFiles: "",
-                courseID: courseID
+                courseID: courseID,
+                chapterFiles: chapterFile,
+                chapterFileNames: chapterFileNames
     
             }).then(async (chapterDocRef)=>{
                 
@@ -110,29 +140,26 @@ const CreateCourse = () =>{
                             chapterDescription:  chapterDescriptionRef.current.value
                         })
                     }).then((courseDocRef)=>{
-                        console.log("Successfully upadted chpater");
+                        setChapterFile([]);
+                        setChapterFileNames([]);
+                        chapterDescriptionRef.current.value = '';
+                        chapterTitleRef.current.value = '';
+                        getChapters();
+                        console.log("Successfully updated course with new chapter");
                     }).catch((error) => {
-                        console.error('Error upddating', error);
+                        console.error('Error updating course with new chapter', error);
                     });
                 
-                console.log("Success");
+                console.log("Successfully added chapter");
             }).catch((error) => {
                 console.error('Error adding chapter: ', error);
                 console.log("Error");
             });
             
     } 
-    const getChapters = async (id) => {
-       const q = query(collection(db, "CHAPTERS"));
-       const querySnapshot = await getDocs(q)
-       const chapterArr = querySnapshot.docs.map(async (doc)=> {
-        const data = doc.data();
-        return data;
-       })
-       const chapterData = await Promise.all(chapterArr);
-       return chapterData;
-            
-    } 
+    
+    
+    
 
     const createExam = () => {
 
@@ -160,7 +187,22 @@ const CreateCourse = () =>{
     };
 
     const uploadFile = () => {
+        if(fileUpload == null) return;
 
+        const fileRef = ref(storage, `${courseID}/${fileUpload.name + crypto.randomUUID()}`);
+        uploadBytes(fileRef, fileUpload).then(()=>{
+            alert("File Uploaded");
+            getDownloadURL(fileRef).then((url)=>{
+                setChapterFile((prev)=>[...prev, url]);
+                setChapterFileNames((prev)=>[...prev, fileUpload.name]);
+                console.log("The chapter file URL: ",url);
+            }).catch((error) => {
+                console.error('Error getting chapter file URL: ', error);
+            });
+            
+        }).catch((error) => {
+            console.error('Error uploading chapter: ', error);
+        });
     };
     
     return(
@@ -185,10 +227,27 @@ const CreateCourse = () =>{
                 </article>
 
                 <article className='added-chapter article-flex'>
-                    {chapterTitleRef.current=== undefined ? null : <div>
+                    {/* {chapterTitleRef.current=== undefined ? null : <div>
                         <p>{chapterTitleRef.current.value}</p>
                         <p>{chapterDescriptionRef.current.value}</p>
-                    </div>}
+                    </div>} */}
+                    {
+                        chaptersData === null ? null : chaptersData.map((chapter)=>{
+                            return(
+                                <div key={chapter.id}>
+                                    <p>{chapter.chapterTitle}</p>
+                                    <p>{chapter.chapterDescription}</p>
+                                    {chapter.chapterFileNames.map((fileName)=>{
+                                        return(
+                                            <div key={fileName+crypto.randomUUID()}>
+                                                <p>{fileName}</p>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            )
+                        })
+                    }
                 </article>
 
                 {
@@ -199,7 +258,7 @@ const CreateCourse = () =>{
                                 <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea>
                             </div>
                             <div className='createCourse__files-buttons'>
-                                <input type='file'></input>
+                                <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
                                 <button className='createCourse__upload-btn' onClick={uploadFile}>Upload File</button>
                                 <button className='createCourse__create-btn' type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
                             </div>
