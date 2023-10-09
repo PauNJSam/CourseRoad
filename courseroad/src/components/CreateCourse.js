@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/CreateCourse.css'
 import {db, storage} from '../config/firebase';
-import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updateDoc, arrayUnion, where } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { async } from '@firebase/util';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -48,7 +48,7 @@ const CreateCourse = () =>{
     }; */
 
     const getChapters = async () => {
-        const q = query(collection(db, "CHAPTERS"), where("courseID", "==", courseID));
+        const q = query(collection(db, "CHAPTERS"), where("courseID", "==", courseID), orderBy("dateCreated", "asc"));
 
         const querySnapshot = await getDocs(q);
         /* const chaptersArray = querySnapshot.forEach((doc) => {
@@ -226,7 +226,7 @@ const CreateCourse = () =>{
                         </div>
                 </article>
 
-                <article className='added-chapter article-flex'>
+                <article className='added-chapter'>
                     {/* {chapterTitleRef.current=== undefined ? null : <div>
                         <p>{chapterTitleRef.current.value}</p>
                         <p>{chapterDescriptionRef.current.value}</p>
@@ -234,16 +234,21 @@ const CreateCourse = () =>{
                     {
                         chaptersData === null ? null : chaptersData.map((chapter)=>{
                             return(
-                                <div key={chapter.id}>
-                                    <p>{chapter.chapterTitle}</p>
-                                    <p>{chapter.chapterDescription}</p>
-                                    {chapter.chapterFileNames.map((fileName)=>{
-                                        return(
-                                            <div key={fileName+crypto.randomUUID()}>
-                                                <p>{fileName}</p>
-                                            </div>
-                                        )
-                                    })}
+                                <div className='added-chapter__chapter' key={chapter.id}>
+                                    <div className='chapter-texts'>
+                                        <p className='chapter-title'>{chapter.chapterTitle}</p>
+                                        <p className='chapter-description'>{chapter.chapterDescription}</p>
+                                    </div>
+                                    <div className='chapter-files'>
+                                        {chapter.chapterFileNames.map((fileName)=>{
+                                            return(
+                                                <div className='individual-chapter-file' key={fileName+crypto.randomUUID()}>
+                                                    <p>{fileName}</p>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                    
                                 </div>
                             )
                         })
