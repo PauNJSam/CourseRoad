@@ -1,74 +1,4 @@
 .desktop {
-<<<<<<< HEAD
-    background-color: transparent;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height:1024px;
-    width: 100vh;
-  }
-  
-  .desktop .pngtreecartoon-man {
-    height: 702px;
-    left: 127px;
-    object-fit: cover;
-    position: absolute;
-    top: 161px;
-    width: 593px;
-  }
-  
-  .desktop .text-wrapper {
-    color: var(--_accent-yellow);
-    font-family: var(--_worksans);
-    font-size: 50px;
-    font-weight: 700;
-    left: 786px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 399px;
-    width: 596px;
-  }
-  
-  .desktop .everyone-agrees-with {
-    color: var(--primary-blue);
-    font-family: var(--_inter);
-    font-size: 15px;
-    font-weight: 700;
-    left: 825px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 516px;
-    width: 518px;
-  }
-  
-  .desktop .rectangle {
-    background-color:#226CE0;
-    border-radius: 44px;
-    color:var(--_accent-yellow);
-    box-shadow: 0px 3.94px 15.74px 2.95px #00000040;
-    height: 135px;
-    left: 899px;
-    position: absolute;
-    top: 696px;
-    width: 370px;
-    font-family: var(--_worksans);
-    font-size:30px;
-  }
-  
-  .desktop .copy-of-software {
-    background-color: transparent;
-    height: 262px;
-    left: 908px;
-    object-fit: cover;
-    position: absolute;
-    top: 102px;
-    width: 353px;
-  }
-=======
   background-color: transparent;
   display: flex;
   flex-direction: row;
@@ -76,7 +6,6 @@
   height:1024px;
   width: 100vh;
 }
->>>>>>> main
 
 .desktop .pngtreecartoon-man {
   height: 702px;

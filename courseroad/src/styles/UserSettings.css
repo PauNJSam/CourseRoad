@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-.desktop {
-=======
 .userSettings .desktop {
->>>>>>> main
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
@@ -10,21 +6,13 @@
     width: 100%;
   }
   
-<<<<<<< HEAD
-  .desktop .frame-wrapper {
-=======
   .userSettings .desktop .frame-wrapper {
->>>>>>> main
     background-color: #ffffff;
     height: 1024px;
     width: 1440px;
   }
   
-<<<<<<< HEAD
-  .desktop .frame {
-=======
   .userSettings .desktop .frame {
->>>>>>> main
     background-color: #d0d0d0;
     border-radius: 50px;
     height: 553px;
@@ -35,11 +23,7 @@
     width: 936px;
   }
   
-<<<<<<< HEAD
-  .desktop .overlap {
-=======
   .userSettings .desktop .overlap {
->>>>>>> main
     background-color: #f7cb6a;
     border-radius: 50px 0px 0px 50px;
     height: 553px;
@@ -47,16 +31,10 @@
     position: absolute;
     top: 0;
     width: 385px;
-<<<<<<< HEAD
-  }
-  
-  .desktop .ellipse {
-=======
     padding: 3rem 6rem;
   }
   
   .userSettings .desktop .ellipse {
->>>>>>> main
     height: 150px;
     left: 117px;
     object-fit: cover;
@@ -65,11 +43,7 @@
     width: 150px;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper {
-=======
   .userSettings .desktop .text-wrapper {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 40px;
@@ -81,11 +55,7 @@
     top: 321px;
   }
   
-<<<<<<< HEAD
-  .desktop .div {
-=======
   .userSettings .desktop .div {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 30px;
@@ -98,11 +68,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .icon-edit {
-=======
   .userSettings .desktop .icon-edit {
->>>>>>> main
     height: 35px;
     left: 175px;
     position: absolute;
@@ -110,11 +76,7 @@
     width: 35px;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper-2 {
-=======
   .userSettings  .desktop .text-wrapper-2 {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 40px;
@@ -127,11 +89,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .rectangle {
-=======
   .userSettings .desktop .rectangle {
->>>>>>> main
     background-color: #ffffff;
     height: 3px;
     left: 408px;
@@ -140,11 +98,7 @@
     width: 487px;
   }
   
-<<<<<<< HEAD
-  .desktop .rectangle-2 {
-=======
   .userSettings .desktop .rectangle-2 {
->>>>>>> main
     background-color: #ffffff;
     height: 3px;
     left: 408px;
@@ -153,11 +107,7 @@
     width: 487px;
   }
   
-<<<<<<< HEAD
-  .desktop .rectangle-3 {
-=======
   .userSettings  .desktop .rectangle-3 {
->>>>>>> main
     background-color: #ffffff;
     height: 3px;
     left: 408px;
@@ -166,11 +116,7 @@
     width: 487px;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper-3 {
-=======
   .userSettings  .desktop .text-wrapper-3 {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 30px;
@@ -183,11 +129,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper-4 {
-=======
   .userSettings  .desktop .text-wrapper-4 {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 20px;
@@ -200,11 +142,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper-5 {
-=======
   .userSettings .desktop .text-wrapper-5 {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 20px;
@@ -217,11 +155,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper-6 {
-=======
   .userSettings  .desktop .text-wrapper-6 {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 20px;
@@ -234,11 +168,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .p {
-=======
   .userSettings  .desktop .p {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 25px;
@@ -251,11 +181,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper-7 {
-=======
   .userSettings  .desktop .text-wrapper-7 {
->>>>>>> main
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
     font-size: 20px;
@@ -268,11 +194,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .overlap-group {
-=======
   .userSettings  .desktop .overlap-group {
->>>>>>> main
     background-color: #226ce0;
     border-radius: 50px;
     height: 31px;
@@ -282,11 +204,7 @@
     width: 106px;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper-8 {
-=======
   .userSettings  .desktop .text-wrapper-8 {
->>>>>>> main
     color: #f1bf19;
     font-family: "Inter-Regular", Helvetica;
     font-size: 20px;
@@ -299,11 +217,7 @@
     white-space: nowrap;
   }
   
-<<<<<<< HEAD
-  .desktop .div-wrapper {
-=======
   .userSettings .desktop .div-wrapper {
->>>>>>> main
     background-color: #226ce0;
     border-radius: 50px;
     height: 65px;
@@ -313,11 +227,7 @@
     width: 252px;
   }
   
-<<<<<<< HEAD
-  .desktop .text-wrapper-9 {
-=======
   .userSettings  .desktop .text-wrapper-9 {
->>>>>>> main
     color: #f1bf19;
     font-family: "Inter-Regular", Helvetica;
     font-size: 20px;
@@ -328,9 +238,6 @@
     position: absolute;
     top: 20px;
     white-space: nowrap;
-<<<<<<< HEAD
-  }
-=======
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -346,5 +253,4 @@
     border-radius: 50%;
     aspect-ratio: 1/1;
 }
->>>>>>> main
   
