@@ -1,0 +1,256 @@
+.userSettings .desktop {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .userSettings .desktop .frame-wrapper {
+    background-color: #ffffff;
+    height: 1024px;
+    width: 1440px;
+  }
+  
+  .userSettings .desktop .frame {
+    background-color: #d0d0d0;
+    border-radius: 50px;
+    height: 553px;
+    left: 252px;
+    overflow: hidden;
+    position: relative;
+    top: 209px;
+    width: 936px;
+  }
+  
+  .userSettings .desktop .overlap {
+    background-color: #f7cb6a;
+    border-radius: 50px 0px 0px 50px;
+    height: 553px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 385px;
+    padding: 3rem 6rem;
+  }
+  
+  .userSettings .desktop .ellipse {
+    height: 150px;
+    left: 117px;
+    object-fit: cover;
+    position: absolute;
+    top: 127px;
+    width: 150px;
+  }
+  
+  .userSettings .desktop .text-wrapper {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 40px;
+    font-weight: 400;
+    left: 10px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 321px;
+  }
+  
+  .userSettings .desktop .div {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 30px;
+    font-weight: 400;
+    left: 136px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 381px;
+    white-space: nowrap;
+  }
+  
+  .userSettings .desktop .icon-edit {
+    height: 35px;
+    left: 175px;
+    position: absolute;
+    top: 439px;
+    width: 35px;
+  }
+  
+  .userSettings  .desktop .text-wrapper-2 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 40px;
+    font-weight: 400;
+    left: 520px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 101px;
+    white-space: nowrap;
+  }
+  
+  .userSettings .desktop .rectangle {
+    background-color: #ffffff;
+    height: 3px;
+    left: 408px;
+    position: absolute;
+    top: 77px;
+    width: 487px;
+  }
+  
+  .userSettings .desktop .rectangle-2 {
+    background-color: #ffffff;
+    height: 3px;
+    left: 408px;
+    position: absolute;
+    top: 158px;
+    width: 487px;
+  }
+  
+  .userSettings  .desktop .rectangle-3 {
+    background-color: #ffffff;
+    height: 3px;
+    left: 408px;
+    position: absolute;
+    top: 346px;
+    width: 487px;
+  }
+  
+  .userSettings  .desktop .text-wrapper-3 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 30px;
+    font-weight: 400;
+    left: 408px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 35px;
+    white-space: nowrap;
+  }
+  
+  .userSettings  .desktop .text-wrapper-4 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 408px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 114px;
+    white-space: nowrap;
+  }
+  
+  .userSettings .desktop .text-wrapper-5 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 408px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 219px;
+    white-space: nowrap;
+  }
+  
+  .userSettings  .desktop .text-wrapper-6 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 408px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 177px;
+    white-space: nowrap;
+  }
+  
+  .userSettings  .desktop .p {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 25px;
+    font-weight: 400;
+    left: 408px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 360px;
+    white-space: nowrap;
+  }
+  
+  .userSettings  .desktop .text-wrapper-7 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 408px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 248px;
+    white-space: nowrap;
+  }
+  
+  .userSettings  .desktop .overlap-group {
+    background-color: #226ce0;
+    border-radius: 50px;
+    height: 31px;
+    left: 599px;
+    position: absolute;
+    top: 291px;
+    width: 106px;
+  }
+  
+  .userSettings  .desktop .text-wrapper-8 {
+    color: #f1bf19;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 30px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 3px;
+    white-space: nowrap;
+  }
+  
+  .userSettings .desktop .div-wrapper {
+    background-color: #226ce0;
+    border-radius: 50px;
+    height: 65px;
+    left: 525px;
+    position: absolute;
+    top: 407px;
+    width: 252px;
+  }
+  
+  .userSettings  .desktop .text-wrapper-9 {
+    color: #f1bf19;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 26px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 20px;
+    white-space: nowrap;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+.userSettings__profile-pic{
+    background-color: var(--_def-grey);
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+.userSettings__profile-pic img{
+    object-fit: cover;
+    width: 100%;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+  

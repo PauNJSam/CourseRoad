@@ -79,6 +79,31 @@
 .createCourse .added-chapter{
     background-color: var(--_pure-white);
     border: 1px solid rgb(255, 0, 170);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh 0;
+    padding: 1rem 2rem;
+}
+.added-chapter__chapter{
+    border: 1px solid rgb(255, 60, 0);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.createCourse .chapter-texts{
+    width: 45%;
+}
+.createCourse .chapter-files{
+    width: 45%;
+}
+/* .createCourse .individual-chapter-file{
+
+} */
+.createCourse .chapter-title{
+    font-size: 1.5rem;
+}
+.createCourse .chapter-description{
+    font-size: 1rem;
 }
 .createCourse .add-new-chapter{
     background-color: var(--_pure-white);
