@@ -4,7 +4,7 @@ import courseroad_logo from "../images/courseroad_logo.png"
 // import signup_img_cropped from '../images/signup_img_cropped.jpg'
 import { auth, db } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, setDoc, doc } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SignupTerms from "../modals/SignupTerms";
 
@@ -52,16 +52,23 @@ const SignUp = () => {
     const addNewUser = async () => {
         try{
 
-        } catch (err){
+            await setDoc(doc(db, "USERS", emailRef.current.value), {
+                userEmail: emailRef.current.value,
+                userName: userNameRef.current.value,
+                isTeacher: false,
+                dateJoined: serverTimestamp(),
+                profilePic:''
 
+            });
+
+        } catch (err){
+            console.log(err.message);
         }
     };
     const signin =() => {
         navigate('/signin');
     }
-    const dasboard =() => {
-        navigate('/dashboard');
-    }
+    
 
     return(
         <section className="SignUp" >
