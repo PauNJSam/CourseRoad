@@ -5,6 +5,9 @@ import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updat
 import { useNavigate } from "react-router-dom";
 import { async } from '@firebase/util';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import UploadIcon from "../icons/UploadIcon";
 
 const CreateCourse = () =>{
     const courseTitleRef = useRef();
@@ -26,6 +29,31 @@ const CreateCourse = () =>{
     const [chaptersData, setChaptersData] = useState([]);
 
     const navigate = useNavigate();
+    
+    var toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video'],
+      
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+      
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+      
+        ['clean']                                         // remove formatting button
+      ];
+
+    const module = {
+        toolbar: toolbarOptions,
+    };
 
     /* useEffect(() => {
       console.log(getChapters());
@@ -207,7 +235,7 @@ const CreateCourse = () =>{
     
     return(
         <section className='createCourse'>
-            <h1>Create Course</h1>
+            <p className='createCourse__page-title'>Create Course</p>
 
             <div className='edit-course-container'>
                 <article className='course-head article-flex'>
@@ -216,13 +244,17 @@ const CreateCourse = () =>{
                             <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder='Course Description...'></textarea>
                         </div>
                         <div className='createCourse__files-buttons'>
-                            <input type='file' onChange={(event)=> {setImageUpload(event.target.files[0])}} ></input>
-                            <button className='createCourse__upload-btn' onClick={uploadImage}>Upload Image</button>
                             {
                                 courseThumbnail === null ? null : <img className='createCourse__thumbnail' src={courseThumbnail} alt='Course Thumbnail' />
                             }
-                            <button className='createCourse__create-btn' type='button' onClick={createCourse}>Create Course</button>
-                            <button type='button' onClick={createExam}>Create Exam</button>
+                            <input type='file' onChange={(event)=> {setImageUpload(event.target.files[0])}} ></input>
+                            <button className='createCourse__upload-btn btn' onClick={uploadImage}><UploadIcon /> Upload Image</button>
+                            
+                            <div className='createCourse__header-lower-btns'>
+                                <button className='createCourse__createExam-btn btn' type='button' onClick={createExam}>Create Exam</button>
+                                <button className='createCourse__create-course-btn btn' type='button' onClick={createCourse}>Create Course</button>
+                            </div>
+                            
                         </div>
                 </article>
 
@@ -237,7 +269,9 @@ const CreateCourse = () =>{
                                 <div className='added-chapter__chapter' key={chapter.id}>
                                     <div className='chapter-texts'>
                                         <p className='chapter-title'>{chapter.chapterTitle}</p>
-                                        <p className='chapter-description'>{chapter.chapterDescription}</p>
+                                        {/* <p className='chapter-description'>{chapter.chapterDescription}</p> */}
+                                        {/* {chapter.chapterDescription} */}
+                                        <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
                                     </div>
                                     <div className='chapter-files'>
                                         {chapter.chapterFileNames.map((fileName)=>{
@@ -260,12 +294,15 @@ const CreateCourse = () =>{
                         
                             <div className='createCourse__text-inputs' >
                                 <input type='text' ref={chapterTitleRef} placeholder='Chapter Title' required></input>
-                                <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea>
+                                <ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef}/>
+                                {/* <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea> */}
                             </div>
                             <div className='createCourse__files-buttons'>
-                                <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
-                                <button className='createCourse__upload-btn' onClick={uploadFile}>Upload File</button>
-                                <button className='createCourse__create-btn' type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
+                                <div>
+                                    <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
+                                    <button className='createCourse__upload-btn' onClick={uploadFile}><UploadIcon /> Upload File</button>
+                                </div>
+                                <button className='createCourse__create-course-btn' type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
                             </div>
                         
                     
