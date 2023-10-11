@@ -1,58 +1,61 @@
 .userSettings .desktop {
     background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     width: 100%;
-  }
-  
-  .userSettings .desktop .frame-wrapper {
-    background-color: #ffffff;
-    height: 1024px;
-    width: 1440px;
+    height:100vh;
+    padding: 100px 300px 100px 300px;
+    display:flex;
   }
   
   .userSettings .desktop .frame {
-    background-color: #d0d0d0;
+    background-color: black;
     border-radius: 50px;
-    height: 553px;
-    left: 252px;
-    overflow: hidden;
-    position: relative;
-    top: 209px;
-    width: 936px;
+    width: 100%;
+    display:flex;
+    flex-direction: row;
   }
-  
-  .userSettings .desktop .overlap {
-    background-color: #f7cb6a;
+  .userSettings .desktop .frame .frame1{
+    background-color:#f1bf19;
+    height:100%;
+    width: 40%;
     border-radius: 50px 0px 0px 50px;
-    height: 553px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 385px;
-    padding: 3rem 6rem;
+    display:flex;
+    margin:0 auto;
+    flex-direction:column;
+    align-items: center; 
+    position: relative;
   }
-  
-  .userSettings .desktop .ellipse {
-    height: 150px;
-    left: 117px;
-    object-fit: cover;
-    position: absolute;
-    top: 127px;
-    width: 150px;
+  .userSettings .desktop .frame .frame2{
+    background-color:blue;
+    height:100%;
+    width:60%;
+    border-radius:0px 50px 50px 0px;
+    display:flex;
+    flex-direction:column;
   }
-  
-  .userSettings .desktop .text-wrapper {
+  .userSettings .desktop .text-wrapper-Inter {
     color: #000000;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 40px;
+    font-family: var(--_inter);
+    font-size: 30px;
     font-weight: 400;
-    left: 10px;
     letter-spacing: 0;
     line-height: normal;
-    position: absolute;
-    top: 321px;
+  }
+  .userSettings .desktop .text-wrapper-Worksans {
+    color: #000000;
+    font-family: var(--_worksans);
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  .userSettings .desktop .text-wrapper-editpp {
+    color: #000000;
+    font-family: var(--_inter);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-top:40px;
   }
   
   .userSettings .desktop .div {
@@ -173,12 +176,11 @@
     font-family: "Inter-Regular", Helvetica;
     font-size: 25px;
     font-weight: 400;
-    left: 408px;
     letter-spacing: 0;
     line-height: normal;
-    position: absolute;
-    top: 360px;
     white-space: nowrap;
+    margin-top:40px;
+
   }
   
   .userSettings  .desktop .text-wrapper-7 {
@@ -243,9 +245,11 @@
     cursor: pointer;
   }
 .userSettings__profile-pic{
+    margin-top:50px;
     background-color: var(--_def-grey);
     border-radius: 50%;
-    aspect-ratio: 1/1;
+    width:50%;
+    padding:20px 20px 20px 20px;
 }
 .userSettings__profile-pic img{
     object-fit: cover;
