@@ -54,7 +54,6 @@ const UserSettings = () => {
     };
 
     return(
-<<<<<<< HEAD
         <section>
                 {/* <button onClick={() => setOpenModal(true)} >Apply To Be a Teacher</button>
             <TeacherApplicationForm open={openModal} close={() => setOpenModal(false)} /> */}
@@ -86,7 +85,6 @@ const UserSettings = () => {
         </div>
       </div>
     </div>
-=======
         <section className="userSettings">
                 <div className="desktop">
                     <div className="frame-wrapper">
@@ -127,7 +125,6 @@ const UserSettings = () => {
                 </div>
             </div>
             <TeacherApplicationForm open={openModal} close={() => setOpenModal(false)} />
->>>>>>> main
         </section>
             
     );
