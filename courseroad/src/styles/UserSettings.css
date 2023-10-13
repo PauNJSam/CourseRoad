@@ -24,17 +24,21 @@
     align-items: center; 
     position: relative;
   }
-  .userSettings .desktop .frame .frame2{
-    background-color:blue;
-    height:100%;
-    width:60%;
-    border-radius:0px 50px 50px 0px;
-    display:flex;
-    flex-direction:column;
-    margin:0 auto;
-    position:relative;
-    padding:50px;
+  .userSettings .desktop .frame .frame2 {
+    background-image: url('../images/screen_bg.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-color: transparent; 
+    height: 100%;
+    width: 60%;
+    border-radius: 0px 50px 50px 0px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    position: relative;
+    padding: 50px;
   }
+  
   .userSettings .desktop .username-wrapper{
     padding:20px;
     display:flex;
@@ -51,7 +55,7 @@
     line-height: normal;
   }
   .userSettings .desktop .text-wrapper-Inter-Username {
-    color: #000000;
+    color: var(--_light);
     font-family: var(--_inter);
     font-size: 30px;
     font-weight: 400;
@@ -59,7 +63,7 @@
     line-height: normal;
   }
   .userSettings .desktop .text-wrapper-Worksans {
-    color: #000000;
+    color: var(--_light);
     font-family: var(--_worksans);
     font-size: 40px;
     font-weight: 400;
@@ -67,7 +71,7 @@
     line-height: normal;
   }
   .userSettings .desktop .text-wrapper-Worksans-CreateCourse {
-    color: #000000;
+    color: var(--_light);
     font-family: var(--_worksans);
     font-size: 40px;
     font-weight: 400;
@@ -75,7 +79,7 @@
     line-height: normal;
   }
   .userSettings .desktop .text-wrapper-Worksans-Nameright {
-    color: #000000;
+    color: black;
     font-family: var(--_worksans);
     font-size: 40px;
     font-weight: 400;
@@ -84,7 +88,7 @@
     margin-top:20px;
   }
   .userSettings .desktop .text-wrapper-Worksans-Nameleft {
-    color: #000000;
+    color: var(--_light);
     font-family: var(--_worksans);
     font-size: 40px;
     font-weight: 400;
@@ -135,10 +139,17 @@
     top: 101px;
     white-space: nowrap;
   }
-  
+  .userSettings .desktop .rect{
+    height:3px;
+    width:100%;
+    background-color:var(--_prim-blue);
+    padding:3px;
+  }
   .userSettings .desktop .rectangle {
     background-color: #ffffff;
     height: 3px;
+    top:200px;
+    left: 100px;
     width:100%;
   }
   
@@ -268,7 +279,7 @@
   
   .userSettings  .desktop .text-wrapper-9 {
     color: var(--_accent-yellow);
-    background-color:white;
+    background-color:var(--_prim-blue);
     font-family: "Inter-Regular", Helvetica;
     padding:20px;
     font-size: 20px;
@@ -276,7 +287,7 @@
     letter-spacing: 0;
     line-height: normal;
     cursor: pointer;
-    margin-top:50px;
+    margin-top:20px;
     border-radius: 30px;
   }
   .userSettings .desktop .text-wrapper-JoinNow{
@@ -288,7 +299,7 @@
   }
 .userSettings__profile-pic{
     margin-top:50px;
-    background-color: var(--_def-grey);
+    background-color: transparent;
     border-radius: 50%;
     width:75%;
     height:50%;

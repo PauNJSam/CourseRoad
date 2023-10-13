@@ -8,6 +8,8 @@ import { auth } from "../config/firebase";
 import {db, storage} from '../config/firebase';
 import { doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import screenbg from "../images/screen_bg.png";
+
 
 
 const UserSettings = () => {
@@ -31,23 +33,50 @@ const UserSettings = () => {
     }, []);
     
 
-    const setProfilePic = () => {
-        if(profilePicUpload == null) return;
-        console.log("User logged in: ", loggedInEmail);
+    // const setProfilePic = () => {
+    //     if(profilePicUpload == null) return;
+    //     console.log("User logged in: ", loggedInEmail);
 
-        const imageRef = ref(storage, `profilePictures/${profilePicUpload.name + crypto.randomUUID()}`);
-        uploadBytes(imageRef, profilePicUpload).then(()=>{
-            alert("Profile Pic Uploaded");
-            getDownloadURL(imageRef).then(async (url)=>{
-                // setProfilePicURL(url);
-                console.log("The picture URL: ",url);
-                if(loggedInEmail!==undefined){
-                    const userDocRef = doc(db, "USERS", loggedInEmail)
+    //     const imageRef = ref(storage, `profilePictures/${profilePicUpload.name + crypto.randomUUID()}`);
+    //     uploadBytes(imageRef, profilePicUpload).then(()=>{
+    //         alert("Profile Pic Uploaded");
+    //         getDownloadURL(imageRef).then(async (url)=>{
+    //             // setProfilePicURL(url);
+    //             console.log("The picture URL: ",url);
+    //             if(loggedInEmail!==undefined){
+    //                 const userDocRef = doc(db, "USERS", loggedInEmail)
                 
+    //                 await updateDoc(userDocRef, {
+    //                     profilePic: url
+    //                 }).then(()=>{
+    //                     setDp(url);
+    //                     console.log("Successfully updated profile pic");
+    //                 }).catch((error) => {
+    //                     console.error('Error updating profile pic', error);
+    //                 });
+    //             }
+    //         }).catch((error) => {
+    //             console.error('Error getting image URL: ', error);
+    //         });
+            
+    //     }).catch((error) => {
+    //         console.error('Error uploading image: ', error);
+    //     });
+    // };
+    const setProfilePic = () => {
+        if (profilePicUpload === null) return;
+    
+        const imageRef = ref(storage, `profilePictures/${profilePicUpload.name}`);
+        
+        uploadBytes(imageRef, profilePicUpload).then(async () => {
+            getDownloadURL(imageRef).then(async (url) => {
+                if (loggedInEmail !== undefined) {
+                    const userDocRef = doc(db, "USERS", loggedInEmail);
+                    
                     await updateDoc(userDocRef, {
                         profilePic: url
-                    }).then(()=>{
-                        setDp(url);
+                    }).then(() => {
+                        setProfilePicURL(url);
                         console.log("Successfully updated profile pic");
                     }).catch((error) => {
                         console.error('Error updating profile pic', error);
@@ -56,11 +85,13 @@ const UserSettings = () => {
             }).catch((error) => {
                 console.error('Error getting image URL: ', error);
             });
-            
+    
+            alert("Profile Pic Uploaded");
         }).catch((error) => {
             console.error('Error uploading image: ', error);
         });
     };
+    
 
     return(
         // <section className="userSettings">
@@ -112,7 +143,7 @@ const UserSettings = () => {
                         {/* first side */}
                         <div className = "frame1">
                             <div className='userSettings__profile-pic'>
-                                <img src={dp} alt='profile' />
+                                <img src={profilePicURL||dp} alt='profile' />
                             </div>
                             <p className ="text-wrapper-Worksans-Nameright">John Doe</p>
                             <p className ="text-wrapper-Inter">Student</p>
@@ -129,15 +160,18 @@ const UserSettings = () => {
                         {/* second side */}
                         <div className = "frame2">
                             <p className ="text-wrapper-Worksans">Account Settings</p>
-                            <div className = "rectangle-2"/>
+                            <div className ="rect"/>
                             <div className = "username-wrapper">
                                 <div className = "text-wrapper-Inter-Username">Username:</div>
                                 <div className = "text-wrapper-Worksans-Nameleft">John Doe</div>
                             </div>
-                            <div className = "rectangle-2"/>
+                            <div className = "rect"/>
                             <div className ="text-wrapper-JoinNow">
                                 <div className = "text-wrapper-Worksans-CreateCourse">Create your own Course!</div>
                                 <div className = "text-wrapper-Worksans-CreateCourse">Join Us Now!</div>
+                            </div>
+                            <div className = "rect"/>
+                            <div className ="text-wrapper-JoinNow">
                                 <button className="text-wrapper-9" onClick={() => setOpenModal(true)} >Apply to be a Teacher</button>
                                 <button className="text-wrapper-9" onClick={teacherhome}>Switch to Teacher Account</button>
                                 <button className="text-wrapper-9" onClick={landingpage}>Logout</button>   
