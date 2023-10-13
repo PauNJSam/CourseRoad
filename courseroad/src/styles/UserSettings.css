@@ -31,8 +31,26 @@
     border-radius:0px 50px 50px 0px;
     display:flex;
     flex-direction:column;
+    margin:0 auto;
+    position:relative;
+    padding:50px;
+  }
+  .userSettings .desktop .username-wrapper{
+    padding:20px;
+    display:flex;
+    flex-direction:row;
+    align-items:baseline;
+    position:relative;
   }
   .userSettings .desktop .text-wrapper-Inter {
+    color: #000000;
+    font-family: var(--_inter);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  .userSettings .desktop .text-wrapper-Inter-Username {
     color: #000000;
     font-family: var(--_inter);
     font-size: 30px;
@@ -47,6 +65,32 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
+  }
+  .userSettings .desktop .text-wrapper-Worksans-CreateCourse {
+    color: #000000;
+    font-family: var(--_worksans);
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  .userSettings .desktop .text-wrapper-Worksans-Nameright {
+    color: #000000;
+    font-family: var(--_worksans);
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-top:20px;
+  }
+  .userSettings .desktop .text-wrapper-Worksans-Nameleft {
+    color: #000000;
+    font-family: var(--_worksans);
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-left:20px;
   }
   .userSettings .desktop .text-wrapper-editpp {
     color: #000000;
@@ -95,19 +139,15 @@
   .userSettings .desktop .rectangle {
     background-color: #ffffff;
     height: 3px;
-    left: 408px;
     position: absolute;
-    top: 77px;
+    top: 158px;
     width: 487px;
   }
   
   .userSettings .desktop .rectangle-2 {
     background-color: #ffffff;
     height: 3px;
-    left: 408px;
-    position: absolute;
-    top: 158px;
-    width: 487px;
+    width: 100%;
   }
   
   .userSettings  .desktop .rectangle-3 {
@@ -230,26 +270,41 @@
   }
   
   .userSettings  .desktop .text-wrapper-9 {
-    color: #f1bf19;
+    color: var(--_accent-yellow);
+    background-color:white;
     font-family: "Inter-Regular", Helvetica;
+    width:50%;
     font-size: 20px;
     font-weight: 400;
-    left: 26px;
     letter-spacing: 0;
     line-height: normal;
-    position: absolute;
-    top: 20px;
-    white-space: nowrap;
-    background-color: transparent;
-    border: none;
     cursor: pointer;
+    margin-top:50px;
+  }
+  .userSettigns .desktop .text-wrapper-10{
+    color: var(--_accent-yellow);
+    background-color:white;
+    font-family: "Inter-Regular", Helvetica;
+    width:50%;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+    cursor: pointer;
+  }
+  .userSettings .desktop .text-wrapper-JoinNow{
+    margin:0 auto;
+    display:flex;
+    padding :30px;
+    flex-direction:column;
+    align-items:center;
   }
 .userSettings__profile-pic{
     margin-top:50px;
     background-color: var(--_def-grey);
     border-radius: 50%;
-    width:50%;
-    padding:20px 20px 20px 20px;
+    width:75%;
+    height:50%;
 }
 .userSettings__profile-pic img{
     object-fit: cover;

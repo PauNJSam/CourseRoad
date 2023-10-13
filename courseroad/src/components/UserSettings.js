@@ -105,8 +105,9 @@ const UserSettings = () => {
                             <div className='userSettings__profile-pic'>
                                 <img src={dp} alt='profile' />
                             </div>
-                            <p className ="text-wrapper-Worksans">John Doe</p>
+                            <p className ="text-wrapper-Worksans-Nameright">John Doe</p>
                             <p className ="text-wrapper-Inter">Student</p>
+                            <div className ="ellipse"></div>
                             <p className = "text-wrapper-editpp">Edit Profile Picture</p>
                             <EditIcon onClick={()=>setShowUploadInput(!showUploadInput)}></EditIcon>
                                 {
@@ -118,11 +119,24 @@ const UserSettings = () => {
                         </div>
                         {/* second side */}
                         <div className = "frame2">
-                            <p className ="text-wrapper-Worksans">This is Me too</p>
+                            <p className ="text-wrapper-Worksans">Account Settings</p>
+                            <div className = "rectangle-2"/>
+                            <div className = "username-wrapper">
+                                <div className = "text-wrapper-Inter-Username">Username:</div>
+                                <div className = "text-wrapper-Worksans-Nameleft">John Doe</div>
+                            </div>
+                            <div className = "rectangle-2"/>
+                            <div className ="text-wrapper-JoinNow">
+                                <div className = "text-wrapper-Worksans-CreateCourse">Create your own Course!</div>
+                                <div className = "text-wrapper-Worksans-CreateCourse">Join Us Now!</div>
+                                <button className="text-wrapper-9" onClick={() => setOpenModal(true)} >Apply to be a Teacher</button>
+                                <button className="text-wrapper-10">Switch to Teacher Account</button>
+                            </div>      
                         </div>
                     </div>
                 </div>
             </div>
+            <TeacherApplicationForm open={openModal} close={() => setOpenModal(false)} />
         </section>
             
     );
