@@ -7,9 +7,18 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { auth } from "../config/firebase";
 import {db, storage} from '../config/firebase';
 import { doc, updateDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 
 const UserSettings = () => {
+    const navigate = useNavigate();
+    const landingpage =() => {
+        navigate('/');
+    }
+    const teacherhome =() => {
+        navigate('/dashboard/teacherhome');
+    }
+
     const [openModal, setOpenModal] = useState(false);
     const [showUploadInput, setShowUploadInput] = useState(false);
     const [profilePicUpload, setProfilePicUpload] = useState(null);
@@ -130,8 +139,9 @@ const UserSettings = () => {
                                 <div className = "text-wrapper-Worksans-CreateCourse">Create your own Course!</div>
                                 <div className = "text-wrapper-Worksans-CreateCourse">Join Us Now!</div>
                                 <button className="text-wrapper-9" onClick={() => setOpenModal(true)} >Apply to be a Teacher</button>
-                                <button className="text-wrapper-10">Switch to Teacher Account</button>
-                            </div>      
+                                <button className="text-wrapper-9" onClick={teacherhome}>Switch to Teacher Account</button>
+                                <button className="text-wrapper-9" onClick={landingpage}>Logout</button>   
+                            </div>   
                         </div>
                     </div>
                 </div>

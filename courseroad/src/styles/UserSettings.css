@@ -139,9 +139,7 @@
   .userSettings .desktop .rectangle {
     background-color: #ffffff;
     height: 3px;
-    position: absolute;
-    top: 158px;
-    width: 487px;
+    width:100%;
   }
   
   .userSettings .desktop .rectangle-2 {
@@ -151,8 +149,7 @@
   }
   
   .userSettings  .desktop .rectangle-3 {
-    background-color: #ffffff;
-    height: 3px;
+    background-color: black;
     left: 408px;
     position: absolute;
     top: 346px;
@@ -273,24 +270,14 @@
     color: var(--_accent-yellow);
     background-color:white;
     font-family: "Inter-Regular", Helvetica;
-    width:50%;
+    padding:20px;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 400; 
     letter-spacing: 0;
     line-height: normal;
     cursor: pointer;
     margin-top:50px;
-  }
-  .userSettigns .desktop .text-wrapper-10{
-    color: var(--_accent-yellow);
-    background-color:white;
-    font-family: "Inter-Regular", Helvetica;
-    width:50%;
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: normal;
-    cursor: pointer;
+    border-radius: 30px;
   }
   .userSettings .desktop .text-wrapper-JoinNow{
     margin:0 auto;
