@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import '../styles/CreateCourse.css'
 import {db, storage} from '../config/firebase';
-import { collection, addDoc, serverTimestamp, setDoc, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { async } from '@firebase/util';
+// import { async } from '@firebase/util';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import UploadIcon from "../icons/UploadIcon";
+import EditIcon from "../icons/EditIcon";
+import DeleteIcon from "../icons/DeleteIcon";
 
 const CreateCourse = () =>{
     const courseTitleRef = useRef();
@@ -274,13 +276,20 @@ const CreateCourse = () =>{
                                         <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
                                     </div>
                                     <div className='chapter-files'>
-                                        {chapter.chapterFileNames.map((fileName)=>{
-                                            return(
-                                                <div className='individual-chapter-file' key={fileName+crypto.randomUUID()}>
-                                                    <p>{fileName}</p>
-                                                </div>
-                                            )
-                                        })}
+                                        <div className='chapter-files__files'>
+                                            <p className='chapter-files__label'>Files Uploaded:</p>
+                                            {chapter.chapterFileNames.map((fileName)=>{
+                                                return(
+                                                    <div className='individual-chapter-file' key={fileName+crypto.randomUUID()}>
+                                                        <p>{fileName}</p>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                        <div className='chapter-files__icons'>
+                                            <EditIcon />
+                                            <DeleteIcon />
+                                        </div>
                                     </div>
                                     
                                 </div>
@@ -298,7 +307,7 @@ const CreateCourse = () =>{
                                 {/* <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea> */}
                             </div>
                             <div className='createCourse__files-buttons'>
-                                <div>
+                                <div className='createCourse__files-btns'>
                                     <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
                                     <button className='createCourse__upload-btn' onClick={uploadFile}><UploadIcon /> Upload File</button>
                                 </div>
