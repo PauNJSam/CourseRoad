@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { auth } from "../config/firebase";
+import {db} from '../config/firebase';
+import { query, getDoc, doc} from "firebase/firestore";
 import "../styles/DashboardLayout.css";
 import { useNavigate } from "react-router-dom";
 import courseroad_logo from "../images/courseroad_logo.png";
@@ -13,6 +16,29 @@ import backgroundcontainer3 from "../images/backgroundcontainer3.png";
 
 const DashboardLayout = () => {
     const navigate = useNavigate();
+    const loggedInEmail = auth?.currentUser?.email;
+    const [userName, setUserName] = useState(null);
+    const [userProfile, setUserProfile] = useState(null);
+
+    useEffect(() => {
+        getUserInfo();
+    }, [])
+    
+
+    const getUserInfo = async () => {
+        const q = query(doc(db, "USERS", loggedInEmail));
+
+        const docSnap = await getDoc(q);
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            setUserName(docSnap.data().userName);
+            setUserProfile(docSnap.data().profilePic);
+          } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+          }
+    };
+
     return(
         <section className='dashboard-nav'>
             <article className='dashboard-nav__nav-panel'>
@@ -21,10 +47,10 @@ const DashboardLayout = () => {
                     <BellIcon className='nav-panel__align-center'></BellIcon>
                     <div className='dashboard-nav__vertical-line nav-panel__align-center'></div>
                     <div className='dashboard-nav__profile-pic'>
-                        <img src={backgroundcontainer3} alt='profile' />
+                        <img src={userProfile} alt='profile' />
                     </div>
                     <div className='dashboard-nav__username nav-panel__align-center'>
-                        {<p>John Pedro Smith</p>}
+                        {<p>{userName}</p>}
                     </div>
                     <SettingsIcon className='nav-panel__align-center' onClick={()=>navigate("/dashboard/userSettings")}></SettingsIcon>
                 </div>
