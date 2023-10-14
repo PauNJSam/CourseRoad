@@ -9,13 +9,20 @@ import {db, storage} from '../config/firebase';
 import { doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import screenbg from "../images/screen_bg.png";
+import { signOut } from "firebase/auth";
 
 
 
 const UserSettings = () => {
     const navigate = useNavigate();
-    const landingpage =() => {
-        navigate('/');
+    const landingpage = async () => {
+        try{
+            await signOut(auth);
+            console.log("user has been logged out");
+            navigate("/");
+        } catch(err){
+            console.log(err);
+        }
     }
     const teacherhome =() => {
         navigate('/dashboard/teacherhome');
@@ -31,10 +38,10 @@ const UserSettings = () => {
     useEffect(() => {
         console.log("User logged in: ", loggedInEmail);
     }, []);
-    
+
     const setProfilePic = () => {
         if (profilePicUpload === null) return;
-    
+     
         const imageRef = ref(storage, `profilePictures/${profilePicUpload.name}`);
         
         uploadBytes(imageRef, profilePicUpload).then(async () => {
