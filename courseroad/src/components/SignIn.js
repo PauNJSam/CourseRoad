@@ -62,7 +62,7 @@ const googleSignin = async () => {
         />
         <input
         ref={passRef}
-          type="text"
+          type="password"
           placeholder="Password"
           className="sign-in-page-input-text-boxinput1"
         />

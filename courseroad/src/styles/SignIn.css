@@ -58,7 +58,8 @@
   .sign-in-page-input-text-boxinput {
     top: 347px;
     left: 516px;
-    color: rgba(217, 217, 217, 1);
+    /* color: rgba(217, 217, 217, 1); */
+    color: var(--_dark);
     width: 417px;
     height: 55px;
     display: flex;
@@ -78,7 +79,8 @@
   .sign-in-page-input-text-boxinput1 {
     top: 464px;
     left: 516px;
-    color: rgba(217, 217, 217, 1);
+    /* color: rgba(217, 217, 217, 1); */
+    color: var(--_dark);
     width: 417px;
     height: 51px;
     display: flex;
