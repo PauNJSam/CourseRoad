@@ -49,6 +49,7 @@ const TeacherApplicationForm = ({ open, close }) => {
 
     const submit_application = async () => {
 // Add a new document with a generated id.
+            if(resumeFile == null) return;
             const docRef = await addDoc(collection(db, "TAPPLICATIONS"), {
                 duc_bg: educ_bgRef.current.value,
                 teach_exp: teach_expRef.current.value,
@@ -91,13 +92,17 @@ const TeacherApplicationForm = ({ open, close }) => {
                 <p className="teacher-app__title">Teacher Application Form</p>
                 <div className="teacher-app__form-container">
                     <form className="teacher-app__form" >
-                        <label>Educational Background<input type="text" ref={educ_bgRef} required></input></label>
-                        <label>Teaching Experience (yrs.)<input type="text" ref={teach_expRef} required></input></label>
-                        <label>Current Affiliation<input type="text" ref={current_affRef} required></input></label>
-                        <label>Resume<input type="file" onChange={(event)=> {setTeacherResume(event.target.files[0])}} required></input></label>
-                        <p>Pdf. & docx</p>
-                        <button type="button" onClick={uploadResume}>Upload Resume</button>
-                        <button type="button" onClick={submit_application}>Submit</button>
+                        <div className="form__text-inputs">
+                            <label>Educational Background<input type="text" ref={educ_bgRef} required></input></label>
+                            <label>Teaching Experience (yrs.)<input type="text" ref={teach_expRef} required></input></label>
+                            <label>Current Affiliation<input type="text" ref={current_affRef} required></input></label>
+                        </div>
+                        <div className="form__file-input">
+                            <label>Resume<input type="file" onChange={(event)=> {setTeacherResume(event.target.files[0])}} required></input></label>
+                            <p>Pdf. & docx</p>
+                            <button type="button" onClick={uploadResume}>Upload Resume</button>
+                            <button type="button" onClick={submit_application}>Submit</button>
+                        </div>
                     </form>
                 </div>
                 

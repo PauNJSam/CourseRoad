@@ -16,3 +16,29 @@
     left: 25%;
     background-color: #ffffff;
 }
+.teacher-app__title{
+    font-size: 2rem;
+    margin: 0 auto;
+}
+.teacher-app__form{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+.teacher-app__overlay .form__text-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 65%;
+}
+.teacher-app__overlay .form__text-inputs input{
+    display: block;
+    width: 100%;
+}
+.teacher-app__overlay .form__file-input{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 35%;
+}
