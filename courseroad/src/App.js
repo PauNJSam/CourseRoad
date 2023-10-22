@@ -15,7 +15,7 @@ import AdminCourseReports from './components/AdminCourseReports';
 import AdminTeacherApplications from './components/AdminTeacherApplications';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import AboutUs from './components/About_Us';
+import AboutUs from './components/UsAbout';
 import FAQs from './components/FAQs';
 import UserSettings from './components/UserSettings';
 

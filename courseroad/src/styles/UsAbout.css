@@ -1,0 +1,335 @@
+/* body, html {
+    height: 100%;
+    margin: 0;
+  } */
+  
+  /*body {
+    font-family: 'work-sans', sans-serif;
+    background: linear-gradient(180deg, #4674BC 0%, rgb(89, 152, 197) 100%);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }*/
+  
+  .aboutUsPage {
+    font-family: 'work-sans', sans-serif;
+    background: linear-gradient(180deg, #4674BC 0%, rgb(89, 152, 197) 100%);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
+  
+  
+  .aboutUsPage  .main-content {
+    flex: 1 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10vh;
+  }
+  
+  .aboutUsPage .header {
+    width: 100%; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 0 5%;
+    height: 70;
+    position: absolute; 
+    top: 0;
+  }
+  
+  .aboutUsPage .courseRoadText {
+    color: #226CE0;
+    position: relative;
+    top: -10px; 
+  }
+  
+  .aboutUsPage .logo img {
+    height: 50px;
+    margin-right: 20px;
+  }
+  
+  .aboutUsPage .profile img {
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .aboutUsPage  .profile-options {
+    display: none;
+    list-style-type: none;
+    padding: 0;
+    position: absolute;
+    top: 60px;
+    right: 5%;
+    background-color: #fff;
+    border: 1px solid #e4070700;
+    z-index: 10;
+    font-size: 0.8rem;
+    color: #333; 
+  }
+  
+  .aboutUsPage h1 {
+    font-size: 5rem; 
+    margin-top: 120px; 
+  }
+  
+  .aboutUsPage  .statements {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10rem 5%;
+    flex-wrap: wrap;
+  }
+  
+  .aboutUsPage .statement-box {
+    flex: 1;
+    max-width: 45%; 
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.336);
+    padding: 5rem; 
+    transition: transform 0.3s ease;
+    text-align: justify;
+  }
+  
+  .aboutUsPage .statement-box:hover {
+    background-color: #ffffff; 
+    transform: scale(1.1);
+  }
+  
+  .aboutUsPage  .statement-title {
+    font-size: 2rem; 
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .aboutUsPage .goBack {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .aboutUsPage .goBack button {
+    padding: 0.75rem 1.5rem;
+    background-color: #ffffff67;
+    border: none;
+    border-radius: 350px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    position: relative;
+    top: -20px; 
+  }
+  
+  .aboutUsPage .goBack button:hover {
+    background-color: #ddd;
+  }
+  
+  .aboutUsPage  .profile-options {
+    list-style-type:none; 
+    padding: 0;
+  }
+  
+  .aboutUsPage .profile-options li {
+    margin: 10px 0; 
+  }
+  
+  .aboutUsPage .profile-options button {
+    background-color: #f7f7f700;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #333; 
+  }
+  
+  .aboutUsPage .profile-options button:hover {
+    background-color: #e0e0e000;
+    color: #444;
+  }
+  
+  .aboutUsPage .indented-text {
+    text-indent: 230px; 
+  }
+  
+  @media (max-width: 768px) {
+    .aboutUsPage .statements {
+        flex-direction: column;
+        align-items: center;
+    }
+  
+    .aboutUsPage .statement-box {
+        max-width: 90%;
+        margin-bottom: 2rem;
+    }
+  }
+  
+  .aboutUsPage footer {
+    background-color: #ffffff;
+    color: rgb(2, 1, 1);
+    padding: 20px 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    flex-shrink: 0;
+  }
+  
+  .aboutUsPage .footer-content {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    box-sizing: border-box;
+    margin: auto;  
+  }
+  
+  .aboutUsPage  .footer-logo img {
+    width: 150px;
+  }
+  
+  .aboutUsPage .footer-copyright {
+    flex: 1;
+    text-align: Lef;
+    font-size: 14px;
+  }
+  
+  .aboutUsPage .footer-links {
+    flex: 3;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .aboutUsPage .footer-about-us, .footer-social, .footer-contact {
+    flex: 1;
+  }
+  
+  .aboutUsPage .footer-about-us h3, .footer-social h3, .footer-contact h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .aboutUsPage  .footer-social ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .aboutUsPage .footer-social ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    margin-bottom: 8px;
+  }
+  
+  .aboutUsPage .footer-social img {
+    margin-right: 10px;
+  }
+  
+  .aboutUsPage .footer-contact p {
+    margin: 10px 0;
+  }
+  
+  .aboutUsPage .footer-contact span {
+    color: #000000b9;
+  }
+  
+  
+  /*Newly Added*/
+  /* Team.css */
+  
+  .aboutUsPage .team-container {
+    text-align: center;
+    padding: 100px 0;
+  }
+  
+  .aboutUsPage h1 {
+    font-size: 120px;
+    margin-bottom: 20px;
+  }
+  
+  .aboutUsPage .team-members {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    justify-content: space-around; 
+  }
+  
+  .aboutUsPage  .team-member {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  }
+  
+  .aboutUsPage .team-member:hover {
+    transform: scale(1.2);
+  }
+  
+  .aboutUsPage  .member-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }
+  
+  .aboutUsPage  .member-info {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:rgba(255, 255, 255, 0.8);
+    padding: 120px 60px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    max-width: 600px; 
+    width: 100%; 
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .aboutUsPage .member-image-container {
+    flex: 1;
+    margin-right: 20px;
+    max-width: 500px; 
+  }
+  
+  
+  .aboutUsPage .member-info.active {
+    opacity: 1;
+  }
+  
+  .aboutUsPage  .selected-member-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+    float: left;
+  }
+  
+  .aboutUsPage  .member-details {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .aboutUsPage  button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .aboutUsPage  button:hover {
+    background-color: #0056b3;
+  }
