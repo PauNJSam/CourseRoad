@@ -9,6 +9,9 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup } from 'firebase/auth';
 import ForgotPass from '../modals/ForgotPass';
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 
 const SignInPage = (props) => {
@@ -24,6 +27,7 @@ const SignInPage = (props) => {
     try{signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
         .then((userCredentials) => {
             console.log("User credentials: ",userCredentials);
+            cookies.set("auth-token", userCredentials.user.refreshToken);
             navigate("/dashboard");
         }) .catch((err) => {
             console.log(err);

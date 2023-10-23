@@ -12,21 +12,43 @@ import FacebookIcon from "../icons/FacebookIcon";
 import InstagramIcon from "../icons/InstagramIcon";
 import GmailIcon from "../icons/GmailIcon";
 import LinkedInIcon from "../icons/LinkedInIcon";
-import backgroundcontainer3 from "../images/backgroundcontainer3.png";
+// import backgroundcontainer3 from "../images/backgroundcontainer3.png";
+import Cookies from "universal-cookie";
+import { onAuthStateChanged } from "firebase/auth";
+
+
+const cookies = new Cookies();
 
 const DashboardLayout = () => {
     const navigate = useNavigate();
     const loggedInEmail = auth?.currentUser?.email;
     const [userName, setUserName] = useState(null);
     const [userProfile, setUserProfile] = useState(null);
+    const [userEmail, setEmail] = useState(loggedInEmail);
 
     useEffect(() => {
-        getUserInfo();
-    }, [])
+        // getUserInfo();
+        console.log("Loged in User (DashboardLayout): ", auth?.currentUser?.email);
+        console.log("Get auth token: ", cookies.get("auth-token"));
+        const unsubscribe = onAuthStateChanged(auth, (userData)=>{
+            if(userData){
+                setEmail(userData.email);
+                // console.log("EditFCSet: Current User is ", loggedInEmail);
+                if(userEmail){
+                    getUserInfo();
+                }
+            }
+        });
+        console.log("EditFCSet: useEffect has run");
+        //getData();
+        return () => {
+            unsubscribe();
+        }
+    }, [loggedInEmail])
     
 
     const getUserInfo = async () => {
-        const q = query(doc(db, "USERS", loggedInEmail));
+        const q = query(doc(db, "USERS", userEmail));
 
         const docSnap = await getDoc(q);
         if (docSnap.exists()) {
