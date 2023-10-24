@@ -1,0 +1,62 @@
+.teacher-home{
+    background-color: var(--_light);
+    padding: 5% 10%;
+    min-height: 90vh;
+}
+.teacher-home__header{
+    font-family: var(--_worksans);
+    color: var(--_mid-grey);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.teacher-home__button{
+    border: none;
+    color: var(--_pure-white);
+    background: var(--_prim-blue);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.teacher-home__card-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.teacher-home .course-card{
+    background-color: var(--_pure-white);
+    border-radius: 15px;
+    width: 12.5rem;
+    height: 15.625rem;
+    max-width: 40vw;
+    box-shadow: var(--_box-shadow);
+    cursor: pointer;
+}
+.teacher-home .course-pic .course-thumbnail{
+    width: 100%;
+    height: 8.125rem;
+    max-height: 8.125rem;
+    border-radius: 15px 15px 0 0;
+}
+.teacher-home .course-card__details{
+    padding: 5% 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 7rem;
+}
+.teacher-home .course-title{
+    margin-bottom: 0.5rem;
+}
+.teacher-home .course-numberOfStudents{
+    color: var(--_mid-grey);
+    font-size: 0.8rem;
+}
+.teacher-home .course-card__icons{
+    align-self: flex-end;
+}
+.teacher-home .icon{
+    cursor: pointer;
+}

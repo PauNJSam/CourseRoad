@@ -1,15 +1,16 @@
 import React from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import '../styles/AdminLayout.css';
 const AdminLayout = () => {
     return(
-        <React.Fragment>
-            <nav>
+        <section className='admin-nav'>
+            <nav className='admin-nav__panel'>
                 <h1>This the adminLayout's navbar</h1>
             </nav>
-            <section>
+            <section className='admin-nav__outlet'>
                 <Outlet />
             </section>
-        </React.Fragment>
+        </section>
     );
 };
 

@@ -6,7 +6,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import CloseIcon from "../icons/CloseIcon";
 import "../styles/TeacherApplicationForm.css";
 
-const TeacherApplicationForm = ({ email, open, close }) => {
+const TeacherApplicationForm = ({ dp, email, open, close }) => {
 
     const loggedInEmail = auth?.currentUser?.email;
     const educ_bgRef = useRef();
@@ -58,7 +58,8 @@ const TeacherApplicationForm = ({ email, open, close }) => {
                 resume: resumeFile,
                 userEmail: loggedInEmail,
                 dateCreated: serverTimestamp(),
-                isAccepted: null
+                isAccepted: null,
+                userProfilePic: dp
     
             }).then((docRef)=>{
                 alert("Application Sent");
@@ -73,16 +74,16 @@ const TeacherApplicationForm = ({ email, open, close }) => {
 
         const resumeRef = ref(storage, `teacherResumes/${teacherResume.name + crypto.randomUUID()}`);
         uploadBytes(resumeRef, teacherResume).then(()=>{
-            alert("Image Uploaded");
+            alert("Resume Uploaded");
             getDownloadURL(resumeRef).then(async(url)=>{
                 setResumeFile(url);
-                console.log("The picture URL: ",url);
+                console.log("The resume URL: ",url);
             }).catch((error) => {
-                console.error('Error getting image URL: ', error);
+                console.error('Error getting resume URL: ', error);
             });
             
         }).catch((error) => {
-            console.error('Error uploading image: ', error);
+            console.error('Error uploading resume: ', error);
         });
     };
 
