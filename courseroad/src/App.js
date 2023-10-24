@@ -19,6 +19,7 @@ import AboutUs from './components/UsAbout';
 import FAQs from './components/FAQs';
 import UserSettings from './components/UserSettings';
 import EditCourse from './components/EditCourse';
+import StudentHome from './components/StudentHome';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
         <Route path="createcourse" element={<CreateCourse />}></Route>
         <Route path="userSettings" element={<UserSettings />}></Route>
         <Route path="editCourse" element={<EditCourse />}></Route>
+        <Route path="studentHome" element={<StudentHome />}></Route>
       </Route>
 
       <Route path="adminsignin" element={<AdminSignIn />}></Route>

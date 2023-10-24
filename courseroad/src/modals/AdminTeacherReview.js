@@ -7,7 +7,7 @@ const AdminTeacherReview = ({ open, close }) => {
 
     return(
         <div onClick={close} className="teacher-review__overlay">
-            <div className="teacher-reveiw__modal-container" onClick={(e)=>{e.stopPropagation();}}>
+            <div className="teacher-review__modal-container" onClick={(e)=>{e.stopPropagation();}}>
                 
                 <CloseIcon className="teacher-review__close-btn" onClick={close}></CloseIcon>
                 {/* insert code here */}
