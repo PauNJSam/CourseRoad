@@ -103,14 +103,16 @@ import { useState, useEffect } from "react";
 import TeacherApplicationForm from "../modals/TeacherApplicationForm";
 import "../styles/UserSettings.css";
 import EditIcon from "../icons/EditIcon";
-import backgroundcontainer3 from "../images/backgroundcontainer3.png";
+// import backgroundcontainer3 from "../images/backgroundcontainer3.png";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { auth } from "../config/firebase";
 import {db, storage} from '../config/firebase';
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, query, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import screenbg from "../images/screen_bg.png";
+// import screenbg from "../images/screen_bg.png";
 import { signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 
 const UserSettings = () => {
@@ -134,10 +136,34 @@ const UserSettings = () => {
     const [profilePicURL, setProfilePicURL] = useState(null);
     const loggedInEmail = auth?.currentUser?.email;
     const [dp, setDp] = useState(null);
+    const [email, setEmail] = useState(loggedInEmail);
 
     useEffect(() => {
         console.log("User logged in: ", loggedInEmail);
-    }, []);
+        const unsubscribe = onAuthStateChanged(auth, (userData)=>{
+            if(userData){
+                setEmail(userData.email);
+                getUserPic();
+            }
+        });
+        
+        return () => {
+            unsubscribe();
+        }
+    }, [loggedInEmail]);
+
+    const getUserPic = async () => {
+        const q = query(doc(db, "USERS", email));
+
+        const docSnap = await getDoc(q);
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            setDp(docSnap.data().profilePic);
+          } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+          }
+    };
 
     const setProfilePic = () => {
         if (profilePicUpload === null) return;
@@ -214,7 +240,7 @@ const UserSettings = () => {
                     </div>
                 </div>
             </div>
-            <TeacherApplicationForm open={openModal} close={() => setOpenModal(false)} />
+            <TeacherApplicationForm email={email} open={openModal} close={() => setOpenModal(false)} />
         </section>
             
     );

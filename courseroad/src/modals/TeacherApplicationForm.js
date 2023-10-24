@@ -6,7 +6,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import CloseIcon from "../icons/CloseIcon";
 import "../styles/TeacherApplicationForm.css";
 
-const TeacherApplicationForm = ({ open, close }) => {
+const TeacherApplicationForm = ({ email, open, close }) => {
 
     const loggedInEmail = auth?.currentUser?.email;
     const educ_bgRef = useRef();
@@ -14,6 +14,7 @@ const TeacherApplicationForm = ({ open, close }) => {
     const current_affRef = useRef();
     const [teacherResume, setTeacherResume] = useState('');
     const [resumeFile, setResumeFile] = useState();
+    
 
     if (!open) return null;
 
@@ -57,6 +58,7 @@ const TeacherApplicationForm = ({ open, close }) => {
                 resume: resumeFile,
                 userEmail: loggedInEmail,
                 dateCreated: serverTimestamp(),
+                isAccepted: null
     
             }).then((docRef)=>{
                 alert("Application Sent");
