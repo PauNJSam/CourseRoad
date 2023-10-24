@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import '../styles/CreateCourse.css'
+import '../styles/EditCourse.css'
 import {db, storage} from '../config/firebase';
-import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 // import { async } from '@firebase/util';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -13,8 +13,9 @@ import DeleteIcon from "../icons/DeleteIcon";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
+// courseID is needed inig click sa course from the teacherDashboard
 
-const CreateCourse = () =>{
+const EditCourse = () =>{
     const loggedInEmail = auth?.currentUser?.email;
     const courseTitleRef = useRef();
     const courseDescriptionRef = useRef();
@@ -25,15 +26,15 @@ const CreateCourse = () =>{
     const chapterIDRef = useRef(); */
     const [courseID, setCourseID] = useState();
     const [chapterID, setChapterID] = useState();
-    /* let theCourseID;
-    let theChapterID; */
     const [imageUpload, setImageUpload] = useState(null);
     const [courseThumbnail, setCourseThumbnail] = useState(null);
     const [fileUpload, setFileUpload] = useState(null);
     const [chapterFile, setChapterFile] = useState([]);
     const [chapterFileNames, setChapterFileNames] = useState([]);
     const [chaptersData, setChaptersData] = useState([]);
+
     const [userEmail, setUserEmail] = useState(loggedInEmail);
+    const [courseData, setCourseData] = useState(null);
 
     const navigate = useNavigate();
     
@@ -62,37 +63,21 @@ const CreateCourse = () =>{
         toolbar: toolbarOptions,
     };
 
-    /* useEffect(() => {
-      console.log(getChapters());
-      console.log(chapterID);
-      return () => {
-        
-      }
-    }, [chapterID]); */
-
-    /* const getChapters = async (id) => {
-       const q = query(collection(db, "CHAPTERS"));
-       const querySnapshot = await getDocs(q)
-       const chapterArr = querySnapshot.docs.map(async (doc)=> {
-        const data = doc.data();
-        return data;
-       })
-       const chapterData = await Promise.all(chapterArr);
-       return chapterData;
-            
-    }; */
 
     useEffect(() => {
+        getCourse();
+        getChapters();
         const unsubscribe = onAuthStateChanged(auth, (userData)=>{
             if(userData){
                 setUserEmail(userData.email);
-                console.log("User logged in (CreateCourse): ", userData.email);
+                console.log("User logged in (EditCourse): ", userData.email);
             }
         });
     
       return () => {
         unsubscribe();
       }
+      
     }, [loggedInEmail])
     
 
@@ -100,56 +85,34 @@ const CreateCourse = () =>{
         const q = query(collection(db, "CHAPTERS"), where("courseID", "==", courseID), orderBy("dateCreated", "asc"));
 
         const querySnapshot = await getDocs(q);
-        /* const chaptersArray = querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
-            chapterTitle: doc.data().chapterTitle;
-            chapterDescription: doc.data().chapterDescription;
-            chapterFiles: doc.data().chapterFiles;
-        }); */
 
         setChaptersData(querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id})));
+    };
+    const getCourse = async () => {
+        const docRef = doc(db, "COURSESCREATED", courseID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setCourseData(docSnap.data())
+        } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+        }
     };
     
 
     const saveCourse = async () => {
-
         navigate("/dashboard");
-
-        /* This button will use setDoc to update the fields that require their own
-        firebase generated IDs and also to route back to the dashboard */
-        
-        /* let courseTitleNoSpace = courseTitleRef.current.value.split(' ').join('');
-        let courseTitledoc = courseTitleNoSpace.toLowerCase(); */
-        /* let courseDocUID = crypto.randomUUID();
-
-        console.log(courseDescriptionRef.current.value, chapterDescriptionRef.current.value, chapterTitleRef.current.value);
-
-        courseTitleRef.current.value = '';
-        courseDescriptionRef.current.value = ''; */
-
-        /* try {
-            await setDoc(doc(db, "COURSESCREATED", courseDocUID), {
-                // ...doc.data,
-                [qNumber]: newQuestion,
-                [aNumber]: newAnswer,
-
-            }, {merge: true});
-
-            setNextNumber(nextNumber+1);
-            setNewAnswer("");
-            setNewQuestion("");
-        } catch (err) {
-            console.error(err); 
-        }  */
     };
+
     const createCourse = async (e) => {
         e.preventDefault();
 // Add a new document with a generated id.
             const docRef = await addDoc(collection(db, "COURSESCREATED"), {
                 courseTitle: courseTitleRef.current.value,
                 courseDescription: courseDescriptionRef.current.value,
-                courseTeacher: userEmail,
+                courseTeacher: "",
                 courseID: "",
                 dateCreated: serverTimestamp(),
                 numberOfStudents: 0,
@@ -261,8 +224,8 @@ const CreateCourse = () =>{
             <div className='edit-course-container'>
                 <article className='course-head article-flex'>
                         <div className='createCourse__text-inputs'>
-                            <input className='course-head__textbox' type='text' ref={courseTitleRef} placeholder='Course Title' required></input>
-                            <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder='Course Description...'></textarea>
+                            <input className='course-head__textbox' type='text' ref={courseTitleRef} placeholder={courseData?.courseTitle} required></input>
+                            <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder={courseData?.courseDescription}></textarea>
                         </div>
                         <div className='createCourse__files-buttons'>
                             {
@@ -347,4 +310,4 @@ const CreateCourse = () =>{
     );
 };
 
-export default CreateCourse;
+export default EditCourse;

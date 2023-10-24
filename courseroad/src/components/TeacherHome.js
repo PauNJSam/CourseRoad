@@ -2,9 +2,9 @@ import React from 'react';
 
 const TeacherHome = () => {
     return(
-        <React.Fragment>
+        <section className='teacher-home' >
             <p>This is the Teacher Home Page or Teacher Dashboard</p>
-        </React.Fragment>
+        </section>
     );
 };
 export default TeacherHome;
