@@ -153,16 +153,21 @@ const UserSettings = () => {
     }, [loggedInEmail]);
 
     const getUserPic = async () => {
-        const q = query(doc(db, "USERS", email));
+        try{
+            const q = query(doc(db, "USERS", email));
 
-        const docSnap = await getDoc(q);
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            setDp(docSnap.data().profilePic);
-          } else {
-            // docSnap.data() will be undefined in this case
-            console.log("No such document!");
-          }
+            const docSnap = await getDoc(q);
+            if (docSnap.exists()) {
+                console.log("Document data:", docSnap.data());
+                setDp(docSnap.data().profilePic);
+            } else {
+                // docSnap.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        } catch(err){
+            console.log(err.message);
+        }
+        
     };
 
     const setProfilePic = () => {
@@ -240,7 +245,7 @@ const UserSettings = () => {
                     </div>
                 </div>
             </div>
-            <TeacherApplicationForm email={email} open={openModal} close={() => setOpenModal(false)} />
+            <TeacherApplicationForm dp={dp} email={email} open={openModal} close={() => setOpenModal(false)} />
         </section>
             
     );
