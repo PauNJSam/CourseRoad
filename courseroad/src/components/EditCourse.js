@@ -20,8 +20,8 @@ const EditCourse = () =>{
     const loggedInEmail = auth?.currentUser?.email;
     const courseTitleRef = useRef();
     const courseDescriptionRef = useRef();
-    const chapterTitleRef = useRef();
-    const chapterDescriptionRef = useRef();
+    const chapterTitleRef = useRef(null);
+    const chapterDescriptionRef = useRef(null);
     const [displayChapterForm, setDisplayChapterForm] = useState(false);
     const [courseID, setCourseID] = useState();
     const [chapterID, setChapterID] = useState();
@@ -35,6 +35,13 @@ const EditCourse = () =>{
     const [userEmail, setUserEmail] = useState(loggedInEmail);
     const [courseData, setCourseData] = useState(null);
     const [showTextEditor, setShowTextEditor] = useState(false);
+    const newChapterTitleRef = useRef();
+    const [newChapterFiles, setNewChapterFiles] = useState([]);
+    const [newChapterFileNames, setNewChapterFileNames] = useState([]);
+    /* const updatedChapterTitleRef = useRef(null);*/
+    const updatedChapterDescriptionRef = useRef(null); 
+    const [updatedChapTitle, setUpdatedChapTitle] = useState("");
+    // const [updatedChapDes, setUpdatedChapDes] = useState("");
 
     const navigate = useNavigate();
     
@@ -159,36 +166,127 @@ const EditCourse = () =>{
             console.error('Error Uploading Image', err)
         }
 
-        /* const thumbnailRef = ref(storage, `courseThumbnails/${oldThumbnail}`);
-
-        deleteObject(thumbnailRef).then(() => {
-            console.log("Old Thumbnail Deleted successfully");
-
-            const imageRef = ref(storage, `courseThumbnails/${imageUpload.name + crypto.randomUUID()}`);
-
-            uploadBytes(imageRef, imageUpload).then(()=>{
-                alert("New Course Thumbnail Uploaded");
-                getDownloadURL(imageRef).then((url)=>{
-                    setCourseThumbnail(url);
-                    console.log("The picture URL: ",url);
-                }).catch((error) => {
-                    console.error('Error getting image URL: ', error);
-                });
-                
-            }).catch((error) => {
-                console.error('Error uploading image: ', error);
-            });
-
-        }).catch((error) => {
-            console.log("Error Deleting Thumbnail",error.message);
-        }); */
-
     };
 
+    // uploading new file and updating the chapter fields for the new file
+    const uploadNewFile = (chapterID) => {
+        if(fileUpload == null) return;
+
+        const fileRef = ref(storage, `${courseDocID}/${fileUpload.name + crypto.randomUUID()}`);
+        uploadBytes(fileRef, fileUpload).then(()=>{
+            alert("File Uploaded");
+            getDownloadURL(fileRef).then(async(url)=>{
+                /* setNewChapterFiles([...chapterFiles, url]);
+                setNewChapterFileNames([...chapterFileNames, fileUpload.name]); */
+                const chapterDocRef = doc(db, "CHAPTERS", chapterID)
+                
+                    await updateDoc(chapterDocRef, {
+                        chaptersFiles: arrayUnion(
+                            url
+                        ),
+                        chapterFileNames: arrayUnion(
+                            fileUpload.name
+                        )
+
+                    }).then(()=>{
+                        /* setNewChapterFiles([]);
+                        setNewChapterFileNames([]); */
+                        getChapters();
+                        console.log("Successfully updated course with new chapter files");
+                    }).catch((error) => {
+                        console.error('Error updating course with new chapter files', error);
+                    });
+
+            }).catch((error) => {
+                console.error('Error getting chapter file URL: ', error);
+            });
+            
+        }).catch((error) => {
+            console.error('Error uploading chapter: ', error);
+        });
+    };
+
+    const updateChapTitle = async (cID) => {
+        const chapterDocRef = doc(db, "CHAPTERS", cID);
+        await updateDoc(chapterDocRef, {
+            chapterTitle: updatedChapTitle
+
+        }).then(()=>{
+            setUpdatedChapTitle("");
+            getChapters();
+            console.log("Successfully updated chapter");
+        }).catch((error) => {
+            console.error('Error updating chapter', error);
+        });
+    }
+    const updateChapDes = async (cID) => {
+        if(updatedChapterDescriptionRef==null) return;
+        const chapterDocRef = doc(db, "CHAPTERS", cID);
+        await updateDoc(chapterDocRef, {
+            chapterDescription: updatedChapterDescriptionRef.current.value
+
+        }).then(()=>{
+            // setUpdatedChapDes("");
+            updatedChapterDescriptionRef.current.value = "";
+            getChapters();
+            console.log("Successfully updated chapter");
+        }).catch((error) => {
+            console.error('Error updating chapter', error);
+        });
+    };
+    const updateChapter = async (chapID) => {};
+
+    /* const updateChapter = async (chapID) => {
+        const chapterDocRef = doc(db, "CHAPTERS", chapID);
+        // console.log(updatedChapterDescriptionRef.current.value, updatedChapterTitleRef.current.value);
+        if(updatedChapterTitleRef.current.value!=null && updatedChapterDescriptionRef.current.value!=null){
+            await updateDoc(chapterDocRef, {
+                chapterTitle: updatedChapterTitleRef.current.value,
+                chapterDescription: updatedChapterDescriptionRef.current.value,
+
+            }).then(()=>{
+                updatedChapterDescriptionRef.current.value = '';
+                updatedChapterTitleRef.current.value = '';
+                getChapters();
+                console.log("Successfully updated chapter");
+            }).catch((error) => {
+                console.error('Error updating chapter', error);
+            });
+        } else if(updatedChapterTitleRef.current.value!=null && updatedChapterDescriptionRef.current.value==null){
+            await updateDoc(chapterDocRef, {
+                chapterTitle: chapterTitleRef.current.value
+
+            }).then(()=>{
+                updatedChapterTitleRef.current.value = '';
+                getChapters();
+                console.log("Successfully updated chapter");
+            }).catch((error) => {
+                console.error('Error updating chapter', error);
+            });
+        } else if(updatedChapterTitleRef.current.value==null && updatedChapterDescriptionRef.current.value!=null){
+            await updateDoc(chapterDocRef, {
+                chapterDescription: updatedChapterDescriptionRef.current.value,
+
+            }).then(()=>{
+                updatedChapterTitleRef.current.value = '';
+                getChapters();
+                console.log("Successfully updated chapter");
+            }).catch((error) => {
+                console.error('Error updating chapter', error);
+            });
+        } else{
+            console.log("Nothing was inputted to update chapter");
+            return;
+        }
+                
+                    
+    }; */
+
+    // uploading a file for a newly created chapter
     const uploadFile = () => {
         if(fileUpload == null) return;
 
-        const fileRef = ref(storage, `${courseID}/${fileUpload.name + crypto.randomUUID()}`);
+        const fileRef = ref(storage, `${courseDocID}/${fileUpload.name + crypto.randomUUID()}`);
         uploadBytes(fileRef, fileUpload).then(()=>{
             alert("File Uploaded");
             getDownloadURL(fileRef).then((url)=>{
@@ -204,23 +302,21 @@ const EditCourse = () =>{
         });
     };
 
-    const addChapter = async (id) => {
+    const addNewChapter = async () => {
         
-        console.log("Inside addChapter courseID: ",courseID);
             const chapterDocRef = await addDoc(collection(db, "CHAPTERS"), {
-                chapterTitle: chapterTitleRef.current.value,
+                chapterTitle: newChapterTitleRef.current.value,
                 chapterDescription: chapterDescriptionRef.current.value,
                 chapterID: "",
                 dateCreated: serverTimestamp(),
-                courseID: courseID,
+                courseID: courseDocID,
                 chapterFiles: chapterFile,
                 chapterFileNames: chapterFileNames
     
             }).then(async (chapterDocRef)=>{
                 
                 setChapterID(chapterDocRef.id);
-                // TO DO: using course ID 
-                const courseDocRef = doc(db, "COURSESCREATED", courseID)
+                const courseDocRef = doc(db, "COURSESCREATED", courseDocID)
                 
                     await updateDoc(courseDocRef, {
                         chapters: arrayUnion({
@@ -228,7 +324,7 @@ const EditCourse = () =>{
                             chapterTitle:  chapterTitleRef.current.value,
                             chapterDescription:  chapterDescriptionRef.current.value
                         })
-                    }).then((courseDocRef)=>{
+                    }).then(()=>{
                         setChapterFile([]);
                         setChapterFileNames([]);
                         chapterDescriptionRef.current.value = '';
@@ -276,28 +372,15 @@ const EditCourse = () =>{
                 chapterFileNames: theFileNames,
                 }).then(()=>{
                     alert("Successfully updated chapter files");
+                    getChapters();
                 });
             } catch(err){
                 console.log("Could not Update doc: ", err);
             }
         } else {
-            // Chapter not found
             return [null, null];
         }
 
-        /* const arrOfFilesAndFileNames = chaptersData.map((chapData)=>{
-            if(chapData.id == id){
-                return(
-                    <div>{chapData.chapterFiles}</div>>
-                );
-            }
-        })
-        
-        const updatedFileNames = [...chapter.chapterFileNames];
-        updatedFileNames.splice(index, 1);
-
-        const updatedFiles = [...chapter.chapterFiles];
-        updatedFiles.splice(index, 1); */
     }
 
     
@@ -337,9 +420,10 @@ const EditCourse = () =>{
                             return(
                                 <div className='added-chapter__chapter' key={chapter.id}>
                                     <div className='chapter-texts'>
-                                        <input type='text' ref={chapterTitleRef} placeholder={chapter.chapterTitle}></input>
+                                        <input type='text' value={updatedChapTitle} onChange={(e)=>{setUpdatedChapTitle(e.target.value)}} placeholder={chapter.chapterTitle}></input>
+                                        <span><button type='button' onClick={()=>{updateChapTitle(chapter.id)}}>Save New Title</button></span>
                                         {
-                                            showTextEditor ? <ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef}/> : <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
+                                            showTextEditor ? <div><ReactQuill modules={module} theme='snow' ref={updatedChapterDescriptionRef} /*value={updatedChapDes} onChange={(e)=>{setUpdatedChapDes(e.target.value)}}*//><span><button type='button' onClick={()=>{updateChapDes(chapter.id)}}>Save New Description</button></span></div> : <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
                                         }
                                         {
                                             showTextEditor ? <button type='button' onClick={closeTextEditor}>Cancel</button> : <button type='button' onClick={editChapterDescription}>Edit Description</button>
@@ -356,14 +440,14 @@ const EditCourse = () =>{
                                                     </div>
                                                 )
                                             })}
-                                            {/* {chapter.chapterFiles.map((fileURL)=>{
-                                                return(
-                                                    <div className='individual-chapter-file' key={fileURL+crypto.randomUUID()}>
-                                                        
-                                                        <span onClick={()=>deleteChapterFile(fileURL)}><DeleteIcon /></span>
-                                                    </div>
-                                                )
-                                            })} */}
+                                            
+                                        </div>
+                                        <div className='createCourse__files-buttons'>
+                                            <div className='createCourse__files-btns'>
+                                                <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
+                                                <button className='createCourse__upload-btn' onClick={()=>{uploadNewFile(chapter.id)}}><UploadIcon /> Upload File</button>
+                                            </div>
+                                            <button className='createCourse__create-course-btn' type='submit' onClick={()=>{updateChapter(chapter.id)}}>Update Chapter</button>
                                         </div>
                                         <div className='chapter-files__icons'>
                                             <DeleteIcon />
@@ -379,7 +463,7 @@ const EditCourse = () =>{
                 <article className='add-new-chapter article-flex'>
                     
                         <div className='createCourse__text-inputs' >
-                            <input type='text' ref={chapterTitleRef} placeholder='Chapter Title' required></input>
+                            <input type='text' ref={newChapterTitleRef} placeholder='Chapter Title'></input>
                             <ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef}/>
                         </div>
                         <div className='createCourse__files-buttons'>
@@ -387,7 +471,7 @@ const EditCourse = () =>{
                                 <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
                                 <button className='createCourse__upload-btn' onClick={uploadFile}><UploadIcon /> Upload File</button>
                             </div>
-                            <button className='createCourse__create-course-btn' type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
+                            <button className='createCourse__create-course-btn' type='submit' onClick={addNewChapter}>Add Chapter</button>
                         </div>
                 
                 </article>
