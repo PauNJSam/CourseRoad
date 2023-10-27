@@ -41,8 +41,8 @@ const TeacherHome = () => {
         }
     };
     
-    const toEditCourse = () =>{
-        navigate("/dashboard/editCourse");
+    const toEditCourse = (courseID) =>{
+        navigate(`/dashboard/editCourse/${courseID}`);
     };
     const toCreateCourse = () =>{
         navigate("/dashboard/createCourse");
@@ -73,7 +73,7 @@ const TeacherHome = () => {
                                             <p className='course-numberOfStudents'>Students: {course.numberOfStudents}</p>
                                         </div>
                                         <div className='course-card__icons'>
-                                            <div className='icon' onClick={toEditCourse}><EditIcon /></div>
+                                            <div className='icon' onClick={()=>{toEditCourse(course.id)}}><EditIcon /></div>
                                         </div>
                                     </div>
                                     
