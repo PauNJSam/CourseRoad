@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import '../styles/EditCourse.css'
 import {db, storage} from '../config/firebase';
-import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy, getDoc, setDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy, getDoc, setDoc, deleteDoc, arrayRemove, FieldValue } from "firebase/firestore";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import ReactQuill from "react-quill";
@@ -131,12 +131,12 @@ const EditCourse = () =>{
             console.error(err);
         } 
             
-    }
+    };
 
 
     const createExam = () => {
 
-    }
+    };
 
     const uploadImage = (oldThumbnail) =>{
         if(imageUpload == null) return;
@@ -260,7 +260,7 @@ const EditCourse = () =>{
                 console.log("Error");
             });
             
-    } 
+    }; 
 
 
     const deleteChapterFile = async (i, id) => {
@@ -294,8 +294,57 @@ const EditCourse = () =>{
             return [null, null];
         }
 
-    }
+    };
 
+    const deleteChapter = async (chapID) => {
+        try {
+            // Reference to the course document
+            const courseRef = doc(db, "COURSESCREATED", courseDocID);
+            // Get the course document
+            const courseDoc = await getDoc(courseRef);
+            const courseData = courseDoc.data();
+            if (courseData && Array.isArray(courseData.chapters)) {
+              // Find the index of the chapter object to delete
+              const indexToDelete = courseData.chapters.findIndex(chapter => chapter.chapterID === chapID);
+              if (indexToDelete !== -1) {
+                // Remove the chapter object from the chapters array
+                courseData.chapters.splice(indexToDelete, 1);
+                // Update the course document with the modified chapters array
+                await setDoc(courseRef, { chapters: courseData.chapters }, { merge: true });
+                // Delete the corresponding chapter document
+                const chapDocRef = doc(db, "CHAPTERS", chapID);
+                await deleteDoc(chapDocRef);
+                alert("Successfully Removed Chapter");
+                getChapters();
+              } else {
+                console.log("Error: Chapter with chapID not found in the chapters array.");
+              }
+            } else {
+              console.log("Error: Course data or chapters array is missing or not an array.");
+            }
+          } catch (err) {
+            console.error(err);
+          }
+    };
+
+    const deleteTheCourse = async () => {
+        const q = query(collection(db, "CHAPTERS"), where("courseID", "==", courseDocID));
+        const querySnapshot = await getDocs(q);
+        // Create an array to hold all promises for deleting chapters
+        const deleteChapterPromises = [];
+        // Loop through the matching documents and delete them
+        querySnapshot.forEach((document) => {
+            const docRef = doc(collection(db, "CHAPTERS"), document.id);
+            const deletePromise = deleteDoc(docRef);
+            deleteChapterPromises.push(deletePromise);
+        });
+        // Wait for all chapter deletions to complete
+        await Promise.all(deleteChapterPromises);
+        // Delete the main course document
+        await deleteDoc(doc(db, "COURSESCREATED", courseDocID));
+        alert("Successfully Deleted Course");
+        navigate("/dashboard/teacherHome");
+    };
     
     return(
         <section className='editCourse'>
@@ -358,7 +407,7 @@ const EditCourse = () =>{
                                             </div>
                                         </div>
                                         <div className='chapter-files__icons'>
-                                            <DeleteIcon />
+                                            <span onClick={()=>{deleteChapter(chapter.id)}} ><DeleteIcon /></span>
                                         </div>
                                     </div>
                                     
@@ -390,6 +439,7 @@ const EditCourse = () =>{
 
             <div className='centered-btn'>
             <button className='save-course-btn' type='button' onClick={saveCourse}>Save Course</button>
+            <button type='button' onClick={deleteTheCourse}>Delete Course</button>
             </div>
             <EditChapter chapID={modalChapID} chapTitle={modalChapTitle} chapDes={modalChapDes} open={openModal} close={() => setOpenModal(false)} getChaps={()=>getChapters()} />
 
