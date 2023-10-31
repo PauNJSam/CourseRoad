@@ -3,7 +3,6 @@ import '../styles/EditCourse.css'
 import {db, storage} from '../config/firebase';
 import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate, useLocation } from "react-router-dom";
-// import { async } from '@firebase/util';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -12,18 +11,15 @@ import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import EditChapter from '../modals/EditChapter';
 
 // courseID is needed inig click sa course from the teacherDashboard
 
 const EditCourse = () =>{
     const courseDocID = useLocation().pathname.split('/')[3]
     const loggedInEmail = auth?.currentUser?.email;
-    const courseTitleRef = useRef();
     const courseDescriptionRef = useRef();
-    const chapterTitleRef = useRef(null);
     const chapterDescriptionRef = useRef(null);
-    const [displayChapterForm, setDisplayChapterForm] = useState(false);
-    const [courseID, setCourseID] = useState();
     const [chapterID, setChapterID] = useState();
     const [imageUpload, setImageUpload] = useState(null);
     const [courseThumbnail, setCourseThumbnail] = useState(null);
@@ -34,14 +30,11 @@ const EditCourse = () =>{
 
     const [userEmail, setUserEmail] = useState(loggedInEmail);
     const [courseData, setCourseData] = useState(null);
-    const [showTextEditor, setShowTextEditor] = useState(false);
     const newChapterTitleRef = useRef();
-    const [newChapterFiles, setNewChapterFiles] = useState([]);
-    const [newChapterFileNames, setNewChapterFileNames] = useState([]);
-    /* const updatedChapterTitleRef = useRef(null);*/
-    const updatedChapterDescriptionRef = useRef(null); 
-    const [updatedChapTitle, setUpdatedChapTitle] = useState("");
-    // const [updatedChapDes, setUpdatedChapDes] = useState("");
+    const [openModal, setOpenModal] = useState(false);
+    const [modalChapID, setModalChapID] = useState(null);
+    const [modalChapTitle, setModalChapTitle] = useState(null);
+    const [modalChapDes, setModalChapDes] = useState(null);
 
     const navigate = useNavigate();
     
@@ -121,14 +114,15 @@ const EditCourse = () =>{
         navigate("/dashboard");
     };
 
-    const saveCourseChanges = async (description, thumbnail) => {
+    const saveCourseChanges = async (origDes, description, origThumbnail, thumbnail) => {
         try {
             const docRef = await setDoc(doc(db, "COURSESCREATED", courseDocID), {
-                courseDescription: description,
-                courseThumbnail: thumbnail,
+                courseDescription: description || origDes,
+                courseThumbnail: thumbnail || origThumbnail,
 
             }, {merge: true}).then((docRef)=>{
                 alert("Successfully Updated Course");
+                getCourse();
             }).catch((error)=>{
                 console.error('Error Updating Course: ',error);
             });
@@ -206,81 +200,6 @@ const EditCourse = () =>{
         });
     };
 
-    const updateChapTitle = async (cID) => {
-        const chapterDocRef = doc(db, "CHAPTERS", cID);
-        await updateDoc(chapterDocRef, {
-            chapterTitle: updatedChapTitle
-
-        }).then(()=>{
-            setUpdatedChapTitle("");
-            getChapters();
-            console.log("Successfully updated chapter");
-        }).catch((error) => {
-            console.error('Error updating chapter', error);
-        });
-    }
-    const updateChapDes = async (cID) => {
-        if(updatedChapterDescriptionRef==null) return;
-        const chapterDocRef = doc(db, "CHAPTERS", cID);
-        await updateDoc(chapterDocRef, {
-            chapterDescription: updatedChapterDescriptionRef.current.value
-
-        }).then(()=>{
-            // setUpdatedChapDes("");
-            updatedChapterDescriptionRef.current.value = "";
-            getChapters();
-            console.log("Successfully updated chapter");
-        }).catch((error) => {
-            console.error('Error updating chapter', error);
-        });
-    };
-    const updateChapter = async (chapID) => {};
-
-    /* const updateChapter = async (chapID) => {
-        const chapterDocRef = doc(db, "CHAPTERS", chapID);
-        // console.log(updatedChapterDescriptionRef.current.value, updatedChapterTitleRef.current.value);
-        if(updatedChapterTitleRef.current.value!=null && updatedChapterDescriptionRef.current.value!=null){
-            await updateDoc(chapterDocRef, {
-                chapterTitle: updatedChapterTitleRef.current.value,
-                chapterDescription: updatedChapterDescriptionRef.current.value,
-
-            }).then(()=>{
-                updatedChapterDescriptionRef.current.value = '';
-                updatedChapterTitleRef.current.value = '';
-                getChapters();
-                console.log("Successfully updated chapter");
-            }).catch((error) => {
-                console.error('Error updating chapter', error);
-            });
-        } else if(updatedChapterTitleRef.current.value!=null && updatedChapterDescriptionRef.current.value==null){
-            await updateDoc(chapterDocRef, {
-                chapterTitle: chapterTitleRef.current.value
-
-            }).then(()=>{
-                updatedChapterTitleRef.current.value = '';
-                getChapters();
-                console.log("Successfully updated chapter");
-            }).catch((error) => {
-                console.error('Error updating chapter', error);
-            });
-        } else if(updatedChapterTitleRef.current.value==null && updatedChapterDescriptionRef.current.value!=null){
-            await updateDoc(chapterDocRef, {
-                chapterDescription: updatedChapterDescriptionRef.current.value,
-
-            }).then(()=>{
-                updatedChapterTitleRef.current.value = '';
-                getChapters();
-                console.log("Successfully updated chapter");
-            }).catch((error) => {
-                console.error('Error updating chapter', error);
-            });
-        } else{
-            console.log("Nothing was inputted to update chapter");
-            return;
-        }
-                
-                    
-    }; */
 
     // uploading a file for a newly created chapter
     const uploadFile = () => {
@@ -304,7 +223,7 @@ const EditCourse = () =>{
 
     const addNewChapter = async () => {
         
-            const chapterDocRef = await addDoc(collection(db, "CHAPTERS"), {
+            await addDoc(collection(db, "CHAPTERS"), {
                 chapterTitle: newChapterTitleRef.current.value,
                 chapterDescription: chapterDescriptionRef.current.value,
                 chapterID: "",
@@ -321,14 +240,14 @@ const EditCourse = () =>{
                     await updateDoc(courseDocRef, {
                         chapters: arrayUnion({
                             chapterID: chapterDocRef.id, 
-                            chapterTitle:  chapterTitleRef.current.value,
+                            chapterTitle:  newChapterTitleRef.current.value,
                             chapterDescription:  chapterDescriptionRef.current.value
                         })
                     }).then(()=>{
                         setChapterFile([]);
                         setChapterFileNames([]);
                         chapterDescriptionRef.current.value = '';
-                        chapterTitleRef.current.value = '';
+                        newChapterTitleRef.current.value = '';
                         getChapters();
                         console.log("Successfully updated course with new chapter");
                     }).catch((error) => {
@@ -343,12 +262,6 @@ const EditCourse = () =>{
             
     } 
 
-    const editChapterDescription = () => {
-        setShowTextEditor(true);
-    }
-    const closeTextEditor = () => {
-        setShowTextEditor(false);
-    }
 
     const deleteChapterFile = async (i, id) => {
 
@@ -406,7 +319,7 @@ const EditCourse = () =>{
                                 
                                 <div className='createCourse__header-lower-btns'>
                                     <button className='createCourse__createExam-btn btn' type='button' onClick={createExam}>Create Exam</button>
-                                    <button className='createCourse__create-course-btn btn' type='button' onClick={()=>{saveCourseChanges(courseDescriptionRef.current.value, courseThumbnail)}}>Save Changes</button>
+                                    <button className='createCourse__create-course-btn btn' type='button' onClick={()=>{saveCourseChanges(courseData.courseDescription, courseDescriptionRef.current.value, courseData.courseThumbnail, courseThumbnail)}}>Save Changes</button>
                                 </div>
                                 
                             </div>
@@ -420,14 +333,10 @@ const EditCourse = () =>{
                             return(
                                 <div className='added-chapter__chapter' key={chapter.id}>
                                     <div className='chapter-texts'>
-                                        <input type='text' value={updatedChapTitle} onChange={(e)=>{setUpdatedChapTitle(e.target.value)}} placeholder={chapter.chapterTitle}></input>
-                                        <span><button type='button' onClick={()=>{updateChapTitle(chapter.id)}}>Save New Title</button></span>
-                                        {
-                                            showTextEditor ? <div><ReactQuill modules={module} theme='snow' ref={updatedChapterDescriptionRef} /*value={updatedChapDes} onChange={(e)=>{setUpdatedChapDes(e.target.value)}}*//><span><button type='button' onClick={()=>{updateChapDes(chapter.id)}}>Save New Description</button></span></div> : <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
-                                        }
-                                        {
-                                            showTextEditor ? <button type='button' onClick={closeTextEditor}>Cancel</button> : <button type='button' onClick={editChapterDescription}>Edit Description</button>
-                                        }
+                                        <p>{chapter.chapterTitle}</p>
+                                        <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
+                                        <p onClick={() => {setOpenModal(true); setModalChapID(chapter.id); setModalChapTitle(chapter.chapterTitle); setModalChapDes(chapter.chapterDescription)}}>Edit Chapter Title and Description</p>
+                                        
                                     </div>
                                     <div className='chapter-files'>
                                         <div className='chapter-files__files'>
@@ -447,7 +356,6 @@ const EditCourse = () =>{
                                                 <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
                                                 <button className='createCourse__upload-btn' onClick={()=>{uploadNewFile(chapter.id)}}><UploadIcon /> Upload File</button>
                                             </div>
-                                            <button className='createCourse__create-course-btn' type='submit' onClick={()=>{updateChapter(chapter.id)}}>Update Chapter</button>
                                         </div>
                                         <div className='chapter-files__icons'>
                                             <DeleteIcon />
@@ -483,6 +391,8 @@ const EditCourse = () =>{
             <div className='centered-btn'>
             <button className='save-course-btn' type='button' onClick={saveCourse}>Save Course</button>
             </div>
+            <EditChapter chapID={modalChapID} chapTitle={modalChapTitle} chapDes={modalChapDes} open={openModal} close={() => setOpenModal(false)} getChaps={()=>getChapters()} />
+
 
         </section>
     );
