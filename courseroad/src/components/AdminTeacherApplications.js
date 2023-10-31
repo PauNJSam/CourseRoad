@@ -9,6 +9,8 @@ import '../styles/AdminTeacherApplications.css';
 const AdminTeacherApplications = (props) => {
     const [openModal, setOpenModal] = useState(false);
     const [appsData, setAppsData] = useState(null);
+    const [userEmail, setUserEmail] = useState('');
+    const [date, setDate] = useState(null);
 
     useEffect(() => {
       getApplications();
@@ -65,7 +67,7 @@ const AdminTeacherApplications = (props) => {
                                     </div>
                                 </div>
                                 <div className='application__icons'>
-                                    <p className='view-application' onClick={() => setOpenModal(true)}>View Application</p>
+                                    <p className='view-application' onClick={() => {setOpenModal(true); setUserEmail(app.userEmail); setDate(app.dateSubmitted)}}>View Application</p>
                                     <span className='delete-button'><DeleteIcon /></span>
                                 </div>
                                 
@@ -76,7 +78,7 @@ const AdminTeacherApplications = (props) => {
                 }
             </div>
             
-            <AdminTeacherReview open={openModal} close={() => setOpenModal(false)} />
+            <AdminTeacherReview open={openModal} close={() => setOpenModal(false)} email={userEmail} date={date} />
         </section>
     );
 };

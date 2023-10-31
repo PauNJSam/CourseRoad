@@ -1,7 +1,7 @@
 import CloseIcon from "../icons/CloseIcon";
 import "../styles/AdminTeacherReview.css";
 
-const AdminTeacherReview = ({ open, close }) => {
+const AdminTeacherReview = ({ open, close, email, date }) => {
 
     if (!open) return null;
 
@@ -10,7 +10,8 @@ const AdminTeacherReview = ({ open, close }) => {
             <div className="teacher-review__modal-container" onClick={(e)=>{e.stopPropagation();}}>
                 
                 <CloseIcon className="teacher-review__close-btn" onClick={close}></CloseIcon>
-                {/* insert code here */}
+                <p>{email}</p>
+                <p>{date}</p>
                 
             </div>
         </div>
