@@ -108,11 +108,6 @@ const EditCourse = () =>{
         }
         
     };
-    
-
-    const saveCourse = async () => {
-        navigate("/dashboard");
-    };
 
     const saveCourseChanges = async (origDes, description, origThumbnail, thumbnail) => {
         try {
@@ -438,7 +433,7 @@ const EditCourse = () =>{
             </div>
 
             <div className='centered-btn'>
-            <button className='save-course-btn' type='button' onClick={saveCourse}>Save Course</button>
+            <button className='save-course-btn' type='button' onClick={()=>navigate("/dashboard/teacherHome")}>Save Course</button>
             <button type='button' onClick={deleteTheCourse}>Delete Course</button>
             </div>
             <EditChapter chapID={modalChapID} chapTitle={modalChapTitle} chapDes={modalChapDes} open={openModal} close={() => setOpenModal(false)} getChaps={()=>getChapters()} />

@@ -48,7 +48,9 @@ const EditChapter = ({ chapID, chapTitle, chapDes, open, close, getChaps }) => {
             }).then(()=>{
                 chapterDescriptionRef.current.value = '';
                 chapterTitleRef.current.value = '';
-                console.log("Successfully updated chapter");
+                alert("Successfully updated chapter")
+                getChaps();
+                close();
             }).catch((error) => {
                 console.error('Error updating chapter', error);
             });
