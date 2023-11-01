@@ -24,7 +24,8 @@ const SignInPage = (props) => {
     try{signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
         .then((userCredentials) => {
             console.log("User credentials: ",userCredentials);
-            navigate("/dashboard");
+            localStorage.setItem("authedUser", userCredentials.user.email);
+            navigate("/dashboard/studentHome");
         }) .catch((err) => {
             console.log(err);
         });
@@ -32,15 +33,38 @@ const SignInPage = (props) => {
     } catch(err){
         console.error(err);
     }
-};
+  };
+
 const googleSignin = async () => {
   try{
-    await signInWithPopup(auth, googleProvider);
-    navigate('/dashboard');
+    await signInWithPopup(auth, googleProvider).then(()=>{
+      localStorage.setItem("authedUser", auth.currentUser.email);
+      navigate('/dashboard/studentHome');
+    }).catch((err)=>{
+      console.log("Could not Sign in User with googleProvider");
+    })
 } catch(err) {
     console.error(err);
 }
 };
+
+/* const addNewUser = async () => {
+  try{
+
+      await setDoc(doc(db, "USERS", emailRef.current.value), {
+          userEmail: emailRef.current.value,
+          userName: userNameRef.current.value,
+          isTeacher: false,
+          dateJoined: serverTimestamp(),
+          profilePic:''
+
+      });
+
+  } catch (err){
+      console.log(err.message);
+  }
+}; */
+
   return (
     <div className="sign-in-page-container">
       <div className="sign-in-page-sign-in-page">
