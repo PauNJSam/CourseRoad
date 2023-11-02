@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import '../styles/CreateCourse.css'
 import {db, storage} from '../config/firebase';
-import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy, getDoc, setDoc, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-// import { async } from '@firebase/util';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -21,12 +20,8 @@ const CreateCourse = () =>{
     const chapterTitleRef = useRef();
     const chapterDescriptionRef = useRef();
     const [displayChapterForm, setDisplayChapterForm] = useState(false);
-    /* const courseIDRef = useRef();
-    const chapterIDRef = useRef(); */
     const [courseID, setCourseID] = useState();
     const [chapterID, setChapterID] = useState();
-    /* let theCourseID;
-    let theChapterID; */
     const [imageUpload, setImageUpload] = useState(null);
     const [courseThumbnail, setCourseThumbnail] = useState(null);
     const [fileUpload, setFileUpload] = useState(null);
@@ -62,25 +57,6 @@ const CreateCourse = () =>{
         toolbar: toolbarOptions,
     };
 
-    /* useEffect(() => {
-      console.log(getChapters());
-      console.log(chapterID);
-      return () => {
-        
-      }
-    }, [chapterID]); */
-
-    /* const getChapters = async (id) => {
-       const q = query(collection(db, "CHAPTERS"));
-       const querySnapshot = await getDocs(q)
-       const chapterArr = querySnapshot.docs.map(async (doc)=> {
-        const data = doc.data();
-        return data;
-       })
-       const chapterData = await Promise.all(chapterArr);
-       return chapterData;
-            
-    }; */
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (userData)=>{
@@ -98,16 +74,7 @@ const CreateCourse = () =>{
 
     const getChapters = async () => {
         const q = query(collection(db, "CHAPTERS"), where("courseID", "==", courseID), orderBy("dateCreated", "asc"));
-
         const querySnapshot = await getDocs(q);
-        /* const chaptersArray = querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
-            chapterTitle: doc.data().chapterTitle;
-            chapterDescription: doc.data().chapterDescription;
-            chapterFiles: doc.data().chapterFiles;
-        }); */
-
         setChaptersData(querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id})));
     };
     
@@ -152,7 +119,6 @@ const CreateCourse = () =>{
             }).then(async (chapterDocRef)=>{
                 
                 setChapterID(chapterDocRef.id);
-                // TO DO: using course ID 
                 const courseDocRef = doc(db, "COURSESCREATED", courseID)
                 
                     await updateDoc(courseDocRef, {
@@ -226,6 +192,46 @@ const CreateCourse = () =>{
             console.error('Error uploading chapter: ', error);
         });
     };
+
+    const deleteChapter = async (chapID) => {
+        try {
+            const courseRef = doc(db, "COURSESCREATED", courseID);
+            const courseDoc = await getDoc(courseRef);
+            const courseData = courseDoc.data();
+            if (courseData && Array.isArray(courseData.chapters)) {
+              const indexToDelete = courseData.chapters.findIndex(chapter => chapter.chapterID === chapID);
+              if (indexToDelete !== -1) {
+                courseData.chapters.splice(indexToDelete, 1);
+                await setDoc(courseRef, { chapters: courseData.chapters }, { merge: true });
+                const chapDocRef = doc(db, "CHAPTERS", chapID);
+                await deleteDoc(chapDocRef);
+                alert("Successfully Removed Chapter");
+                getChapters();
+              } else {
+                console.log("Error: Chapter with chapID not found in the chapters array.");
+              }
+            } else {
+              console.log("Error: Course data or chapters array is missing or not an array.");
+            }
+          } catch (err) {
+            console.error(err);
+          }
+    };
+
+    const deleteTheCourse = async () => {
+        const q = query(collection(db, "CHAPTERS"), where("courseID", "==", courseID));
+        const querySnapshot = await getDocs(q);
+        const deleteChapterPromises = [];
+        querySnapshot.forEach((document) => {
+            const docRef = doc(collection(db, "CHAPTERS"), document.id);
+            const deletePromise = deleteDoc(docRef);
+            deleteChapterPromises.push(deletePromise);
+        });
+        await Promise.all(deleteChapterPromises);
+        await deleteDoc(doc(db, "COURSESCREATED", courseID));
+        alert("Successfully Deleted Course");
+        navigate("/dashboard/teacherHome");
+    };
     
     return(
         <section className='createCourse'>
@@ -254,18 +260,12 @@ const CreateCourse = () =>{
                 </article>
 
                 <article className='added-chapter'>
-                    {/* {chapterTitleRef.current=== undefined ? null : <div>
-                        <p>{chapterTitleRef.current.value}</p>
-                        <p>{chapterDescriptionRef.current.value}</p>
-                    </div>} */}
                     {
                         chaptersData === null ? null : chaptersData.map((chapter)=>{
                             return(
                                 <div className='added-chapter__chapter' key={chapter.id}>
                                     <div className='chapter-texts'>
                                         <p className='chapter-title'>{chapter.chapterTitle}</p>
-                                        {/* <p className='chapter-description'>{chapter.chapterDescription}</p> */}
-                                        {/* {chapter.chapterDescription} */}
                                         <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
                                     </div>
                                     <div className='chapter-files'>
@@ -280,8 +280,7 @@ const CreateCourse = () =>{
                                             })}
                                         </div>
                                         <div className='chapter-files__icons'>
-                                            <EditIcon />
-                                            <DeleteIcon />
+                                            <span onClick={()=>{deleteChapter(chapter.id)}}><DeleteIcon /></span>
                                         </div>
                                     </div>
                                     
@@ -315,6 +314,7 @@ const CreateCourse = () =>{
 
             <div className='centered-btn'>
             <button className='save-course-btn' type='button' onClick={saveCourse}>Save Course</button>
+            <button type='button' onClick={deleteTheCourse}>Delete Course</button>
             </div>
 
         </section>
