@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import "../styles/SignUp.css";
-import courseroad_logo from "../images/courseroad_logo.png"
+import courseroad_logo from "../images/courseroad_logo.png";
 // import signup_img_cropped from '../images/signup_img_cropped.jpg'
 import { auth, db } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SignupTerms from "../modals/SignupTerms";
+import def_profile_pic from "../images/default_user_profile.png";
 
 
 const SignUp = () => {
@@ -57,7 +58,7 @@ const SignUp = () => {
                 userName: userNameRef.current.value,
                 isTeacher: false,
                 dateJoined: serverTimestamp(),
-                profilePic:''
+                profilePic:'https://firebasestorage.googleapis.com/v0/b/courseroad-sofdev3.appspot.com/o/defaultPictures%2Fdefault_user_profile.png?alt=media&token=7eb3534f-05cb-468b-a515-72402a211c5f',
 
             });
 
