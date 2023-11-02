@@ -114,34 +114,7 @@ const CreateCourse = () =>{
 
     const saveCourse = async () => {
 
-        navigate("/dashboard");
-
-        /* This button will use setDoc to update the fields that require their own
-        firebase generated IDs and also to route back to the dashboard */
-        
-        /* let courseTitleNoSpace = courseTitleRef.current.value.split(' ').join('');
-        let courseTitledoc = courseTitleNoSpace.toLowerCase(); */
-        /* let courseDocUID = crypto.randomUUID();
-
-        console.log(courseDescriptionRef.current.value, chapterDescriptionRef.current.value, chapterTitleRef.current.value);
-
-        courseTitleRef.current.value = '';
-        courseDescriptionRef.current.value = ''; */
-
-        /* try {
-            await setDoc(doc(db, "COURSESCREATED", courseDocUID), {
-                // ...doc.data,
-                [qNumber]: newQuestion,
-                [aNumber]: newAnswer,
-
-            }, {merge: true});
-
-            setNextNumber(nextNumber+1);
-            setNewAnswer("");
-            setNewQuestion("");
-        } catch (err) {
-            console.error(err); 
-        }  */
+        navigate("/dashboard/teacherHome");   
     };
     const createCourse = async (e) => {
         e.preventDefault();
@@ -153,7 +126,7 @@ const CreateCourse = () =>{
                 courseID: "",
                 dateCreated: serverTimestamp(),
                 numberOfStudents: 0,
-                courseThumbnail: courseThumbnail
+                courseThumbnail: courseThumbnail || 'https://firebasestorage.googleapis.com/v0/b/courseroad-sofdev3.appspot.com/o/defaultPictures%2Fdefault_course_thumbnail.jpg?alt=media&token=aa594b50-d6dd-40d0-9a7e-1bff91159431'
     
             }).then((docRef)=>{
                 setCourseID(docRef.id);
@@ -266,8 +239,9 @@ const CreateCourse = () =>{
                         </div>
                         <div className='createCourse__files-buttons'>
                             {
-                                courseThumbnail === null ? null : <img className='createCourse__thumbnail' src={courseThumbnail} alt='Course Thumbnail' />
+                                courseThumbnail === null ? <img className='createCourse__thumbnail' src='https://firebasestorage.googleapis.com/v0/b/courseroad-sofdev3.appspot.com/o/defaultPictures%2Fdefault_course_thumbnail.jpg?alt=media&token=aa594b50-d6dd-40d0-9a7e-1bff91159431' alt='default thumbnail' /> : <img className='createCourse__thumbnail' src={courseThumbnail} alt='Course Thumbnail' />
                             }
+                            <p style={{color: 'white'}}>Upload new image to change default picture</p>
                             <input type='file' onChange={(event)=> {setImageUpload(event.target.files[0])}} ></input>
                             <button className='createCourse__upload-btn btn' onClick={uploadImage}><UploadIcon /> Upload Image</button>
                             
