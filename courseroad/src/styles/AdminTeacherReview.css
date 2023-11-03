@@ -1,18 +1,110 @@
-.teacher-review__overlay{
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
+.teacher-review__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    top: 0%;
-    left: 0%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-.teacher-review__modal-container{
-    padding: 2rem;
-    width: 50%;
-    height: 80%;
-    position: fixed;
-    top: 10%;
-    left: 25%;
-    background-color: #ffffff;
+.teacher-review__modal-container {
+    background: linear-gradient(135deg, #f7f8fc, #e6e7ed);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.teacher-review__close-btn {
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #333;
+}
+
+.teacher-review__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.teacher-review__profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.teacher-review__actions {
+    display: flex;
+    align-items: center;
+}
+
+.teacher-review__accept-btn, .teacher-review__reject-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.teacher-review__accept-btn:hover, .teacher-review__reject-btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    transform: scale(1.05);
+}
+
+.teacher-review__accept-btn:active, .teacher-review__reject-btn:active {
+    transform: scale(0.95);
+}
+
+.teacher-review__accept-btn {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.teacher-review__accept-btn:hover {
+    background-color: #66bb6a;
+}
+
+.teacher-review__reject-btn {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.teacher-review__reject-btn:hover {
+    background-color: #ff6659;
+}
+
+.teacher-review__details {
+    padding: 10px 0;
+}
+
+.teacher-review__details p, .teacher-review__details a {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.teacher-review__profile-section {
+    display: flex;
+    align-items: center;
+}
+
+.teacher-review__email {
+    margin-left: 10px; 
+    font-size: 20px;  
+    color: #666;      
 }

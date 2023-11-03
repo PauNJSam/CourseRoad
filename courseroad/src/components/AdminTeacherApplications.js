@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { db } from '../config/firebase';
-import { collection, query, getDocs, where, orderBy } from "firebase/firestore";
+import { collection, query, getDocs, orderBy, doc, deleteDoc } from "firebase/firestore";
 import AdminTeacherReview from '../modals/AdminTeacherReview';
 import DeleteIcon from '../icons/DeleteIcon';
 import '../styles/AdminTeacherApplications.css';
@@ -11,6 +11,7 @@ const AdminTeacherApplications = (props) => {
     const [appsData, setAppsData] = useState(null);
     const [userEmail, setUserEmail] = useState('');
     const [date, setDate] = useState(null);
+    const [app, setApp] = useState(null);
 
     useEffect(() => {
       getApplications();
@@ -46,6 +47,16 @@ const AdminTeacherApplications = (props) => {
         }
     };
 
+    const deleteApp = async (id) => {
+        const appDocRef = doc(db, "TAPPLICATIONS", id);
+            await deleteDoc(appDocRef).then(()=>{
+                alert("Successfully deleted Application");
+                getApplications();
+            }).catch((err)=>{
+                console.log(err);
+            })
+    }
+
     return(
         <section className='teacher-app'>
             <div className='teacher-app__header'>
@@ -67,8 +78,8 @@ const AdminTeacherApplications = (props) => {
                                     </div>
                                 </div>
                                 <div className='application__icons'>
-                                    <p className='view-application' onClick={() => {setOpenModal(true); setUserEmail(app.userEmail); setDate(app.dateSubmitted)}}>View Application</p>
-                                    <span className='delete-button'><DeleteIcon /></span>
+                                    <p className='view-application' onClick={() => {setOpenModal(true); setUserEmail(app.userEmail); setDate(app.dateSubmitted); setApp(app)}}>View Application</p>
+                                    <span className='delete-button' onClick={()=>{deleteApp(app.id)}}><DeleteIcon /></span>
                                 </div>
                                 
                                 
@@ -78,7 +89,7 @@ const AdminTeacherApplications = (props) => {
                 }
             </div>
             
-            <AdminTeacherReview open={openModal} close={() => setOpenModal(false)} email={userEmail} date={date} />
+            <AdminTeacherReview open={openModal} close={() => setOpenModal(false)} appData={app} email={userEmail} date={date} />
         </section>
     );
 };
