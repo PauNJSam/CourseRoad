@@ -132,6 +132,11 @@ const CreateCourse = () =>{
                         setChapterFileNames([]);
                         chapterDescriptionRef.current.value = '';
                         chapterTitleRef.current.value = '';
+                        if (chapterDescriptionRef.current) {
+                            const quill = chapterDescriptionRef.current.getEditor();
+                            quill.setText(""); // Clear the content
+                        }
+                        setFileUpload(null);
                         getChapters();
                         console.log("Successfully updated course with new chapter");
                     }).catch((error) => {
@@ -183,6 +188,9 @@ const CreateCourse = () =>{
             getDownloadURL(fileRef).then((url)=>{
                 setChapterFile((prev)=>[...prev, url]);
                 setChapterFileNames((prev)=>[...prev, fileUpload.name]);
+                setFileUpload(null);
+                // To clear the input field because it does not clear unless useRef hook is used instead of useState
+                document.getElementById("upload-file").value = "";
                 console.log("The chapter file URL: ",url);
             }).catch((error) => {
                 console.error('Error getting chapter file URL: ', error);
@@ -219,6 +227,7 @@ const CreateCourse = () =>{
     };
 
     const deleteTheCourse = async () => {
+        if(courseID == null) return;
         const q = query(collection(db, "CHAPTERS"), where("courseID", "==", courseID));
         const querySnapshot = await getDocs(q);
         const deleteChapterPromises = [];
@@ -241,13 +250,14 @@ const CreateCourse = () =>{
                 <article className='course-head article-flex'>
                         <div className='createCourse__text-inputs'>
                             <input className='course-head__textbox' type='text' ref={courseTitleRef} placeholder='Course Title' required></input>
+                            <p className='warning'>Course Title cannot be changed later.</p>
                             <textarea className='course-head__textbox' rows={15} ref={courseDescriptionRef} placeholder='Course Description...'></textarea>
                         </div>
                         <div className='createCourse__files-buttons'>
                             {
                                 courseThumbnail === null ? <img className='createCourse__thumbnail' src='https://firebasestorage.googleapis.com/v0/b/courseroad-sofdev3.appspot.com/o/defaultPictures%2Fdefault_course_thumbnail.jpg?alt=media&token=aa594b50-d6dd-40d0-9a7e-1bff91159431' alt='default thumbnail' /> : <img className='createCourse__thumbnail' src={courseThumbnail} alt='Course Thumbnail' />
                             }
-                            <p style={{color: 'white'}}>Upload new image to change default picture</p>
+                            <p className='warning'>Upload new image to change default picture</p>
                             <input type='file' onChange={(event)=> {setImageUpload(event.target.files[0])}} ></input>
                             <button className='createCourse__upload-btn btn' onClick={uploadImage}><UploadIcon /> Upload Image</button>
                             
@@ -300,7 +310,7 @@ const CreateCourse = () =>{
                             </div>
                             <div className='createCourse__files-buttons'>
                                 <div className='createCourse__files-btns'>
-                                    <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
+                                    <input id='upload-file' type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
                                     <button className='createCourse__upload-btn' onClick={uploadFile}><UploadIcon /> Upload File</button>
                                 </div>
                                 <button className='createCourse__create-course-btn' type='submit' onClick={()=>addChapter(courseID)}>Add Chapter</button>
@@ -314,7 +324,7 @@ const CreateCourse = () =>{
 
             <div className='centered-btn'>
             <button className='save-course-btn' type='button' onClick={saveCourse}>Save Course</button>
-            <button type='button' onClick={deleteTheCourse}>Delete Course</button>
+            <button className='save-course-btn delete' type='button' onClick={deleteTheCourse}>Delete Course</button>
             </div>
 
         </section>

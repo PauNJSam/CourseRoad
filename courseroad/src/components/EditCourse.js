@@ -206,6 +206,7 @@ const EditCourse = () =>{
             getDownloadURL(fileRef).then((url)=>{
                 setChapterFile((prev)=>[...prev, url]);
                 setChapterFileNames((prev)=>[...prev, fileUpload.name]);
+                document.getElementById("upload-file").value = "";
                 console.log("The chapter file URL: ",url);
             }).catch((error) => {
                 console.error('Error getting chapter file URL: ', error);
@@ -243,6 +244,8 @@ const EditCourse = () =>{
                         setChapterFileNames([]);
                         chapterDescriptionRef.current.value = '';
                         newChapterTitleRef.current.value = '';
+                        const quill = chapterDescriptionRef.current.getEditor();
+                        quill.setText(""); // Clear the content
                         getChapters();
                         console.log("Successfully updated course with new chapter");
                     }).catch((error) => {
@@ -371,15 +374,17 @@ const EditCourse = () =>{
                     )
                 }
                 
-                <article className='added-chapter'>
+                <article className='added-chapter button-upload'>
                     {
                         chaptersData === null ? null : chaptersData.map((chapter)=>{
                             return(
                                 <div className='added-chapter__chapter' key={chapter.id}>
                                     <div className='chapter-texts'>
-                                        <p>{chapter.chapterTitle}</p>
-                                        <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
-                                        <p onClick={() => {setOpenModal(true); setModalChapID(chapter.id); setModalChapTitle(chapter.chapterTitle); setModalChapDes(chapter.chapterDescription)}}>Edit Chapter Title and Description</p>
+                                        <div>
+                                            <p className='chapter-title'>{chapter.chapterTitle}</p>
+                                            <p dangerouslySetInnerHTML={{__html: chapter.chapterDescription}} />
+                                        </div>
+                                        <p className='edit-text-btn' onClick={() => {setOpenModal(true); setModalChapID(chapter.id); setModalChapTitle(chapter.chapterTitle); setModalChapDes(chapter.chapterDescription)}}><span><EditIcon /></span>Edit Title/Description</p>
                                         
                                     </div>
                                     <div className='chapter-files'>
@@ -389,7 +394,7 @@ const EditCourse = () =>{
                                                 return(
                                                     <div className='individual-chapter-file' key={fileName+crypto.randomUUID()}>
                                                         <p>{fileName}</p>
-                                                        <span onClick={()=>deleteChapterFile(index, chapter.id)}><DeleteIcon /></span>
+                                                        <div className='delete-btn' onClick={()=>deleteChapterFile(index, chapter.id)}><DeleteIcon /></div>
                                                     </div>
                                                 )
                                             })}
@@ -398,11 +403,11 @@ const EditCourse = () =>{
                                         <div className='createCourse__files-buttons'>
                                             <div className='createCourse__files-btns'>
                                                 <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
-                                                <button className='createCourse__upload-btn' onClick={()=>{uploadNewFile(chapter.id)}}><UploadIcon /> Upload File</button>
+                                                <button className='editCourse__upload-btn' onClick={()=>{uploadNewFile(chapter.id)}}><UploadIcon /> Upload File</button>
                                             </div>
                                         </div>
                                         <div className='chapter-files__icons'>
-                                            <span onClick={()=>{deleteChapter(chapter.id)}} ><DeleteIcon /></span>
+                                            <span className='delete-btn' onClick={()=>{deleteChapter(chapter.id)}} ><DeleteIcon /></span>
                                         </div>
                                     </div>
                                     
@@ -412,7 +417,7 @@ const EditCourse = () =>{
                     }
                 </article>
                 
-                <article className='add-new-chapter article-flex'>
+                <article className='add-new-chapter article-flex button-upload'>
                     
                         <div className='createCourse__text-inputs' >
                             <input type='text' ref={newChapterTitleRef} placeholder='Chapter Title'></input>
@@ -420,8 +425,8 @@ const EditCourse = () =>{
                         </div>
                         <div className='createCourse__files-buttons'>
                             <div className='createCourse__files-btns'>
-                                <input type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
-                                <button className='createCourse__upload-btn' onClick={uploadFile}><UploadIcon /> Upload File</button>
+                                <input id='upload-file' type='file' onChange={(event)=> {setFileUpload(event.target.files[0])}}></input>
+                                <button className='editCourse__upload-btn' onClick={uploadFile}><UploadIcon /> Upload File</button>
                             </div>
                             <button className='createCourse__create-course-btn' type='submit' onClick={addNewChapter}>Add Chapter</button>
                         </div>
@@ -434,7 +439,7 @@ const EditCourse = () =>{
 
             <div className='centered-btn'>
             <button className='save-course-btn' type='button' onClick={()=>navigate("/dashboard/teacherHome")}>Save Course</button>
-            <button type='button' onClick={deleteTheCourse}>Delete Course</button>
+            <button className='save-course-btn delete' type='button' onClick={deleteTheCourse}>Delete Course</button>
             </div>
             <EditChapter chapID={modalChapID} chapTitle={modalChapTitle} chapDes={modalChapDes} open={openModal} close={() => setOpenModal(false)} getChaps={()=>getChapters()} />
 
