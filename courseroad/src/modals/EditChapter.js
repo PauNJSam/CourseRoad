@@ -63,10 +63,12 @@ const EditChapter = ({ chapID, chapTitle, chapDes, open, close, getChaps }) => {
         <div onClick={close} className="edit-chap__overlay">
             <div className="edit-chap__modal-container" onClick={(e) => { e.stopPropagation(); }}>
                 <CloseIcon className="edit-chap__close-btn" onClick={close}></CloseIcon>
-                <p>{chapID}</p>
-                <input type="text" ref={chapterTitleRef}></input>
-                <div><ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef} /></div> 
-                <button type="button" onClick={saveUpdate}>Save Changes</button>
+                <div className="chapter-texts">
+                    <p>Edit Chapter</p>
+                    <input className="chapter-title" type="text" ref={chapterTitleRef} placeholder={chapTitle}></input>
+                    <div><ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef} /></div> 
+                    <button className="save-edit-btn" type="button" onClick={saveUpdate}>Save Changes</button>
+                </div>
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ import * as React from "react";
 function DeleteIcon(props) {
   return (
     <svg
+      className="delete-icon"
       width={24}
       height={24}
       fill="none"
