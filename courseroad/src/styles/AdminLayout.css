@@ -1,0 +1,16 @@
+.admin-nav{
+    background-color: #000A23;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+.admin-nav__panel{
+    background-color: #000A23;
+    width: 25%;
+    max-width: 400px;
+    /* border: 1px solid pink; */
+}
+.admin-nav__outlet{
+    padding: 2rem;
+    width: 100%;
+}

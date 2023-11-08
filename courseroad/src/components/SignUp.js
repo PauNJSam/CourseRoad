@@ -1,16 +1,14 @@
 import { useRef, useState } from "react";
 import "../styles/SignUp.css";
-import courseroad_logo from "../images/courseroad_logo.png"
+import courseroad_logo from "../images/courseroad_logo.png";
 // import signup_img_cropped from '../images/signup_img_cropped.jpg'
 import { auth, db } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, setDoc, doc } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SignupTerms from "../modals/SignupTerms";
+import def_profile_pic from "../images/default_user_profile.png";
 
-/* Notes: error messages are not working well in testing, doubting its the useRef that triggers the wrong error message
-because it persists even after inputting again another type of error to test. Solution: reset the values every
-after checking. So add e.g. emailRef.current.value='' */
 
 const SignUp = () => {
 
@@ -37,7 +35,12 @@ const SignUp = () => {
                 await createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value);
                 addNewUser();
                 console.log(passRef.current.value);
-                //navigate("/signin"); //change this later to sign for the user to sign in after creating the account
+                userNameRef.current.value='';
+                emailRef.current.value='';
+                passRef.current.value='';
+                confirmPassRef.current.value='';
+                navigate("/dashboard"); 
+                //change this later to sign for the user to sign in after creating the account
                 // also after navigating, click back to the page to see if na empty balik ang input fields
             } catch(err){
                     setIsError(true);
@@ -50,10 +53,23 @@ const SignUp = () => {
     const addNewUser = async () => {
         try{
 
-        } catch (err){
+            await setDoc(doc(db, "USERS", emailRef.current.value), {
+                userEmail: emailRef.current.value,
+                userName: userNameRef.current.value,
+                isTeacher: false,
+                dateJoined: serverTimestamp(),
+                profilePic:'https://firebasestorage.googleapis.com/v0/b/courseroad-sofdev3.appspot.com/o/defaultPictures%2Fdefault_user_profile.png?alt=media&token=7eb3534f-05cb-468b-a515-72402a211c5f',
 
+            });
+
+        } catch (err){
+            console.log(err.message);
         }
     };
+    const signin =() => {
+        navigate('/signin');
+    }
+    
 
     return(
         <section className="SignUp" >
@@ -82,10 +98,10 @@ const SignUp = () => {
 
                         <div className="input-cb-btn">
                             <label>
-                                <input type='checkbox' id="sign-up-cb" required/> Accept <span onClick={() => setOpenModal(true)} style={{color:'#f1bf19', cursor:'pointer'}}>Terms and Conditions</span>
+                                <input type='checkbox' className="cb" required/> Accept <u><span onClick={() => setOpenModal(true)}>Terms and Conditions</span></u>
                             </label>
                             <div className="input-btns">
-                                <button type='button' >Sign In</button>
+                                <button onClick={signin} type='button'>Sign In</button>
                                 <button type='submit' >Sign Up</button>
                             </div>
                         </div>

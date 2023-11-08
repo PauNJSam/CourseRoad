@@ -1,0 +1,63 @@
+.edit-chap__overlay{
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    width: 100%;
+    /* height: auto; */
+    height: 100%;
+    top: 0%;
+    left: 0%;
+}
+
+.edit-chap__modal-container{
+    padding: 2rem;
+    width: 50%;
+    height: 80%;
+    position: fixed;
+    top: 10%;
+    left: 25%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+.edit-chap__overlay .chapter-texts{
+    margin-bottom: 1rem;
+    width: 100%;
+}
+.edit-chap__overlay .chapter-texts p{
+    font-size: 1.2rem;
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+.edit-chap__overlay .chapter-texts .chapter-title{
+    border-radius: 5px;
+    font-size: 1.5rem;
+    border: none;
+    font-weight: 400;
+    background: var(--_pure-white);
+    box-shadow: var(--_box-shadow);
+    padding: 0.5rem 1rem;
+    color: var(--_def-grey);
+    font-style: italic;
+}
+.edit-chap__overlay .chapter-texts .chapter-title:focus{
+    outline: none;
+    color: var(--_mid-grey);
+}
+.edit-chap__overlay .chapter-texts .chapter-title::placeholder{
+    color: var(--_def-grey);
+}
+.edit-chap__overlay .save-edit-btn{
+    align-self: center;
+    color: var(--_pure-white);
+    background-color: var(--_accent-orange);
+    border: none;
+    font: var(--_worksans);
+    text-decoration: none;
+    margin-top: 3vh;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.edit-chap__overlay .save-edit-btn:hover{
+    background: #f4b14c;
+}

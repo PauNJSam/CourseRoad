@@ -1,26 +1,26 @@
-.createCourse {
+.editCourse {
     background-color: var(--_light);
     color: var(--_mid-grey);
     font-family: var(--_worksans);
     margin: 0;
     padding: 3% 6%;
+    position: relative;
 }
-.createCourse__page-title{
+.editCourse__page-title{
     font-size: 1.5rem;
     color: #c0c0c0;
     margin-bottom: 1.5rem;
 }
-.createCourse .edit-course-container{
+.editCourse .edit-course-container{
     width: 100%;
-    max-width: 1500px;
-    min-width: 800px;
+    max-width: 1150px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 1.5vh 0;
 }
 
-.createCourse .article-flex{
+.editCourse .article-flex{
     display: flex;
     flex-direction: row;
     gap: 3%;
@@ -28,25 +28,25 @@
     padding: 1rem 2rem;
     box-shadow: var(--_box-shadow);
 }
-.createCourse__text-inputs{
+.editCourse__text-inputs{
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
     width: 70%;
 }
-.createCourse__files-buttons{
+.editCourse__files-buttons{
     display: flex;
     flex-direction: column;
     gap: 1rem;
     width: 30%;
 }
-.createCourse__files-buttons .btn{
+.editCourse__files-buttons .btn{
     border-radius: 5px;
     font-family: var(--_worksans);
     font-weight: 500;
     cursor: pointer;
 }
-.createCourse__upload-btn{
+.editCourse__upload-btn{
     background: transparent;
     border: 1.5px solid #FFFFFF;
     cursor: pointer;
@@ -59,34 +59,37 @@
     min-width: 100px;
     padding: 0.2rem 0;
 }
-.createCourse__upload-btn:hover{
+.editCourse__upload-btn:hover{
     background: var(--_pure-white);
 }
-.createCourse__text-inputs input{
+.editCourse__text-inputs input{
     font-size: 1.5rem;
     border: none;
     font-weight: 400;
 }
-.createCourse__text-inputs textarea{
+.editCourse__text-inputs textarea{
     font-size: 1rem;
     font-weight: 400;
     font-family: var(--_inter);
     font-weight: 400;
 }
+.editCourse .delete-btn:hover{
+    cursor: pointer;
+}
+.editCourse .delete-btn:hover path{
+    stroke: var(--_red);
+}
 
 
 
-.createCourse .course-head{
+
+.editCourse .course-head{
     background-image: url(../images/header_bg.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
-.createCourse .warning{
-    color: var(--_pure-white);
-    font-size: 0.7rem;
-    margin-left: auto;
-}
-.createCourse .course-head input[type='file']{
+
+.editCourse .course-head input[type='file']{
     color: var(--_pure-white);
 }
 .course-head ::-webkit-file-upload-button{
@@ -101,17 +104,17 @@
 .course-head ::-webkit-file-upload-button:hover{
     background: #e2e4eb;
 }
-.createCourse .course-head__textbox{
+.editCourse .course-head__textbox{
     border-radius: 5px;
     background: var(--_pure-white);
     box-shadow: var(--_box-shadow);
     padding: 0.5rem 1rem;
 }
-.createCourse__thumbnail{
+.editCourse__thumbnail{
     /* width: 100px; */
     height: 200px;
 }
-.createCourse__header-lower-btns{
+.editCourse__header-lower-btns{
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -119,27 +122,27 @@
     align-self: flex-end;
     margin-top: auto;
 }
-.createCourse__createExam-btn{
+.editCourse__editExam-btn{
     border: none;
     color: var(--_pure-white);
     background: none;
     padding: 0.5rem 1rem;
 }
-.createCourse__createExam-btn:hover{
+.editCourse__editExam-btn:hover{
     background: #d9d9d994;
 }
-.createCourse__create-course-btn{
+.editCourse__edit-course-btn{
     border: none;
     color: var(--_pure-white);
     background: var(--_prim-blue);
     padding: 0.5rem 1rem;
 }
-.createCourse__create-course-btn:hover{
+.editCourse__edit-course-btn:hover{
     background: #0062ff;
 }
 
 
-.createCourse .added-chapter{
+.editCourse .added-chapter{
     /* background-color: var(--_pure-white); */
     /* border: 1px solid rgb(255, 0, 170); */
     display: flex;
@@ -159,59 +162,95 @@
     border-radius: 15px;
     border-bottom: 2px solid var(--_def-grey);
 }
-.createCourse .chapter-texts{
+.editCourse .chapter-texts{
     width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-.createCourse .chapter-texts img{
+.editCourse .chapter-texts .chapter-title{
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--_def-grey);
+    margin-bottom: 1rem;
+}
+.editCourse .chapter-texts img{
     height: 200px;
 }
-.createCourse .chapter-files{
+.editCourse .edit-text-btn{
+    align-self: flex-end;
+    color: var(--_dark);
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+    width: 220px;
+    cursor: pointer;
+}
+.editCourse .edit-text-btn:hover path{
+    stroke: var(--_accent-orange);
+    fill: var(--_accent-orange);
+}
+.editCourse .edit-text-btn:hover{
+    color: var(--_accent-orange);
+}
+.editCourse .edit-text-btn span{
+    margin-right: 0.3rem;
+}
+.editCourse .chapter-files{
     width: 30%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.createCourse .chapter-files__label{
+.editCourse .chapter-files__label{
     font-size: 1.5rem;
     margin-bottom: 2rem;
 }
-/* .createCourse .chapter-files__files{
+/* .editCourse .chapter-files__files{
 
 } */
-.createCourse .chapter-files__icons{
+.editCourse .chapter-files__icons{
     align-self: flex-end;
     display: flex;
     flex-direction: row;
     gap: 2rem;
 }
-/* .createCourse .individual-chapter-file{
-
-} */
-.createCourse .chapter-title{
+.editCourse .individual-chapter-file{
+    font-size: 0.8rem;
+    background-color: #eeeded;
+    border-radius: 5px;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+}
+.editCourse .individual-chapter-file div{
+    align-self: flex-end;
+}
+.editCourse .chapter-title{
     font-size: 1.5rem;
 }
-.createCourse .chapter-description{
+.editCourse .chapter-description{
     font-size: 1rem;
 }
-.createCourse__text-inputs input[type="text"]{
+.editCourse__text-inputs input[type="text"]{
     padding: 0.5rem 1rem;
     border-bottom: 2px solid var(--_def-grey);
 }
-.createCourse__text-inputs input[type="text"]:focus{
+.editCourse__text-inputs input[type="text"]:focus{
     outline: none;
 }
-.createCourse .add-new-chapter{
+.editCourse .add-new-chapter{
     padding-bottom: 80px;
 }
-.add-new-chapter .createCourse__files-buttons{
+.add-new-chapter .editCourse__files-buttons{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.createCourse__files-btns{
+.editCourse__files-btns{
     margin-top: 15%;
 }
-.createCourse .add-new-chapter ::-webkit-file-upload-button{
+.editCourse .button-upload ::-webkit-file-upload-button{
     color: var(--_dark);
     background: var(--_def-grey);
     border: none;
@@ -220,10 +259,10 @@
     padding: 0.5rem 1rem;
     cursor: pointer;
 }
-.createCourse .add-new-chapter  ::-webkit-file-upload-button:hover{
+.editCourse .button-upload  ::-webkit-file-upload-button:hover{
     background: #e2e4eb;
 }
-.add-new-chapter .createCourse__upload-btn{
+.editCourse__upload-btn{
     background: transparent;
     border: 1.5px solid var(--_def-grey);
     border-radius: 5px;
@@ -231,48 +270,47 @@
     color: var(--_dark);
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    width: 50%;
+    width: 150px;
     min-width: 100px;
-    padding: 0.2rem 0;
+    padding: 0.2rem 1rem;
     margin-top: 1rem;
 }
-.add-new-chapter .createCourse__upload-btn:hover{
+.editCourse__upload-btn:hover{
     background: #e2e4eb;
 }
-.createCourse .add-new-chapter{
+.editCourse .add-new-chapter{
     background-color: var(--_pure-white);
 }
-.add-new-chapter .createCourse__create-course-btn{
+.add-new-chapter .editCourse__edit-course-btn{
     border-radius: 5px;
     width: 40%;
     align-self: flex-end;
     margin-top: auto;
     cursor: pointer;
 }
-.createCourse .centered-btn{
-    text-align: center;
+.editCourse .centered-btn{
+    text-align: end;
 }
-.createCourse .save-course-btn{
+.editCourse .save-course-btn{
     color: var(--_pure-white);
     background-color: var(--_accent-orange);
     border: none;
     font: var(--_worksans);
     text-decoration: none;
-    margin-left: 35%;
     margin-top: 3vh;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
 }
-.createCourse .save-course-btn:hover{
+.editCourse .save-course-btn:hover{
     background: #f4b14c;
 }
-.createCourse .delete{
+.editCourse .delete{
     background-color: #c16363;
     margin-left: 35%;
 }
-.createCourse .delete:hover{
+.editCourse .delete:hover{
     background-color: var(--_red);
 }

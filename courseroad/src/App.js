@@ -18,6 +18,14 @@ import SignIn from './components/SignIn';
 import FAQs from './components/FAQs';
 import AboutUs from './components/aboutus';
 
+import AboutUs from './components/UsAbout';
+import FAQs from './components/FAQs';
+import UserSettings from './components/UserSettings';
+import EditCourse from './components/EditCourse';
+import StudentHome from './components/StudentHome';
+import UserRouteProtection from './components/UserRouteProtection';
+import TeacherRouteProtection from './components/TeacherRouteProtection';
+import NoAccess from './components/NoAccess';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,9 +34,21 @@ const router = createBrowserRouter(
       <Route index element={<LandingPage />}></Route>
       <Route path="signup" element={<SignUp />}></Route>
       <Route path="signin" element={<SignIn />}></Route>
-      <Route path="dashboard" element={<DashboardLayout />}>
-        <Route path="teacherHome" element={<TeacherHome />}></Route>
-        <Route path="createcourse" element={<CreateCourse />}></Route>
+      <Route path="faqs" element={<FAQs />}></Route>
+      <Route path="aboutus" element={<AboutUs />}></Route>
+
+      <Route element={<UserRouteProtection/>}>
+        <Route path="dashboard" element={<DashboardLayout />}>
+
+          <Route element={<TeacherRouteProtection/>}>
+            <Route path="teacherHome" element={<TeacherHome />}></Route>
+            <Route path="createcourse" element={<CreateCourse />}></Route>
+            <Route path="editCourse/:children" element={<EditCourse />}></Route>
+          </Route>
+
+          <Route path="userSettings" element={<UserSettings />}></Route>
+          <Route path="studentHome" element={<StudentHome />}></Route>
+        </Route>
       </Route>
 
       <Route path="adminsignin" element={<AdminSignIn />}></Route>
@@ -37,6 +57,8 @@ const router = createBrowserRouter(
         <Route index element={<AdminCourseReports />}></Route>
         <Route path="teacherApplications" element={<AdminTeacherApplications />}></Route>
       </Route>
+
+      <Route path='*' element={<NoAccess/>}></Route>
 
     </Route>
   )
