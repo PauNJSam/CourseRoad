@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import CloseIcon from "../icons/CloseIcon";
 import "../styles/EditChapter.css";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 import { db } from '../config/firebase';
 import {  doc, updateDoc } from "firebase/firestore";
 
@@ -66,7 +66,7 @@ const EditChapter = ({ chapID, chapTitle, chapDes, open, close, getChaps }) => {
                 <div className="chapter-texts">
                     <p>Edit Chapter</p>
                     <input className="chapter-title" type="text" ref={chapterTitleRef} placeholder={chapTitle}></input>
-                    <div><ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef} /></div> 
+                    {/* <div><ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef} /></div>  */}
                     <button className="save-edit-btn" type="button" onClick={saveUpdate}>Save Changes</button>
                 </div>
             </div>

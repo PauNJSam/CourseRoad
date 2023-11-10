@@ -15,14 +15,16 @@ function StudentHome() {
   const [data, setData]= useState(null);
   const loggedInEmail = auth?.currentUser?.email;
   const [email, setEmail] = useState(loggedInEmail);
+  const [coursesData, setCoursesData] = useState(null);
 
   const navigate = useNavigate();
-  
+
   const handleFilter = (event) => {
+    console.log(filteredData);
     const searchWord = event.target.value;
     setWordEntered(searchWord);
     const newFilter = data.filter((value) => {
-      return value.title.toLowerCase().includes(searchWord.toLowerCase());
+      return value.courseTitle.toLowerCase().includes(searchWord.toLowerCase());
     });
 
     if (searchWord === "") {
@@ -65,14 +67,13 @@ function StudentHome() {
     }, [loggedInEmail]);
 
   return (
-    <div className="search">
+    <><div className="search">
       <div className="searchInputs">
         <input
           type="text"
-          placeholder={placeholder}
+          //   placeholder={placeholder}
           value={wordEntered}
-          onChange={handleFilter}
-        />
+          onChange={handleFilter} />
         <div className="BellIcon">
           {filteredData.length === 0 ? (
             <BellIcon />
@@ -85,15 +86,34 @@ function StudentHome() {
         <div className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             return (
-              <a className="dataItem" href={value.link} target="_blank">
-                <p>{value.title} </p>
+              <a key={key} className="dataItem" href={"/dashboard/CourseOverview"} target="_blank">
+                <p>{value.courseTitle} </p>
               </a>
             );
           })}
-        </div>
+        </div>   
+      )} 
+        </div><div className='student-home__header'>
+        <p className='student-home__title'>My Courses</p>
+      </div><div className='student-home__card-list'>
+        {data === null ? null : data.map((course) => {
+          return (
+            <article className='course-card' key={course.id} onClick={data}>
+              <div className='course-pic'>
+                <img className='course-thumbnail' src={course.courseThumbnail} alt='courseThumbnail' />
+
+              </div>
+              <div className='course-card__details'>
+                <div>
+                  <p className='course-title'>{course.courseTitle}</p>
+                  {/* <p>{course.dateCreated}</p> */}
+                </div>
+              </div>
+
+            </article>
+          );
+        })}
+      </div></>
       )}
-    </div>
-  );
-}
 
 export default StudentHome;

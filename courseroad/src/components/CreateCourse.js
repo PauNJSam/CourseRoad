@@ -4,8 +4,8 @@ import {db, storage} from '../config/firebase';
 import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy, getDoc, setDoc, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 import UploadIcon from "../icons/UploadIcon";
 import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
@@ -305,7 +305,7 @@ const CreateCourse = () =>{
                         
                             <div className='createCourse__text-inputs' >
                                 <input type='text' ref={chapterTitleRef} placeholder='Chapter Title' required></input>
-                                <ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef}/>
+                                {/* <ReactQuill modules={module} theme='snow' ref={chapterDescriptionRef}/> */}
                                 {/* <textarea rows={15} ref={chapterDescriptionRef} placeholder='Chapter Description...'></textarea> */}
                             </div>
                             <div className='createCourse__files-buttons'>

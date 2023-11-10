@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useRef } from 'react';
-=======
 import React, { useRef, useState } from 'react';
->>>>>>> main
 import CHeroLogo from '../images/courseroad_logo.png';
 import Pad from '../images/rectangle7361801-zq92-600w.png';
 // import Goog from '../images/rectangle7391801-l43o.svg';
@@ -10,12 +6,6 @@ import Googlogo from '../images/googleglogo11801-6zi9-200h.png';
 import '../styles/SignIn.css';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
-<<<<<<< HEAD
-import { auth } from "../config/firebase";
-
-
-const emailRef = useRef();
-=======
 import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup } from 'firebase/auth';
 import ForgotPass from '../modals/ForgotPass';
@@ -24,24 +14,11 @@ import ForgotPass from '../modals/ForgotPass';
 const SignInPage = (props) => {
   const [openModal, setOpenModal] = useState(false);
     const emailRef = useRef();
->>>>>>> main
     const passRef = useRef();
     const navigate = useNavigate();
     const signup =() => {
         navigate('/signup');
     }
-<<<<<<< HEAD
-    const dashboard=() => {
-      navigate('/dashboard');
-  }
-  const signin = async () => {
-
-    try{
-    signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
-        .then((userCredentials) => {
-            console.log("User credentials: ",userCredentials);
-            navigate("/dashboard");
-=======
     
   const signin = async () => {
     try{signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
@@ -49,7 +26,6 @@ const SignInPage = (props) => {
             console.log("User credentials: ",userCredentials);
             localStorage.setItem("authedUser", userCredentials.user.email);
             navigate("/dashboard/studentHome");
->>>>>>> main
         }) .catch((err) => {
             console.log(err);
         });
@@ -57,9 +33,6 @@ const SignInPage = (props) => {
     } catch(err){
         console.error(err);
     }
-<<<<<<< HEAD
-};
-=======
   };
 
 const googleSignin = async () => {
@@ -93,7 +66,6 @@ const googleSignin = async () => {
 }; */
 
   return (
->>>>>>> main
     <div className="sign-in-page-container">
       <div className="sign-in-page-sign-in-page">
         <img
@@ -153,11 +125,6 @@ const googleSignin = async () => {
       <ForgotPass open={openModal} close={() => setOpenModal(false)} />
     </div>
 
-
-<<<<<<< HEAD
+  )
+        }
 export default SignInPage;
-
-//routing to be made 
-=======
-export default SignInPage;
->>>>>>> main

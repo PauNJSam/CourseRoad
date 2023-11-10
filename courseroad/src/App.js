@@ -6,6 +6,7 @@ import RootLayout from './layouts/RootLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import AdminLayout from './layouts/AdminLayout';
 
+
 //components
 import LandingPage from './components/LandingPage';
 import TeacherHome from './components/TeacherHome';
@@ -15,8 +16,6 @@ import AdminCourseReports from './components/AdminCourseReports';
 import AdminTeacherApplications from './components/AdminTeacherApplications';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import FAQs from './components/FAQs';
-import AboutUs from './components/aboutus';
 
 import AboutUs from './components/UsAbout';
 import FAQs from './components/FAQs';
@@ -26,6 +25,7 @@ import StudentHome from './components/StudentHome';
 import UserRouteProtection from './components/UserRouteProtection';
 import TeacherRouteProtection from './components/TeacherRouteProtection';
 import NoAccess from './components/NoAccess';
+import CourseOverview from './components/CourseOverview';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +48,7 @@ const router = createBrowserRouter(
 
           <Route path="userSettings" element={<UserSettings />}></Route>
           <Route path="studentHome" element={<StudentHome />}></Route>
+          <Route path="courseOverview" element={<CourseOverview/>}></Route>
         </Route>
       </Route>
 
