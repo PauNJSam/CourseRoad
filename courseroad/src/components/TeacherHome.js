@@ -47,8 +47,8 @@ const TeacherHome = () => {
     const toCreateCourse = () =>{
         navigate("/dashboard/createCourse");
     };
-    const showCourseStats = () =>{
-        
+    const showCourseStats = (theCourseID) =>{
+        window.open(`${window.location.origin}/${'dashboard/teacherCourseStatus/'}${theCourseID}`);
     };
 
     return(
@@ -61,7 +61,7 @@ const TeacherHome = () => {
                 {
                         coursesData === null ? null : coursesData.map((course)=>{
                             return(
-                                <article className='course-card' key={course.id} onClick={showCourseStats} >
+                                <article className='course-card' key={course.id} onClick={()=>{showCourseStats(course.id)}} >
                                     <div className='course-pic'>
                                         <img className='course-thumbnail' src={course.courseThumbnail} alt='courseThumbnail' />
                                         

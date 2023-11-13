@@ -1,0 +1,128 @@
+.student-home .search{
+    background-image: url(../images/screen_bg.png);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: center;
+    flex-direction: column;
+}
+
+.student-home .searchInputs {
+    margin-top: 105px;
+    display: flex;
+  }
+  
+.student-home .search input {
+    background-color: white;
+    border: 0;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-size: 18px;
+    padding: 15px;
+    height: 30px;
+    width: 300px;
+  }
+  
+  .student-home  .searchIcon {
+    height: 60px;
+    width: 50px;
+    background-color: white;
+    display: grid;
+    place-items: center;
+  }
+  
+  .student-home  input:focus {
+    outline: none;
+  }
+  .student-home .searchIcon svg {
+    font-size: 35px;
+  }
+  
+  .student-home  .dataResult {
+    margin-top: 5px;
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  
+  .student-home .dataResult::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .student-home  .dataResult .dataItem {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: black;
+  }
+  
+  .student-home .dataItem p {
+    margin-left: 10px;
+  }
+  .student-home a {
+    text-decoration: none;
+  }
+  
+  .student-home  a:hover {
+    background-color: lightgrey;
+  }
+  
+  .student-home #clearBtn {
+    cursor: pointer;
+  }
+
+
+
+.student-home__header{
+    font-family: var(--_worksans);
+    color: var(--_mid-grey);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.student-home__card-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.student-home .course-card{
+    background-color: var(--_pure-white);
+    border-radius: 15px;
+    width: 12.5rem;
+    height: 15.625rem;
+    max-width: 40vw;
+    box-shadow: var(--_box-shadow);
+    cursor: pointer;
+}
+.student-home .course-pic .course-thumbnail{
+    width: 50%;
+    height: 5.125rem;
+    max-height: 5.125rem;
+    border-radius: 15px 15px 0 0;
+}
+.student-home .course-card__details{
+    padding: 5% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 7rem;
+}
+.student-home .course-title{
+    margin-bottom: 0.5rem;
+}
+
+.student-home .course-card__icons{
+    align-self: flex-end;
+}
+.student-home .icon{
+    cursor: pointer;
+}
