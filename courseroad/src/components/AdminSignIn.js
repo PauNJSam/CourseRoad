@@ -1,9 +1,9 @@
 import React from 'react';
 const AdminSignIn = () => {
     return(
-        <React.Fragment>
+        <div className='adminSignin'>
             <p>Admin Sign in Page</p>
-        </React.Fragment>
+        </div>
     );
 };
 

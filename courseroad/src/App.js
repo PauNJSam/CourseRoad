@@ -23,6 +23,8 @@ import StudentHome from './components/StudentHome';
 import UserRouteProtection from './components/UserRouteProtection';
 import TeacherRouteProtection from './components/TeacherRouteProtection';
 import NoAccess from './components/NoAccess';
+import CourseOverview from './components/CourseOverview';
+import TeacherCourseStatus from './components/TeacherCourseStatus';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,10 +43,12 @@ const router = createBrowserRouter(
             <Route path="teacherHome" element={<TeacherHome />}></Route>
             <Route path="createcourse" element={<CreateCourse />}></Route>
             <Route path="editCourse/:children" element={<EditCourse />}></Route>
+            <Route path="teacherCourseStatus/:children" element={<TeacherCourseStatus />}></Route>
           </Route>
 
           <Route path="userSettings" element={<UserSettings />}></Route>
           <Route path="studentHome" element={<StudentHome />}></Route>
+          <Route path="courseOverview/:children" element={<CourseOverview />}></Route>
         </Route>
       </Route>
 
