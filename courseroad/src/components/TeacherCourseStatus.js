@@ -4,11 +4,11 @@ import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 
-const CourseOverview = () => {
-  const courseDocID = useLocation().pathname.split('/')[3];
-  const loggedInEmail = auth?.currentUser?.email;
-  const [email, setEmail] = useState(loggedInEmail);
-  const navigate = useNavigate();
+const TeacherCourseStatus = () => {
+    const courseDocID = useLocation().pathname.split('/')[3];
+    const loggedInEmail = auth?.currentUser?.email;
+    const [email, setEmail] = useState(loggedInEmail);
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("User logged in: ", loggedInEmail);
@@ -27,15 +27,14 @@ const CourseOverview = () => {
     const getCourse = () => {
 
     };
-    
+
   return (
-    <div className='courseOverview'>
-        <div>
-            <p>This is the Course Overview of the courseID: {courseDocID}</p>
-        </div>
+    <div className='teacherCourseStatus'>
+        <p>TeacherCourseStatusPage</p>
+        <p>{courseDocID}</p>
 
     </div>
-  );
-};
+  )
+}
 
-export default CourseOverview;
+export default TeacherCourseStatus

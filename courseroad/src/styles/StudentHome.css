@@ -1,4 +1,4 @@
-.search{
+.student-home .search{
     background-image: url(../images/screen_bg.png);
     height: 100vh;
     width: 100%;
@@ -9,12 +9,12 @@
     flex-direction: column;
 }
 
-.searchInputs {
+.student-home .searchInputs {
     margin-top: 105px;
     display: flex;
   }
   
-  .search input {
+.student-home .search input {
     background-color: white;
     border: 0;
     border-radius: 2px;
@@ -26,7 +26,7 @@
     width: 300px;
   }
   
-  .searchIcon {
+  .student-home  .searchIcon {
     height: 60px;
     width: 50px;
     background-color: white;
@@ -34,14 +34,14 @@
     place-items: center;
   }
   
-  input:focus {
+  .student-home  input:focus {
     outline: none;
   }
-  .searchIcon svg {
+  .student-home .searchIcon svg {
     font-size: 35px;
   }
   
-  .dataResult {
+  .student-home  .dataResult {
     margin-top: 5px;
     width: 300px;
     height: 200px;
@@ -51,11 +51,11 @@
     overflow-y: auto;
   }
   
-  .dataResult::-webkit-scrollbar {
+  .student-home .dataResult::-webkit-scrollbar {
     display: none;
   }
   
-  .dataResult .dataItem {
+  .student-home  .dataResult .dataItem {
     width: 100%;
     height: 50px;
     display: flex;
@@ -63,18 +63,18 @@
     color: black;
   }
   
-  .dataItem p {
+  .student-home .dataItem p {
     margin-left: 10px;
   }
-  a {
+  .student-home a {
     text-decoration: none;
   }
   
-  a:hover {
+  .student-home  a:hover {
     background-color: lightgrey;
   }
   
-  #clearBtn {
+  .student-home #clearBtn {
     cursor: pointer;
   }
 

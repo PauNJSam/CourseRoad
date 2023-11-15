@@ -5,12 +5,11 @@ import { db } from '../config/firebase';
 import { collection, query, getDocs, where, orderBy } from "firebase/firestore";
 import '../styles/StudentHome.css';
 import CloseIcon from "../icons/CloseIcon";
-import BellIcon from "../icons/BellIcon";
+import SearchIcon from "../icons/SearchIcon";
 import { useNavigate } from "react-router-dom";
 
-
-function StudentHome() {
-  const [filteredData, setFilteredData] = useState([]);
+const StudentHome = () => {
+    const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [data, setData]= useState(null);
   const loggedInEmail = auth?.currentUser?.email;
@@ -66,17 +65,23 @@ function StudentHome() {
         }
     }, [loggedInEmail]);
 
-  return (
-    <><div className="search">
+    const toCourseOverview = (theCourseID) => {
+      // navigate(`/dashboard/courseOverview/${theCourseID}`);
+      window.open(`${window.location.origin}/${'dashboard/courseOverview/'}${theCourseID}`);
+    };
+
+    return(
+        <section className='student-home'>
+            <div className="search">
       <div className="searchInputs">
         <input
           type="text"
-          //   placeholder={placeholder}
+          placeholder='Course Title...'
           value={wordEntered}
           onChange={handleFilter} />
         <div className="BellIcon">
           {filteredData.length === 0 ? (
-            <BellIcon />
+            <SearchIcon />
           ) : (
             <CloseIcon id="clearBtn" onClick={clearInput} />
           )}
@@ -86,7 +91,7 @@ function StudentHome() {
         <div className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             return (
-              <a key={key} className="dataItem" href={"/dashboard/CourseOverview"} target="_blank">
+              <a key={key} className="dataItem" href={`/dashboard/courseOverview/${value.id}`} target="_blank">
                 <p>{value.courseTitle} </p>
               </a>
             );
@@ -94,11 +99,11 @@ function StudentHome() {
         </div>   
       )} 
         </div><div className='student-home__header'>
-        <p className='student-home__title'>My Courses</p>
+        <p className='student-home__title'>Courses To Explore</p>
       </div><div className='student-home__card-list'>
         {data === null ? null : data.map((course) => {
           return (
-            <article className='course-card' key={course.id} onClick={data}>
+            <article className='course-card' key={course.id} onClick={()=>{toCourseOverview(course.id)}}>
               <div className='course-pic'>
                 <img className='course-thumbnail' src={course.courseThumbnail} alt='courseThumbnail' />
 
@@ -106,14 +111,14 @@ function StudentHome() {
               <div className='course-card__details'>
                 <div>
                   <p className='course-title'>{course.courseTitle}</p>
-                  {/* <p>{course.dateCreated}</p> */}
                 </div>
               </div>
 
             </article>
           );
         })}
-      </div></>
-      )}
-
+      </div>
+        </section>
+    );
+};
 export default StudentHome;
