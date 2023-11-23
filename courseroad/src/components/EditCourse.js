@@ -130,7 +130,7 @@ const EditCourse = () =>{
 
 
     const createExam = () => {
-
+        navigate(`/dashboard/createExam/${courseDocID}`);
     };
 
     const uploadImage = (oldThumbnail) =>{
