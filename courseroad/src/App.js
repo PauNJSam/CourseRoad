@@ -6,6 +6,7 @@ import RootLayout from './layouts/RootLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import AdminLayout from './layouts/AdminLayout';
 
+
 //components
 import LandingPage from './components/LandingPage';
 import TeacherHome from './components/TeacherHome';
@@ -15,6 +16,7 @@ import AdminCourseReports from './components/AdminCourseReports';
 import AdminTeacherApplications from './components/AdminTeacherApplications';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+
 import AboutUs from './components/UsAbout';
 import FAQs from './components/FAQs';
 import UserSettings from './components/UserSettings';

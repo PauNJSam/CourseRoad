@@ -124,7 +124,7 @@ const googleSignin = async () => {
       </div>
       <ForgotPass open={openModal} close={() => setOpenModal(false)} />
     </div>
-  )
-}
 
+  )
+        }
 export default SignInPage;

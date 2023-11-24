@@ -94,13 +94,14 @@ const StudentHome = () => {
               <a key={key} className="dataItem" href={`/dashboard/courseOverview/${value.id}`} target="_blank">
                 <p>{value.courseTitle} </p>
               </a>
+              
             );
           })}
         </div>   
       )} 
         </div><div className='student-home__header'>
         <p className='student-home__title'>Courses To Explore</p>
-      </div><div className='student-home__card-list'>
+        </div><div className='student-home__card-list'>
         {data === null ? null : data.map((course) => {
           return (
             <article className='course-card' key={course.id} onClick={()=>{toCourseOverview(course.id)}}>
@@ -113,7 +114,6 @@ const StudentHome = () => {
                   <p className='course-title'>{course.courseTitle}</p>
                 </div>
               </div>
-
             </article>
           );
         })}
