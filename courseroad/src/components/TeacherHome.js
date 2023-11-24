@@ -73,7 +73,7 @@ const TeacherHome = () => {
                                             <p className='course-numberOfStudents'>Students: {course.numberOfStudents}</p>
                                         </div>
                                         <div className='course-card__icons'>
-                                            <div className='icon' onClick={()=>{toEditCourse(course.id)}}><EditIcon /></div>
+                                            <div className='icon' onClick={(e)=>{toEditCourse(course.id); e.stopPropagation()}}><EditIcon /></div>
                                         </div>
                                     </div>
                                     

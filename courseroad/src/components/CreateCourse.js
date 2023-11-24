@@ -11,6 +11,8 @@ import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import DeleteConfirmation from '../modals/DeleteConfirmation';
+import deletePic from '../images/DeleteConfirmation.png'
 
 
 const CreateCourse = () =>{
@@ -29,6 +31,7 @@ const CreateCourse = () =>{
     const [chapterFileNames, setChapterFileNames] = useState([]);
     const [chaptersData, setChaptersData] = useState([]);
     const [userEmail, setUserEmail] = useState(loggedInEmail);
+    const [deleteTrigger, setDeleteTrigger] = useState(false);
 
     const navigate = useNavigate();
     
@@ -238,7 +241,7 @@ const CreateCourse = () =>{
         });
         await Promise.all(deleteChapterPromises);
         await deleteDoc(doc(db, "COURSESCREATED", courseID));
-        alert("Successfully Deleted Course");
+        // alert("Successfully Deleted Course");
         navigate("/dashboard/teacherHome");
     };
     
@@ -322,10 +325,28 @@ const CreateCourse = () =>{
                 
             </div>
 
-            <div className='centered-btn'>
-            <button className='save-course-btn' type='button' onClick={saveCourse}>Save Course</button>
-            <button className='save-course-btn delete' type='button' onClick={deleteTheCourse}>Delete Course</button>
+            {
+                courseID == null ? null : <div className='centered-btn'>
+                <button className='save-course-btn' type='button' onClick={saveCourse}>Save Course</button>
+                <button className='save-course-btn delete' type='button' onClick={()=>setDeleteTrigger(!deleteTrigger)}>Delete Course</button>
+                <DeleteConfirmation trigger={deleteTrigger}>
+                    <img src={deletePic} />
+                    <button type='button' onClick={deleteTheCourse} style={{
+                        border: '1px solid blue',
+                        borderRadius: '10px',
+                        color: 'blue',
+                        fontFamily: 'Inter',
+                        cursor: 'pointer'
+                    }}>Delete</button>
+                    <button type='button' onClick={()=>setDeleteTrigger(false)} style={{
+                        border: 'none',
+                        color: 'grey',
+                        fontFamily: 'Inter',
+                        cursor: 'pointer'
+                    }}>Cancel</button>
+                </DeleteConfirmation>
             </div>
+            }
 
         </section>
     );
