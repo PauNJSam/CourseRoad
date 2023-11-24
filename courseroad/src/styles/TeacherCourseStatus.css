@@ -1,0 +1,18 @@
+.teacherStatus{ 
+background-image: url(../images/screen_bg.png);
+height: 100vh;
+color: var(--_light);
+font-family: var(--_inter);
+padding-top: 4rem;
+display: flex;
+align-items: center;
+}
+
+.teacherCourseStatus{
+
+    box-sizing: border-box;
+    margin: 10;
+    padding: 4% 8%;
+    font-family: var(--_worksans);
+    font-weight: 900;
+}
