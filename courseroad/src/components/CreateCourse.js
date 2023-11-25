@@ -32,6 +32,7 @@ const CreateCourse = () =>{
     const [chaptersData, setChaptersData] = useState([]);
     const [userEmail, setUserEmail] = useState(loggedInEmail);
     const [deleteTrigger, setDeleteTrigger] = useState(false);
+    const [displayCreateExam, setDisplayCreateExam] = useState(false);
 
     const navigate = useNavigate();
     
@@ -100,6 +101,7 @@ const CreateCourse = () =>{
     
             }).then((docRef)=>{
                 setCourseID(docRef.id);
+                setDisplayCreateExam(true);
                 setDisplayChapterForm(true);
             }).catch((error) => {
                 console.error('Error adding course: ', error);
@@ -162,6 +164,10 @@ const CreateCourse = () =>{
         /* let courseTitleNoSpace = courseTitleRef.current.value.split(' ').join('');
         let courseTitledoc = courseTitleNoSpace.toLowerCase() + crypto.randomUUID();
         console.log(courseTitledoc); */
+        if(courseID){
+            navigate(`/dashboard/createExam/${courseID}`);
+        }
+
     }
 
     const uploadImage = () =>{
@@ -265,7 +271,7 @@ const CreateCourse = () =>{
                             <button className='createCourse__upload-btn btn' onClick={uploadImage}><UploadIcon /> Upload Image</button>
                             
                             <div className='createCourse__header-lower-btns'>
-                                <button className='createCourse__createExam-btn btn' type='button' onClick={createExam}>Create Exam</button>
+                                {displayCreateExam &&  <button className='createCourse__createExam-btn btn' type='button' onClick={createExam}>Create Exam</button>}
                                 <button className='createCourse__create-course-btn btn' type='button' onClick={createCourse}>Create Course</button>
                             </div>
                             
