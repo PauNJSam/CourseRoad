@@ -126,3 +126,15 @@
 .student-home .icon{
     cursor: pointer;
 }
+
+
+
+
+
+
+.student-home .enrolled-courses{
+  z-index: 100;
+  width: 500px;
+  height: 500px;
+  background: teal;
+}

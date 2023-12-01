@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { db } from '../config/firebase';
-import { collection, query, getDocs, where, orderBy } from "firebase/firestore";
+import { collection, query, getDocs, where, orderBy, getDoc, doc } from "firebase/firestore";
 import '../styles/StudentHome.css';
 import CloseIcon from "../icons/CloseIcon";
 import SearchIcon from "../icons/SearchIcon";
@@ -15,6 +15,9 @@ const StudentHome = () => {
   const loggedInEmail = auth?.currentUser?.email;
   const [email, setEmail] = useState(loggedInEmail);
   const [coursesData, setCoursesData] = useState(null);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [enrolledCoursesData, setEnrolledCoursesData] = useState([]);
+
 
   const navigate = useNavigate();
 
@@ -57,6 +60,7 @@ const StudentHome = () => {
             if(userData){
                 setEmail(userData.email);
                 getCourse();
+                getUserCourses();
             }
         });
         
@@ -68,6 +72,44 @@ const StudentHome = () => {
     const toCourseOverview = (theCourseID) => {
       // navigate(`/dashboard/courseOverview/${theCourseID}`);
       window.open(`${window.location.origin}/${'dashboard/courseOverview/'}${theCourseID}`);
+    };
+
+    const getUserCourses = async () => {
+      try{
+        const docRef = doc(db, "USERS", email || loggedInEmail);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data().enrolledCourses);
+        setEnrolledCourses(docSnap.data().enrolledCourses);
+        getEnrolledCourses(docSnap.data().enrolledCourses);
+        
+        } else {
+        console.log("No such document!");
+        }
+    } catch(err){
+        console.log(err.message);
+    }  
+    };
+    const getEnrolledCourses = async (enrolledCourses) => {
+      console.log(enrolledCourses);
+      enrolledCourses.forEach(async enrolledCourse => {
+        try{
+       
+          const q = doc(db, "COURSESCREATED", enrolledCourse.courseID);
+          const docSnap = await getDoc(q);
+  
+          if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            setEnrolledCoursesData((prev)=>[...prev, docSnap.data()]);
+            console.log(enrolledCoursesData);
+            } else {
+            console.log("No such document!");
+            }
+      } catch(err){
+          console.log(err.message);
+      }
+      });
     };
 
     return(
@@ -98,7 +140,22 @@ const StudentHome = () => {
           })}
         </div>   
       )} 
-        </div><div className='student-home__header'>
+        </div>
+
+        <section className='enrolled-courses'>
+          {
+            enrolledCoursesData == null ? null : enrolledCoursesData.map((course)=>{
+              return(
+                <div key={course.courseID}>
+              <p>{course.courseTitle}</p>
+            </div>
+              );
+            })
+
+          }
+        </section>
+        
+        <div className='student-home__header'>
         <p className='student-home__title'>Courses To Explore</p>
       </div><div className='student-home__card-list'>
         {data === null ? null : data.map((course) => {
