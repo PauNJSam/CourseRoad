@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import {db} from '../config/firebase';
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion, addDoc, collection, setDoc } from "firebase/firestore";
 
 
 
@@ -44,7 +44,7 @@ const CourseOverview = () => {
       }   
   };
 
-  const enroll = async () => {
+  /* const enroll = async () => {
     const chapterDocRef = doc(db, "USERS", email)
                 
       await updateDoc(chapterDocRef, {
@@ -57,6 +57,30 @@ const CourseOverview = () => {
       }).catch((error) => {
           console.error('Error updating course with new chapter files', error);
       });
+  }; */
+
+
+  const enroll = async () => {
+    // const chapterDocRef = doc(db, "USERS", email, "ENROLLEDCOURSES")
+                
+    const chapterDocRef = await setDoc(doc(db, "USERS", email, "ENROLLEDCOURSES", courseDocID), {
+      chapters: []
+
+      }).then(()=>{
+        updateCourseID();
+        console.log(courseDocID);
+          navigate("/dashboard/studentHome");
+      }).catch((error) => {
+          console.error('Error updating course with new chapter files', error);
+      });
+  };
+
+  const updateCourseID = async () => {
+    const courseDocRef = doc(db, "COURSESCREATED", courseDocID)
+                
+                    await updateDoc(courseDocRef, {
+                        courseID: courseDocID
+                    })
   }
     
   return (

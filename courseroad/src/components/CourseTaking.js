@@ -21,10 +21,7 @@ const CourseTaking = () => {
     const [courseData, setCourseData] = useState(null);
     const [chaptersChecked, setChaptersChecked] = useState(null);
 
-
     const navigate = useNavigate();
-
-
 
     useEffect(() => {
         getCourse();
@@ -53,6 +50,7 @@ const CourseTaking = () => {
             console.log(err.message);
         }
     };
+    
     const getCourse = async () => {
         try{
             const docRef = doc(db, "COURSESCREATED", courseDocID);

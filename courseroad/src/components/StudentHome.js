@@ -17,6 +17,7 @@ const StudentHome = () => {
   const [coursesData, setCoursesData] = useState(null);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [enrolledCoursesData, setEnrolledCoursesData] = useState([]);
+  // const [enrolledCoursesData, setEnrolledCoursesData] = useState(null);
 
 
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ const StudentHome = () => {
       window.open(`${window.location.origin}/${'dashboard/courseOverview/'}${theCourseID}`);
     };
 
-    const getUserCourses = async () => {
+    /* const getUserCourses = async () => {
       try{
         const docRef = doc(db, "USERS", email || loggedInEmail);
         const docSnap = await getDoc(docRef);
@@ -110,7 +111,53 @@ const StudentHome = () => {
           console.log(err.message);
       }
       });
+    }; */
+
+    const getUserCourses = async () => {
+      
+      try{
+        const docRef = collection(db, "USERS", email || loggedInEmail, "ENROLLEDCOURSES");
+        const docSnap = await getDocs(docRef);
+
+        // if (docSnap.exists()) {
+        // console.log("Document data:", docSnap.data());
+        setEnrolledCourses(docSnap.docs.map((doc)=> ({...doc.data(), id:doc.id})));
+        getEnrolledCourses(docSnap.docs.map((doc)=> ({...doc.data(), id:doc.id})));
+        
+        // } else {
+        // console.log("No such document!");
+        // }
+    } catch(err){
+        console.log(err.message);
+    }  
     };
+    const getEnrolledCourses = async (enrolledCourses) => {
+      enrolledCourses.forEach(async enrolledCourse => {
+        console.log(enrolledCourse.id);
+      try{
+        const q = doc(db, "COURSESCREATED", enrolledCourse.id);
+
+        const docSnap = await getDoc(q);
+
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+        setEnrolledCoursesData((prev)=>[...prev, docSnap.data()]);
+      } else {
+          console.log("No such document!");
+          }
+
+        // setEnrolledCoursesData(querySnapshot.docs.map((doc)=> ({...doc.data(), id:doc.id})));
+        // console.log(enrolledCoursesData);
+    } catch(err){
+        console.log(err.message);
+    }
+  });
+    };
+
+
+    const takeCourse = (coursetheID) => {
+      navigate(`/dashboard/courseTaking/${coursetheID}`);
+    }
 
     return(
         <section className='student-home'>
@@ -145,9 +192,10 @@ const StudentHome = () => {
         <section className='enrolled-courses'>
           {
             enrolledCoursesData == null ? null : enrolledCoursesData.map((course)=>{
+              console.log(course.id);
               return(
-                <div key={course.courseID}>
-              <p>{course.courseTitle}</p>
+                <div key={crypto.randomUUID()}>
+              <p onClick={()=>{takeCourse(course.courseID)}}>{course.courseTitle}</p>
             </div>
               );
             })
