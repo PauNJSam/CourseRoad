@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../styles/CourseOverview.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -82,19 +83,25 @@ const CourseOverview = () => {
                         courseID: courseDocID
                     })
   }
+
+  /* const handleGoBack = () => {
+    navigate(-1);
+  } */
     
   return (
     <div className='courseOverview'>
-        <div>
+        <div className='container'>
             {
               courseData == null ? null : <section>
-                <img src={courseData.courseThumbnail} alt='course background' width='500px' />
-                <p>{courseData.courseTitle}</p>
-                <p>{courseData.courseInstructor}</p>
+                <img className='courseImage' src={courseData.courseThumbnail} alt='course background' width='500px' />
+                <p className='courseTitle'>{courseData.courseTitle}</p>
+                <p>Instructor: {courseData.courseTeacher}</p>
                 <p>Date Created: {courseData.dateCreated?.toDate().toLocaleString()}</p>
-                <p>Number of Students Enrolled: {courseData.numberOfStudents}</p>
-                <p>Course Description: {courseData.courseDescription}</p>
-                <button type='button' onClick={enroll}>Enroll</button>
+                <p className={courseData.numberOfStudents > 0 ? 'studentsEnrolled' : 'noStudents'}>Number of Students Enrolled: {courseData.numberOfStudents}</p>
+                <p className="courseDescriptionLabel">Course Description:</p>
+                <p className="courseDescription">{courseData.courseDescription}</p>
+                <button className='enrollButton' type='button' onClick={enroll}>Enroll</button>
+                {/* <button className='goBackButton' type='button' onClick={handleGoBack}>Go Back</button> */}
               </section>
             }
         </div>

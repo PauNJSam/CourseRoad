@@ -190,6 +190,8 @@ const StudentHome = () => {
         </div>
 
         <section className='enrolled-courses'>
+          <p>Enrolled Courses:</p>
+          <br></br>
           {
             enrolledCoursesData == null ? null : enrolledCoursesData.map((course)=>{
               console.log(course.id);

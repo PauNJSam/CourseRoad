@@ -1,3 +1,20 @@
 .CourseTaking{
     padding: 3% 6%;
 }
+
+.CourseTaking .chapter-files__files{
+    display: flex;
+    flex-direction: row;
+}
+
+/* .chapter-files__files */
+
+.CourseTaking .individual-chapter-file{
+    margin-left: 1rem;
+}
+.CourseTaking .Title{
+    font-size: 1.5rem;
+}
+.CourseTaking .desc-label{
+    color: var(--_def-grey);
+}

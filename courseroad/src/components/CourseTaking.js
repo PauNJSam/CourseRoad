@@ -20,6 +20,7 @@ const CourseTaking = () => {
     const [chaptersData, setChaptersData] = useState(null);
     const [courseData, setCourseData] = useState(null);
     const [chaptersChecked, setChaptersChecked] = useState(null);
+    const [chapterCheck, setChapterCheck] = useState(false);
 
     const navigate = useNavigate();
 
@@ -92,12 +93,18 @@ const CourseTaking = () => {
                     } */
     };
 
+    const handleCheck = (e) => {
+        setChapterCheck(e.target.checked);
+    }
+
     return(
         <section className="CourseTaking">
             <article>
-                {courseData == null ? <img src={Loading} alt='loadiing...' width='200px' />: <p>{courseData.courseTitle}</p>}
+                {courseData == null ? <img src={Loading} alt='loadiing...' width='200px' />: <p className='Title'>{courseData.courseTitle}</p>}
                 <div>
-                    <p>Course Description</p>
+                <br></br>
+                    <p className='desc-label'>Course Description:</p>
+                    <br></br>
                     {courseData == null ? <img src={Loading} alt='loadiing...' width='200px' /> : <p>{courseData.courseDescription}</p>}
                 </div>
             </article>
@@ -114,8 +121,9 @@ const CourseTaking = () => {
                                 
                             </div>
                             <div className='chapter-files'>
+                            <p className='chapter-files__label'>Files Uploaded:</p>
                                 <div className='chapter-files__files'>
-                                    <p className='chapter-files__label'>Files Uploaded:</p>
+                                    <div className='chapter-files__container'>
                                     {chapter.chapterFiles.map((fileLink, index)=>{
                                         return(
                                             <div className='individual-chapter-file' key={fileLink+crypto.randomUUID()}>
@@ -126,7 +134,8 @@ const CourseTaking = () => {
                                             </div>
                                         )
                                     })}
-
+                                    </div>
+                                    <div className='chapter-files__container'>
                                     {chapter.chapterFileNames.map((fileName, index)=>{
                                         return(
                                             <div className='individual-chapter-file' key={fileName+crypto.randomUUID()}>
@@ -134,12 +143,13 @@ const CourseTaking = () => {
                                             </div>
                                         )
                                     })}
-                                    
+                                    </div>
                                 </div>
                             </div>
-                            <div className='chapter-checkbox'>
+                            {/* <div className='chapter-checkbox'>
                                     <button type='button' onClick={()=>{checkTheBox(chapter.id)}} >Check</button>
-                            </div>
+                                    <input checked={chapterCheck} onChange={handleCheck} type='checkbox' name='chapter' id='chapter'/>
+                            </div> */}
                             
                         </div>
                     )
