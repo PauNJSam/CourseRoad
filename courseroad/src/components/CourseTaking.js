@@ -95,7 +95,11 @@ const CourseTaking = () => {
 
     const handleCheck = (e) => {
         setChapterCheck(e.target.checked);
-    }
+    };
+
+    const takeExam = () => {
+        navigate(`/dashboard/examTaking/${courseDocID}`);
+    };
 
     return(
         <section className="CourseTaking">
@@ -155,6 +159,9 @@ const CourseTaking = () => {
                     )
                 })
             }
+            <div>
+                <button onClick={takeExam} >Take Exam</button>
+            </div>
             
         </section>
     );
