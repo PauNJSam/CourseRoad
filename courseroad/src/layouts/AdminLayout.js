@@ -6,6 +6,7 @@ const AdminLayout = () => {
         <section className='admin-nav'>
             <nav className='admin-nav__panel'>
                 <h1>This the adminLayout's navbar</h1>
+                {/* Insert Admin Navigation Panel here */}
             </nav>
             <section className='admin-nav__outlet'>
                 <Outlet />

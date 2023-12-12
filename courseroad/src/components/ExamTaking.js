@@ -6,7 +6,7 @@ import { query, doc, where, getDoc, getDocs, collection } from "firebase/firesto
 import { useNavigate, useLocation } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import Loading from '../images/Loading.png';
-
+import FailedExam from "../modals/FailedExam";
 
 const ExamTaking = () => {
     const storedEmail = localStorage.getItem('authedUser');
@@ -15,6 +15,8 @@ const ExamTaking = () => {
     const [examData, setExamData] = useState(null);
     const [userData, setUserData] = useState(null);
     const [courseData, setCourseData] = useState(null);
+
+    const [openModal2, setOpenModal2] = useState(false);
 
     const getUserInfo = async () => {
         const q = query(doc(db, "USERS", storedEmail));
@@ -74,6 +76,14 @@ const ExamTaking = () => {
         //else
         //fail modal mo pop up
     }
+    const failedExamFunc = (e) =>{
+        e.preventDefault();
+        //check answers and score 
+        //if pass 
+        setOpenModal2(true);
+        //else
+        //fail modal mo pop up
+    }
     return(
         <div>
             <form onSubmit={finishExam}>
@@ -92,10 +102,14 @@ const ExamTaking = () => {
                 }
 
                 <button type="submit">Submit Exam</button>
+                <button type="button" onClick={failedExamFunc}>Failed Exam</button>
             </form>
 
             <div>
                 <CertificateGrant userData={userData} courseData={courseData} open={openModal} close={()=>{setOpenModal(false)}} />
+            </div>
+            <div>
+                <FailedExam userData={userData} courseData={courseData} open={openModal2} close={()=>{setOpenModal2(false)}} />
             </div>
         </div>
     );
