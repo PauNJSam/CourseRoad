@@ -4,6 +4,7 @@ import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import {db, storage} from '../config/firebase';
 import { collection, addDoc, serverTimestamp, query, getDocs, doc, updateDoc, arrayUnion, where, orderBy, getDoc, setDoc, deleteDoc, arrayRemove, FieldValue } from "firebase/firestore";
+import '../styles/TeacherCourseStatus.css';
 
 const TeacherCourseStatus = () => {
     const courseDocID = useLocation().pathname.split('/')[3];
@@ -48,6 +49,7 @@ const TeacherCourseStatus = () => {
         <div className="teacherCourseStatus">
         <p>Course Details and Status</p>
          <p>Course Title: {courseData?.courseTitle}</p>
+         <p>Date Created: {courseData?.dateCreated}</p>
          <p>Number of Students Enrolled: {courseData?.numberOfStudents}</p>
          <p>Course Description: {courseData?.courseDescription}</p>
          {/* <p>Number of Certificates Issued: {courseData?.courseTitle}</p> */}
