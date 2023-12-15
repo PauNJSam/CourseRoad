@@ -370,7 +370,7 @@ const EditCourse = () =>{
                                 <button className='createCourse__upload-btn btn' onClick={()=>{uploadImage(courseData.courseThumbnail)}}><UploadIcon /> Upload Image</button>
                                 
                                 <div className='createCourse__header-lower-btns'>
-                                    <button className='createCourse__createExam-btn btn' type='button' onClick={createExam}>Create Exam</button>
+                                    <button className='createCourse__createExam-btn btn' type='button' onClick={createExam}>Course Exam</button>
                                     <button className='createCourse__create-course-btn btn' type='button' onClick={()=>{saveCourseChanges(courseData.courseDescription, courseDescriptionRef.current.value, courseData.courseThumbnail, courseThumbnail)}}>Save Changes</button>
                                 </div>
                                 

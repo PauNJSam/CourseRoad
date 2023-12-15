@@ -271,7 +271,7 @@ const CreateCourse = () =>{
                             <button className='createCourse__upload-btn btn' onClick={uploadImage}><UploadIcon /> Upload Image</button>
                             
                             <div className='createCourse__header-lower-btns'>
-                                {displayCreateExam &&  <button className='createCourse__createExam-btn btn' type='button' onClick={createExam}>Create Exam</button>}
+                                {displayCreateExam &&  <button className='createCourse__createExam-btn btn' type='button' onClick={createExam}>Course Exam</button>}
                                 <button className='createCourse__create-course-btn btn' type='button' onClick={createCourse}>Create Course</button>
                             </div>
                             

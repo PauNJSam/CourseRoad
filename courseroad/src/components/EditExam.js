@@ -8,17 +8,18 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import DeleteIcon from "../icons/DeleteIcon";
 import UploadIcon from "../icons/UploadIcon";
 import { useNavigate, useLocation } from "react-router-dom";
+import EditIcon from '../icons/EditIcon';
 
-const CreateExam = () => {
-    const courseDocID = useLocation().pathname.split('/')[3]
+const EditExam = () => {
+    const examID = useLocation().pathname.split('/')[3]
     const loggedInEmail = auth?.currentUser?.email;
+    const [examData, setExamData] = useState(null);
     const [courseTitle, setCourseTitle] = useState('');
     const [userEmail, setUserEmail] = useState(loggedInEmail);
-    const [examID, setExamID] = useState(null);
     const examInstructionsRef = useRef();
     const passingScoreRef = useRef();
     const [totalPoints, setTotalPoints] = useState(0);
-    const [displayQuestionForm, setDisplayQuestionForm] = useState(false);
+    const [displayQuestionForm, setDisplayQuestionForm] = useState(true);
     const examQuestionRef = useRef();
     const aAnswerRef = useRef();
     const bAnswerRef = useRef();
@@ -34,7 +35,8 @@ const CreateExam = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getCourseTitle();
+        getExam();
+        getQuestions();
         const unsubscribe = onAuthStateChanged(auth, (userData)=>{
             if(userData){
                 setUserEmail(userData.email);
@@ -47,49 +49,42 @@ const CreateExam = () => {
       }
     }, [loggedInEmail]);
 
-    const getCourseTitle = async () => {
+
+    const getExam = async () => {
         try{
-            const docRef = doc(db, "COURSESCREATED", courseDocID);
+            const docRef = doc(db, "EXAMS", examID);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                if(docSnap.data().examID){
-                    navigate(`/dashboard/editExam/${docSnap.data().examID}`); // Will route to edit exam once there is an editExam file
-                }
-            setCourseTitle(docSnap.data().courseTitle)
+            console.log("Document data:", docSnap.data());
+            setExamData(docSnap.data())
             } else {
             console.log("No such document!");
             }
         } catch(err){
             console.log(err.message);
         }
+        
     };
 
+    const updateQuestionnaire = async (origInstruction, origPassingScore) => {
+        console.log(origInstruction, origPassingScore);
+        try {
+            const docRef = await setDoc(doc(db, "EXAMS", examID), {
+                examInstructions: examInstructionsRef.current.value || origInstruction,
+                passingScore: passingScoreRef.current.value || origPassingScore,
 
-    const createQuestionnaire = async (e) =>{
-        e.preventDefault();
-            const docRef = await addDoc(collection(db, "EXAMS"), {
-                passingScore: passingScoreRef.current.value,
-                examInstructions: examInstructionsRef.current.value,
-                totalPoints: totalPoints,
-                courseID: courseDocID,
-                dateCreated: serverTimestamp()
-    
-            }).then(async(docRef)=>{
-                setExamID(docRef.id);
-                setDisplayQuestionForm(true);
-                const courseDocRef = doc(db, "COURSESCREATED", courseDocID)
-                
-                    await updateDoc(courseDocRef, {
-                        examID: docRef.id
-                    }).then(()=>{
-                        console.log("Successfully updated course with examID", examID);
-                    }).catch((error)=>{
-                        console.error(error);
-                    })
-            }).catch((error) => {
-                console.error('Error adding course: ', error);
+            }, {merge: true}).then((docRef)=>{
+                alert("Successfully Updated Exam");
+                getExam();
+            }).catch((error)=>{
+                console.error('Error Updating Course: ',error);
             });
+
+        } catch (err) {
+            console.error(err);
+        } 
+            
     };
     
     const uploadFile = () => {
@@ -182,21 +177,25 @@ const CreateExam = () => {
     };
     
 
+    const editQuestion = () => {
+        
+    }
+
     
 
     return(
         <section className='createExam'>
-            <p className='createExam__page-title'>Create Exam</p>
+            <p className='createExam__page-title'>Edit Exam</p>
 
             <div className='createExam__container'>
-                <form className='exam-head form-flex' onSubmit={createQuestionnaire}>
+                <form className='exam-head form-flex'>
                         <div className='createExam__text-inputs'>
-                            <p className='createExam__head-title'>{courseTitle}</p>
-                            <textarea className='exam-head__textbox' rows={15} ref={examInstructionsRef} placeholder='Exam Instructions...'></textarea>
+                            <p className='createExam__head-title'>{examData?.courseTitle}</p>
+                            <textarea className='exam-head__textbox' rows={15} ref={examInstructionsRef} placeholder={examData?.examInstructions}></textarea>
                         </div>
                         <div className='createExam__side'>
-                            <label>Passing Score(%):<input className='drop-down' type='number' min={0} max={100} ref={passingScoreRef} required></input></label>
-                            <button className='createExam__btn' type='submit'>Create Questionnaire</button>
+                            <label>Passing Score(%):<input className='drop-down' type='number' min={0} max={100} ref={passingScoreRef} placeholder={examData?.passingScore} required></input></label>
+                            <button className='createExam__btn' type='button' onClick={()=>{updateQuestionnaire(examData?.examInstructions,examData?.passingScore)}}>Update Instruction and Score</button>
                         </div>
                 </form>
 
@@ -224,6 +223,7 @@ const CreateExam = () => {
                                             
                                             <div className='question-icons'>
                                                 <span className='delete-btn' onClick={()=>{deleteQuestion(question.id)}}><DeleteIcon stroke='#8C8C8C' /></span>
+                                                <span onClick={()=>{editQuestion(question.id)}}><EditIcon/></span>
                                             </div>
                                         </div>
                                     </div>
@@ -289,4 +289,4 @@ const CreateExam = () => {
         </section>
     );
 };
-export default CreateExam;
+export default EditExam;

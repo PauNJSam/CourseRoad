@@ -7,6 +7,7 @@ import '../styles/StudentHome.css';
 import CloseIcon from "../icons/CloseIcon";
 import SearchIcon from "../icons/SearchIcon";
 import { useNavigate } from "react-router-dom";
+import ReportCourse from '../modals/ReportCourse';
 
 const StudentHome = () => {
     const [filteredData, setFilteredData] = useState([]);
@@ -18,6 +19,9 @@ const StudentHome = () => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [enrolledCoursesData, setEnrolledCoursesData] = useState([]);
   // const [enrolledCoursesData, setEnrolledCoursesData] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [courseIDReport, setCourseIDReport] = useState(null);
+
 
 
   const navigate = useNavigate();
@@ -198,6 +202,7 @@ const StudentHome = () => {
               return(
                 <div key={crypto.randomUUID()}>
               <p onClick={()=>{takeCourse(course.courseID)}}>{course.courseTitle}</p>
+              <p onClick={() => {setOpenModal(true); setCourseIDReport(course.courseID)}} style={{display:"inline"}}>Report Course</p>
             </div>
               );
             })
@@ -225,6 +230,7 @@ const StudentHome = () => {
           );
         })}
       </div>
+      <ReportCourse courseID={courseIDReport} open={openModal} close={() => setOpenModal(false)} />
         </section>
     );
 };

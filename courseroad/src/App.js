@@ -28,6 +28,7 @@ import TeacherCourseStatus from './components/TeacherCourseStatus';
 import CreateExam from './components/CreateExam';
 import CourseTaking from './components/CourseTaking';
 import ExamTaking from './components/ExamTaking';
+import EditExam from './components/EditExam';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +49,7 @@ const router = createBrowserRouter(
             <Route path="editCourse/:children" element={<EditCourse />}></Route>
             <Route path="teacherCourseStatus/:children" element={<TeacherCourseStatus />}></Route>
             <Route path="createExam/:children" element={<CreateExam />}></Route>
+            <Route path="editExam/:children" element={<EditExam/>}></Route>
           </Route>
 
           <Route path="userSettings" element={<UserSettings />}></Route>
@@ -63,6 +65,7 @@ const router = createBrowserRouter(
       <Route path="admin" element={<AdminLayout />}>
         <Route index element={<AdminCourseReports />}></Route>
         <Route path="teacherApplications" element={<AdminTeacherApplications />}></Route>
+        <Route path="courseReports" element={<AdminCourseReports/>}></Route>
       </Route>
 
       <Route path='*' element={<NoAccess/>}></Route>
